@@ -1,3 +1,42 @@
+lxsession (0.4.6.1-2) unstable; urgency=low
+
+  * Updating maintainer field.
+  * Adding myself to uploaders.
+  * Updating vcs fields.
+  * Removing whitespaces at EOL and EOF.
+  * Updating package to debhelper version 9.
+  * Updating package to standards version 3.9.3.
+  * Making build-depends unversioned where already fulfiled as of
+    squeeze.
+  * Sorting build-depends field.
+  * Updating homepage field.
+  * Prefixing debhelper files with package name.
+  * Rediffing gdm3-user-switch.patch.
+  * Rediffing ltsp-shutdown-reboot.patch.
+  * Rediffing libx11-linking.patch.
+  * Decrufting rules file.
+  * Switching to xz compression for both the source and the binary
+    packages.
+  * Removing rsh-client from recommends, rsh should never be used
+    instead of an ssh client.
+  * Dropping old pre-squeeze conflicts/replaces/provides against
+    lxsession-lite.
+  * Dropping old pre-squeeze conflicts against lxde-common.
+  * Sorting relation fields.
+  * Rewriting package descriptions.
+  * Marking versions in changelog that were never uploaded to debian as
+    unreleased.
+  * Removing pre-squeeze news file.
+  * Overwriting install target in rules rather than having a indirect
+    install file for it.
+  * Decrufting lintian-overrides.
+  * Using postinst boilerplate.
+  * Using prerm boilerplate.
+  * Rewriting copyright file machine-readable format version 1.0.
+  * Adding debian todo file.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 15 Apr 2012 14:35:27 +0000
+
 lxsession (0.4.6.1-1) unstable; urgency=low
 
   * Removing useless override_dh_auto_clean in rules file.
