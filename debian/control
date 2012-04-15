@@ -20,31 +20,20 @@ Suggests: gpicview, lxde-common, lxpanel, pcmanfm
 Conflicts: lxde-settings-daemon
 Replaces: lxde-settings-daemon
 Provides: x-session-manager
-Description: default session manager for LXDE
- LXSession is a lightweight X11 session manager with fewer dependencies,
- designed for use with the LXDE(Lightweight X11 Desktop Environment).
- It derived from XSM and have following differences:
-  * Removed the session dialog from xsm.
-  * Stripped down without session restore function.
-  * Automaticlly restart specific program if crashes happened.
-  * Use better configuration.
-  * Provide a nice logout-dialog with the ability to
-    shutdown/reboot/suspend/hibernate via HAL or gdm
-  * Support halt/reboot LTSP thin clients,
- and more....
+Description: LXDE default session manager
+ LXSession is the default session manager for the Lightweight X11 Desktop
+ Environment (LXDE).
  .
- It's desktop-independent and can be used with any window manager.
- .
- As "session manager" lxsession used to automatically start a set of
- applications and set up a working desktop environment
- .
- LXSession has also a built-in lightweight Xsettings daemon, which can
- configure GTK+ themes, keyboard, and mouse for you on session startup.
+ It is derived from XSM, has fewer dependencies and more features. It is
+ desktop-independent and can be used with any window manager.
 
 Package: lxsession-dbg
-Architecture: any
 Section: debug
 Priority: extra
-Depends: ${misc:Depends}, ${shlibs:Depends}, lxsession (= ${binary:Version})
-Description: default session manager for LXDE - debug package
- This package provide debug symbols for lxsession.
+Architecture: any
+Depends: ${misc:Depends}, lxsession (= ${binary:Version})
+Description: LXDE default session manager (debug)
+ LXSession is the default session manager for the Lightweight X11 Desktop
+ Environment (LXDE).
+ .
+ This package contains the debugging symbols.
