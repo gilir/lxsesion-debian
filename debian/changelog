@@ -110,7 +110,7 @@ lxsession (0.4.2-1) unstable; urgency=low
     - Convert to using only one toplevel window to solve Compiz drawing
       over the controls
     - Add support for shutdown/reboot via ConsoleKit
-    - Query HAL for capabilities rather than assuming they are present 
+    - Query HAL for capabilities rather than assuming they are present
       if HAL is
     - Latent (untested) support for suspend/hibernate via DeviceKit/Power
     - Remove GDM communication mechanism that was discontinued in GDM 2.22
@@ -125,7 +125,7 @@ lxsession (0.4.2-1) unstable; urgency=low
   * Bumped Standard-version to 3.8.4
 
   [ Nikolas Poniros ]
-  * patch to have the shutdown button as first option in logout dialog 
+  * patch to have the shutdown button as first option in logout dialog
 
  -- Nikolas Poniros <edhunter@sidux.com>  Thu, 18 Mar 2010 21:32:56 +0100
 
@@ -140,7 +140,7 @@ lxsession (0.4.1-1) unstable; urgency=low
 
   * New upstream release
     - Support recognizing current DE with $XDG_CURRENT_DESKTOP
-    - Translation update 
+    - Translation update
 
  -- Andrew Lee (李健秋) <ajqlee@debian.org>  Fri, 18 Dec 2009 15:59:37 +0800
 
@@ -150,7 +150,7 @@ lxsession (0.4.0+svn20090905-1) unstable; urgency=low
     - debian/copyright: Update copyright and licence.
     - Update description.
   * Bumped Standards-Version to 3.8.3
-  * lxsession is stripped down without session restore function. Lower its 
+  * lxsession is stripped down without session restore function. Lower its
     alternative priority for x-session-manager. (Closes:#554247, #534563)
   * Added desktop.conf.example
 
