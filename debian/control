@@ -2,7 +2,8 @@ Source: lxsession
 Section: x11
 Priority: optional
 Maintainer: Debian LXDE Maintainers <lxde-debian@lists.lxde.org>
-Uploaders: Andrew Lee (李健秋) <ajqlee@debian.org>
+Uploaders:
+ Andrew Lee (李健秋) <ajqlee@debian.org>, Daniel Baumann <daniel@debian.org>
 Build-Depends:
  debhelper (>= 8), autotools-dev, intltool, docbook-to-man, docbook-xml,
  docbook-xsl, libdbus-glib-1-dev (>=0.31), libgtk2.0-dev (>=2.6), xsltproc
