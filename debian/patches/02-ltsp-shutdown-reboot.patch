@@ -1,0 +1,19 @@
+Author: Vagrant Cascadian <vagrant@debian.org>
+Description:
+ Display shutdown and reboot buttons for LTSP clients (Closes: #596383).
+
+diff -Naurp lxsession.orig/lxsession-logout/lxsession-logout.c lxsession/lxsession-logout/lxsession-logout.c
+--- lxsession.orig/lxsession-logout/lxsession-logout.c	2012-04-15 11:21:14.746572092 +0000
++++ lxsession/lxsession-logout/lxsession-logout.c	2012-04-15 11:21:39.090731706 +0000
+@@ -458,7 +458,11 @@ int main(int argc, char * argv[])
+ 
+     /* LTSP support */
+     if (g_getenv("LTSP_CLIENT"))
++    {
+         handler_context.ltsp = TRUE;
++        handler_context.shutdown_available = TRUE;
++        handler_context.reboot_available = TRUE;
++    }
+ 
+     /* Make the button images accessible. */
+     gtk_icon_theme_append_search_path(gtk_icon_theme_get_default(), PACKAGE_DATA_DIR "/lxsession/images");
