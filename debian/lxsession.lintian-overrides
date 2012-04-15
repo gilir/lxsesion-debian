@@ -1,4 +1,2 @@
-#
-# This script should execute only by lxsession-logout
-#
+# this script should be executed by lxsession-logout only
 lxsession: binary-without-manpage usr/bin/lxlock
