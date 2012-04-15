@@ -1,14 +1,13 @@
 #!/usr/bin/make -f
-#export DH_VERBOSE=1
 
 %:
-	dh  $@
+	dh ${@}
 
 override_dh_auto_configure:
 	dh_auto_configure -- --enable-man
 
 override_dh_auto_test:
-	# Disabled: Incompelete in po/
+	# disabled: test fails in po directory
 
 override_dh_strip:
 	dh_strip --dbg-package=lxsession-dbg
