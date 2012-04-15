@@ -1,3 +1,11 @@
+lxsession (0.4.1-1) unstable; urgency=low
+
+  * New upstream release
+    - Support recognizing current DE with $XDG_CURRENT_DESKTOP
+    - Translation update 
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Fri, 18 Dec 2009 15:59:37 +0800
+
 lxsession (0.4.0+svn20090905-1) unstable; urgency=low
 
   * Merged the update from Julien Lavergne
