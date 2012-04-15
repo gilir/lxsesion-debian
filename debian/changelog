@@ -72,7 +72,7 @@ lxsession (0.4.4-3) unstable; urgency=high
 
  -- Andrew Lee (李健秋) <ajqlee@debian.org>  Thu, 05 Aug 2010 16:14:10 -0400
 
-lxsession (0.4.4-2) unstable; urgency=low
+lxsession (0.4.4-2) UNRELEASED; urgency=low
 
   HAL-less LXDE!
   * Backport upower patch from upstream.
@@ -93,7 +93,7 @@ lxsession (0.4.4-1) unstable; urgency=low
 
  -- Andrew Lee (李健秋) <ajqlee@debian.org>  Mon, 12 Apr 2010 03:18:38 +0800
 
-lxsession (0.4.3-1) unstable; urgency=low
+lxsession (0.4.3-1) UNRELEASED; urgency=low
 
   * New upstream release
     - Fixed the regression on position of the Logout button
@@ -103,7 +103,7 @@ lxsession (0.4.3-1) unstable; urgency=low
 
  -- Andrew Lee (李健秋) <ajqlee@debian.org>  Fri, 19 Mar 2010 11:13:23 +0700
 
-lxsession (0.4.2-1) unstable; urgency=low
+lxsession (0.4.2-1) UNRELEASED; urgency=low
 
   [ Andrew Lee (李健秋) ]
   * New upstream release (Closes:#521500)
@@ -156,7 +156,7 @@ lxsession (0.4.0+svn20090905-1) unstable; urgency=low
 
  -- Andrew Lee (李健秋) <ajqlee@debian.org>  Thu, 03 Dec 2009 13:46:00 +0800
 
-lxsession (0.4+svn20090814-1) unstable; urgency=low
+lxsession (0.4+svn20090814-1) UNRELEASED; urgency=low
 
   * New upstream release
     - Built-in settings daemon
