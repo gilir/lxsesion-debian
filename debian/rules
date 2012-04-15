@@ -26,8 +26,10 @@ ifneq "$(wildcard /usr/share/misc/config.guess)" ""
 	cp -f /usr/share/misc/config.guess config.guess
 endif
 	./configure --host=$(DEB_HOST_GNU_TYPE) \
+	--enable-man \
 	--build=$(DEB_BUILD_GNU_TYPE) \
 	--prefix=/usr \
+	--sysconfdir=/etc \
 	--mandir=\$${prefix}/share/man \
 	--infodir=\$${prefix}/share/info \
 	CFLAGS="$(CFLAGS)" LDFLAGS="-Wl,-z,defs"
@@ -69,7 +71,6 @@ install: build
 	# Add here commands to install the package into debian/lxsession.
 	$(MAKE) DESTDIR=$(CURDIR)/debian/lxsession install
 
-
 # Build architecture-independent files here.
 binary-indep: build install
 # We have nothing to do by default.
@@ -80,7 +81,7 @@ binary-arch: build install
 	dh_testroot
 	dh_installchangelogs ChangeLog
 	dh_installdocs
-	dh_installexamples
+	dh_installexamples -A desktop.conf.example
 #	dh_install
 #	dh_installmenu
 #	dh_installdebconf	

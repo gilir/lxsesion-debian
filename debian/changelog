@@ -1,3 +1,32 @@
+lxsession (0.4.0+svn20090905-1) unstable; urgency=low
+
+  * Merged the update from Julien Lavergne
+    - debian/copyright: Update copyright and licence.
+    - Update description.
+  * Bumped Standards-Version to 3.8.3
+  * lxsession is stripped down without session restore function. Lower its 
+    alternative priority for x-session-manager. (Closes:#554247, #534563)
+  * Added desktop.conf.example
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Thu, 03 Dec 2009 13:46:00 +0800
+
+lxsession (0.4+svn20090814-1) unstable; urgency=low
+
+  * New upstream release
+    - Built-in settings daemon
+    - Use Docbook-XML instead of SGML manpages
+    - Updated translations
+  * debian/control:
+    - Build-depends on docbook-xml, docbook-xsl, xsltproc
+    - Provides lxde-settings-daemon
+    - Replaces lxde-settings-daemon
+    - Conflicts lxde-settings-daemon
+  * debian/rules:
+    - Added configure options --enable-man, --sysconfdir=/etc
+  * Bumped Standard-version to 3.8.2
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Fri, 14 Aug 2009 06:06:55 +0800
+
 lxsession (0.3.8+svn20090521-1) unstable; urgency=low
 
   * Initial release (Closes: #468823)
