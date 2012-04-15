@@ -1,82 +1,79 @@
-# SOME DESCRIPTIVE TITLE.
+# lxsession.po CATALAN TRANSLATION
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR Fabrice THIROUX <fabrice.thiroux@free.fr>, 2008.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lxsession\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-15 19:49+0200\n"
-"PO-Revision-Date: 2009-09-07 22:25+0200\n"
-"Last-Translator: Cilyan Olowen <gaknar@gmail.com>\n"
+"POT-Creation-Date: 2009-06-22 22:47+0200\n"
+"PO-Revision-Date: 2009-09-07 22:29 UTC+2\n"
+"Last-Translator: Josep Sànchez Mesegué <josep.sanchez@ubuntu.cat>\n"
+"Language-Team: LXDE Catalan translators group\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0\n"
 
 #: ../lxsession-logout/main.c:63
 msgid "Custom message to show on the dialog"
-msgstr "Message personnalisé à afficher"
+msgstr "Missatge personalitzat per a mostrar al diàleg"
 
 #: ../lxsession-logout/main.c:63
 msgid "message"
-msgstr "message"
+msgstr "missatge"
 
 #: ../lxsession-logout/main.c:64
 msgid "Banner to show on the dialog"
-msgstr "Bannière à afficher"
+msgstr "Rètol a mostrar al diàleg"
 
 #: ../lxsession-logout/main.c:64
 msgid "image file"
-msgstr "fichier d'image"
+msgstr "fitxer d'imatge"
 
 #: ../lxsession-logout/main.c:65
 msgid "Position of the banner"
-msgstr "Position de la bannière"
+msgstr "Posició del rètol"
 
 #: ../lxsession-logout/main.c:354 ../lxsession-logout/main.c:365
 #, c-format
 msgid "Error: %s\n"
-msgstr "Erreur : %s\n"
+msgstr "Error: %s\n"
 
 #: ../lxsession-logout/main.c:354
 msgid "LXSession is not running."
-msgstr "LXSession n'est pas actif."
+msgstr "No s'està executant LXSession"
 
 #: ../lxsession-logout/main.c:376
 msgid "Logout"
-msgstr "Déconnexion"
+msgstr "Surt"
 
 #. %s is the name of the desktop session
 #: ../lxsession-logout/main.c:428
 #, c-format
 msgid "<b><big>Logout %s session?</big></b>"
-msgstr "<b><big>Quitter la session %s ?</big></b>"
+msgstr "<b><big>Voleu sortir de la sessió %s?</big></b>"
 
 #: ../lxsession-logout/main.c:438
 msgid "Sh_utdown"
-msgstr "_Arrêter"
+msgstr "At_ura"
 
 #: ../lxsession-logout/main.c:443
 msgid "_Reboot"
-msgstr "_Redémarrer"
+msgstr "_Reinicia"
 
 #: ../lxsession-logout/main.c:448
 msgid "_Suspend"
-msgstr "_Suspendre"
+msgstr "_Suspèn"
 
 #: ../lxsession-logout/main.c:453
 msgid "_Hibernate"
-msgstr "_Hiberner"
+msgstr "_Hiberna"
 
 #: ../lxsession-logout/main.c:462
 msgid "S_witch User"
-msgstr "_Changer d'utilisateur"
+msgstr "Can_via d'usuari"
 
 #: ../lxsession-logout/main.c:466
 msgid "_Logout"
-msgstr "Se _déconnecter"
-
-#~ msgid "Save current session"
-#~ msgstr "Sauver la session courante"
+msgstr "Su_rt"
