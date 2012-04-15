@@ -1,0 +1,5 @@
+lxsession (0.3.8+svn20090521-1) unstable; urgency=low
+
+  * Initial release (Closes: #468823)
+
+ -- Andrew Lee <andrew@linux.org.tw>  Wed, 27 May 2009 01:07:28 +0800
