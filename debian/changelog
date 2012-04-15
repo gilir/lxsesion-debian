@@ -1,3 +1,12 @@
+lxsession (0.4.6.1-1) unstable; urgency=low
+
+  * Removing useless override_dh_auto_clean in rules file.
+  * Merging upstream version 0.4.6.1:
+    - Fix crash on start
+  * Drop 10_fix_start.patch: included in upstream.
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Fri, 29 Jul 2011 21:17:49 +0800
+
 lxsession (0.4.6-1) unstable; urgency=low
 
   [ Julien Lavergne ]
