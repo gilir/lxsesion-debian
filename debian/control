@@ -3,21 +3,22 @@ Section: x11
 Priority: optional
 Maintainer: Debian LXDE Packaging Team <pkg-lxde-maintainers@lists.alioth.debian.org>
 Uploaders: Andrew Lee (李健秋) <ajqlee@debian.org>
-Build-Depends: debhelper (>= 7.0.50~), autotools-dev, libgtk2.0-dev (>=2.6), libdbus-glib-1-dev (>=0.31), intltool, docbook-to-man, xsltproc, docbook-xml, docbook-xsl
+Build-Depends:
+ debhelper (>= 8), autotools-dev, intltool, docbook-to-man, docbook-xml,
+ docbook-xsl, libdbus-glib-1-dev (>=0.31), libgtk2.0-dev (>=2.6), xsltproc
 Standards-Version: 3.9.2
 Homepage: http://lxde.sf.net
-Vcs-Git: git://git.debian.org/git/collab-maint/lxsession.git
-Vcs-Browser: http://git.debian.org/?p=collab-maint/lxsession.git;a=summary
-
+Vcs-Git: git://git.debian.org/git/pkg-lxde/lxsession.git
+Vcs-Browser: http://git.debian.org/?p=pkg-lxde/lxsession.git
 
 Package: lxsession
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
 Recommends: openbox | x-window-manager, openssh-client | rsh-client | ssh-client
-Suggests: lxde-common, lxpanel, pcmanfm, gpicview
-Provides: x-session-manager, lxsession-lite
-Replaces: lxsession-lite, lxde-settings-daemon
-Conflicts: lxsession-lite, lxde-settings-daemon, lxde-common (<= 0.4.2-3)
+Suggests: gpicview, lxde-common, lxpanel, pcmanfm
+Provides: lxsession-lite, x-session-manager
+Replaces: lxde-settings-daemon, lxsession-lite
+Conflicts: lxde-common (<= 0.4.2-3), lxde-settings-daemon, lxsession-lite
 Description: default session manager for LXDE
  LXSession is a lightweight X11 session manager with fewer dependencies,
  designed for use with the LXDE(Lightweight X11 Desktop Environment).
@@ -26,7 +27,7 @@ Description: default session manager for LXDE
   * Stripped down without session restore function.
   * Automaticlly restart specific program if crashes happened.
   * Use better configuration.
-  * Provide a nice logout-dialog with the ability to 
+  * Provide a nice logout-dialog with the ability to
     shutdown/reboot/suspend/hibernate via HAL or gdm
   * Support halt/reboot LTSP thin clients,
  and more....
@@ -36,5 +37,13 @@ Description: default session manager for LXDE
  As "session manager" lxsession used to automatically start a set of
  applications and set up a working desktop environment
  .
- LXSession has also a built-in lightweight Xsettings daemon, which can 
+ LXSession has also a built-in lightweight Xsettings daemon, which can
  configure GTK+ themes, keyboard, and mouse for you on session startup.
+
+Package: lxsession-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: ${misc:Depends}, ${shlibs:Depends}, lxsession (= ${binary:Version})
+Description: default session manager for LXDE - debug package
+ This package provide debug symbols for lxsession.

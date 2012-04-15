@@ -1,7 +1,54 @@
+lxsession (0.4.6-1) unstable; urgency=low
+
+  [ Julien Lavergne ]
+  * debian/dirs: Remove.
+  * debian/control: Add a debug package.
+  * debian/lxsession.install: Add.
+  * debian/rules: Add dh_strip for debug package.
+  * debian/patches/06_lX11_liking.patch: Add -lX11 to fix FTBFS
+    with gold. (Closes: #555576)
+
+  [ Andrew Lee (李健秋) ]
+  * Use debhelper 8
+  * Sorting  build-depends.
+  * Wapping build-depends.
+  * Removing useless whitespaces at EOL and EOF.
+  * Updating Vcs-Browser and Vcs-Git tags.
+  * Sorting depends.
+  * Sorting suggests, provides, replaces and conflicts.
+  * Removing empty NEWS in debian/docs.
+  * Added debian/source/options file.
+  * Compacting watch file.
+  * Merging upstream version 0.4.6:
+    - Add support for not launching autostart programs (patch from ID 3103281)
+    - Add some improvement to build system, inspired by patch from ID: 3005712
+    - Add information of man pages support
+    - Add additional flags for maintainer mode
+    - Link directly to X11
+    - Add link to x11 for lxsession-logout
+    - Add option to compile with GTK3
+    - Use helper shell script to lock the screen
+  * Removed patch 03_screenlock.patch: Included in upstream.
+  * refresh 04_fix-ltsp-shutdown-reboot.patch.
+  * refresh 02_gdm3.patch.
+  * refresh 06_lX11_liking.patch.
+  * Sorting debian/patches/series.
+  * Removing 01_upower.patch: Included in upstream.
+  * Disabling dh_auto_test: Incompelete in po/.
+  * Apply 10_fix_start.patch from Julien Lavergne <gilir@ubuntu.com>.
+  * Sorting debian/patches/series.
+  * refresh 04_fix-ltsp-shutdown-reboot.patch.
+  * Set priority to extra for debuging package.
+  * Fix description synopsis starts with article for lxsession-dbg.
+  * Install lintian-overrides for lxlock: this should only be execute
+    by lxsession-logout.
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Thu, 28 Jul 2011 03:27:37 +0800
+
 lxsession (0.4.5-1) unstable; urgency=low
 
   * Imported Upstream version 0.4.5
-  * Apply 04_fix-ltsp-shutdown-reboot.patch 
+  * Apply 04_fix-ltsp-shutdown-reboot.patch
     Thanks Vagrant Cascadian <vagrant@freegeek.org> (Closes:#596383)
   * Bumped Standards-Version to 3.9.2 (no changes)
   * Update package description

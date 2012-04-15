@@ -1,10 +1,8 @@
 Display shutdown and reboot buttons for LTSP clients.
 
-Index: lxsession-0.4.4/lxsession-logout/lxsession-logout.c
-===================================================================
---- lxsession-0.4.4.orig/lxsession-logout/lxsession-logout.c	2010-09-10 14:07:12.000000000 -0700
-+++ lxsession-0.4.4/lxsession-logout/lxsession-logout.c	2010-09-10 14:08:04.000000000 -0700
-@@ -481,7 +481,11 @@
+--- a/lxsession-logout/lxsession-logout.c
++++ b/lxsession-logout/lxsession-logout.c
+@@ -458,7 +458,11 @@
  
      /* LTSP support */
      if (g_getenv("LTSP_CLIENT"))

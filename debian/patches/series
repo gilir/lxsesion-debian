@@ -1,3 +1,4 @@
-04_fix-ltsp-shutdown-reboot.patch
 02_gdm3.patch
-03_screenlock.patch
+04_fix-ltsp-shutdown-reboot.patch
+06_lX11_liking.patch
+10_fix_start.patch
