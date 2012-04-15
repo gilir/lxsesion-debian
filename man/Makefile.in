@@ -30,10 +30,10 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 subdir = man
-DIST_COMMON = $(dist_man_MANS) $(srcdir)/Makefile.am \
-	$(srcdir)/Makefile.in
+DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
@@ -44,7 +44,7 @@ DIST_SOURCES =
 man1dir = $(mandir)/man1
 am__installdirs = "$(DESTDIR)$(man1dir)"
 NROFF = nroff
-MANS = $(dist_man_MANS)
+MANS = $(man_MANS)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 ALL_LINGUAS = @ALL_LINGUAS@
@@ -120,6 +120,9 @@ STRIP = @STRIP@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 XGETTEXT = @XGETTEXT@
+XMLCATALOG = @XMLCATALOG@
+XML_CATALOG_FILE = @XML_CATALOG_FILE@
+XSLTPROC = @XSLTPROC@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -162,8 +165,19 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-dist_man_MANS = lxsession.1 lxsession-logout.1
-EXTRA_DIST = lxsession.sgml lxsession-logout.sgml
+man_MANS = \
+	lxsession.1 \
+	lxsession-logout.1
+
+man_XMANS = \
+	lxsession.xml \
+	lxsession-logout.xml
+
+EXTRA_DIST = \
+	$(man_MANS) \
+	$(man_XMANS)
+
+@ENABLE_REGENERATE_MAN_TRUE@CLEANFILES = $(man_MANS) 
 all: all-am
 
 .SUFFIXES:
@@ -274,9 +288,6 @@ distdir: $(DISTFILES)
 	    || exit 1; \
 	  fi; \
 	done
-	$(MAKE) $(AM_MAKEFLAGS) \
-	  top_distdir="$(top_distdir)" distdir="$(distdir)" \
-	  dist-hook
 check-am: all-am
 check: check-am
 all-am: Makefile $(MANS)
@@ -301,6 +312,7 @@ install-strip:
 mostlyclean-generic:
 
 clean-generic:
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
@@ -366,29 +378,30 @@ uninstall-man: uninstall-man1
 
 .MAKE: install-am install-strip
 
-.PHONY: all all-am check check-am clean clean-generic dist-hook \
-	distclean distclean-generic distdir dvi dvi-am html html-am \
-	info info-am install install-am install-data install-data-am \
-	install-dvi install-dvi-am install-exec install-exec-am \
-	install-html install-html-am install-info install-info-am \
-	install-man install-man1 install-pdf install-pdf-am install-ps \
+.PHONY: all all-am check check-am clean clean-generic distclean \
+	distclean-generic distdir dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-man1 install-pdf install-pdf-am install-ps \
 	install-ps-am install-strip installcheck installcheck-am \
 	installdirs maintainer-clean maintainer-clean-generic \
 	mostlyclean mostlyclean-generic pdf pdf-am ps ps-am uninstall \
 	uninstall-am uninstall-man uninstall-man1
 
 
-dist-hook: lxsession.1 lxsession-logout.1
+@ENABLE_REGENERATE_MAN_TRUE@lxsession.1: lxsession.xml
+@ENABLE_REGENERATE_MAN_TRUE@	$(XSLTPROC) -nonet http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<
 
-lxsession.1: lxsession.sgml
-	(test -f "`which docbook-to-man`" && docbook-to-man $< > $@) || \
-	(test -f "`which db2man`" && db2man $< > $@) || \
-	(test -f "`which docbook2man`" && docbook2man $< > $@)
+@ENABLE_REGENERATE_MAN_TRUE@lxsession-logout.1: lxsession-logout.xml
+@ENABLE_REGENERATE_MAN_TRUE@	$(XSLTPROC) -nonet http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<        
 
-lxsession-logout.1: lxsession-logout.sgml
-	(test -f "`which docbook-to-man`" && docbook-to-man $< > $@) || \
-	(test -f "`which db2man`" && db2man $< > $@) || \
-	(test -f "`which docbook2man`" && docbook2man $< > $@)
+@ENABLE_REGENERATE_MAN_FALSE@$(man_MANS):
+@ENABLE_REGENERATE_MAN_FALSE@	@echo ""
+@ENABLE_REGENERATE_MAN_FALSE@	@echo "Error: you need to run configure with '--enable-man'"
+@ENABLE_REGENERATE_MAN_FALSE@	@echo "       in order to regenerate man pages."
+@ENABLE_REGENERATE_MAN_FALSE@	@echo ""
+@ENABLE_REGENERATE_MAN_FALSE@	@false
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

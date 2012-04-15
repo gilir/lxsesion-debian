@@ -36,7 +36,8 @@ DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(top_srcdir)/configure AUTHORS COPYING ChangeLog INSTALL NEWS \
 	compile depcomp install-sh ltmain.sh missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
@@ -152,6 +153,9 @@ STRIP = @STRIP@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 XGETTEXT = @XGETTEXT@
+XMLCATALOG = @XMLCATALOG@
+XML_CATALOG_FILE = @XML_CATALOG_FILE@
+XSLTPROC = @XSLTPROC@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -194,18 +198,19 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+NULL = 
 SUBDIRS = lxsession lxsession-logout po man
 imagedir = $(datadir)/lxsession/images
 image_DATA = \
-	images/gnome-session-halt.png \
+	images/system-shutdown.png \
+	images/system-log-out.png \
 	images/gnome-session-hibernate.png \
-	images/gnome-session-logout.png \
 	images/gnome-session-reboot.png \
 	images/gnome-session-suspend.png \
 	images/gnome-session-switch.png
 
 EXTRA_DIST = \
-	autogen.sh \
+	desktop.conf.example \
 	$(image_DATA)
 
 all: config.h
@@ -666,6 +671,7 @@ uninstall-am: uninstall-imageDATA
 	pdf-am ps ps-am tags tags-recursive uninstall uninstall-am \
 	uninstall-imageDATA
 
+	$(NULL)
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
