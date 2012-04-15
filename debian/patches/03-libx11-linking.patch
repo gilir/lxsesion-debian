@@ -1,0 +1,15 @@
+Author: n/a
+Description: n/a
+
+diff -Naurp lxsession.orig/lxsession-logout/Makefile.in lxsession/lxsession-logout/Makefile.in
+--- lxsession.orig/lxsession-logout/Makefile.in	2011-07-27 19:29:01.000000000 +0000
++++ lxsession/lxsession-logout/Makefile.in	2012-04-15 11:23:55.671630768 +0000
+@@ -132,7 +132,7 @@ GMOFILES = @GMOFILES@
+ GMSGFMT = @GMSGFMT@
+ GREP = @GREP@
+ GTK_CFLAGS = @GTK_CFLAGS@
+-GTK_LIBS = @GTK_LIBS@
++GTK_LIBS = @GTK_LIBS@ -lX11
+ INSTALL = @INSTALL@
+ INSTALL_DATA = @INSTALL_DATA@
+ INSTALL_PROGRAM = @INSTALL_PROGRAM@
