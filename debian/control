@@ -1,10 +1,14 @@
 Source: lxsession
 Section: x11
 Priority: extra
-Maintainer: Andrew Lee (李健秋) <ajqlee@debian.org>
-Build-Depends: debhelper (>= 5), autotools-dev, libgtk2.0-dev (>=2.6), libdbus-glib-1-dev (>=0.31), intltool, docbook-to-man, xsltproc, docbook-xml, docbook-xsl
-Standards-Version: 3.8.3
+Maintainer: Debian LXDE Packaging Team <pkg-lxde-maintainers@lists.alioth.debian.org>
+Uploaders: Andrew Lee (李健秋) <ajqlee@debian.org>
+Build-Depends: debhelper (>= 7.0.50~), autotools-dev, libgtk2.0-dev (>=2.6), libdbus-glib-1-dev (>=0.31), intltool, docbook-to-man, xsltproc, docbook-xml, docbook-xsl
+Standards-Version: 3.8.4
 Homepage: http://lxde.sf.net
+Vcs-Git: git://git.debian.org/git/collab-maint/lxsession.git
+Vcs-Browser: http://git.debian.org/?p=collab-maint/lxsession.git;a=summary
+
 
 Package: lxsession
 Architecture: any
@@ -13,7 +17,7 @@ Recommends: openbox | x-window-manager, hal, openssh-client | rsh-client | ssh-c
 Suggests: lxde-common, lxpanel, pcmanfm, gpicview
 Provides: x-session-manager, lxsession-lite
 Replaces: lxsession-lite, lxde-settings-daemon
-Conflicts: lxsession-lite, lxde-settings-daemon
+Conflicts: lxsession-lite, lxde-settings-daemon, lxde-common (<= 0.4.2-3)
 Description: a lightweight X11 session manager
  LXSession is a lightweight X11 session manager with fewer dependencies,
  designed for use with the LXDE(Lightweight X11 Desktop Environment).
@@ -23,7 +27,8 @@ Description: a lightweight X11 session manager
   * Automaticlly restart specific program if crashes happened.
   * Use better configuration.
   * Provide a nice logout-dialog with the ability to 
-    shutdown/reboot/suspend/hibernate via HAL or gdm,
+    shutdown/reboot/suspend/hibernate via HAL or gdm
+  * Support halt/reboot LTSP thin clients,
  and more....
  .
  It's desktop-independent and can be used with any window manager.

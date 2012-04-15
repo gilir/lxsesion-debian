@@ -1,3 +1,52 @@
+lxsession (0.4.4-1) unstable; urgency=low
+
+  * New upstream release
+    - A LTSP support release!
+  * debian/control:
+    - Update descriptions
+    - Added conflicts on lxde-common (<= 0.4.2) to avoid problem mentioned
+      at #575961
+  * Document #575961 in NEWS.Debian as well.
+  * Using source format '3.0 (quilt)'
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Mon, 12 Apr 2010 00:23:44 +0800
+
+lxsession (0.4.3-1) unstable; urgency=low
+
+  * New upstream release
+    - Fixed the regression on position of the Logout button
+    - Improvement on widget structure
+    - Ability to have environment variables in the autostart file
+  * Removed patch that included in upstream.
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Fri, 19 Mar 2010 11:13:23 +0700
+
+lxsession (0.4.2-1) unstable; urgency=low
+
+  [ Andrew Lee (李健秋) ]
+  * New upstream release (Closes:#521500)
+    - Convert to using only one toplevel window to solve Compiz drawing
+      over the controls
+    - Add support for shutdown/reboot via ConsoleKit
+    - Query HAL for capabilities rather than assuming they are present 
+      if HAL is
+    - Latent (untested) support for suspend/hibernate via DeviceKit/Power
+    - Remove GDM communication mechanism that was discontinued in GDM 2.22
+    - Fix faulty defaulting of XDG_CURRENT_DESKTOP
+    - Translation updates
+  * Added Vcs-Git and Vcs-Browser tags
+  * Enable team maintenance:
+    - mailing list on alioth:
+        Debian LXDE Packaging Team <pkg-lxde-maintainers@lists.alioth.debian.org>
+    - git repo on collab-maint:
+        http://git.debian.org/?p=collab-maint/lxsession.git;a=summary
+  * Bumped Standard-version to 3.8.4
+
+  [ Nikolas Poniros ]
+  * patch to have the shutdown button as first option in logout dialog 
+
+ -- Nikolas Poniros <edhunter@sidux.com>  Thu, 18 Mar 2010 21:32:56 +0100
+
 lxsession (0.4.1-2) unstable; urgency=low
 
   * Adjust priority to extra to match overrides
