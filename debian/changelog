@@ -1,3 +1,19 @@
+lxsession (0.4.4-3) unstable; urgency=high
+
+  * Applied patch from Novell bugtracker which fixed CVE-2010-2532
+    (Closes:#591409)
+  * Bumped Standard-version to 3.9.1
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Thu, 05 Aug 2010 16:14:10 -0400
+
+lxsession (0.4.4-2) unstable; urgency=low
+
+  HAL-less LXDE!
+  * Backport upower patch from upstream.
+  * Support switch user with gdm3.
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Sat, 24 Jul 2010 11:01:31 +0800
+
 lxsession (0.4.4-1) unstable; urgency=low
 
   * New upstream release
@@ -9,7 +25,7 @@ lxsession (0.4.4-1) unstable; urgency=low
   * Document #575961 in NEWS.Debian as well.
   * Using source format '3.0 (quilt)'
 
- -- Andrew Lee (李健秋) <ajqlee@debian.org>  Mon, 12 Apr 2010 00:23:44 +0800
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Mon, 12 Apr 2010 03:18:38 +0800
 
 lxsession (0.4.3-1) unstable; urgency=low
 
