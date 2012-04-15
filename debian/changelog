@@ -1,3 +1,13 @@
+lxsession (0.4.5-1) unstable; urgency=low
+
+  * Imported Upstream version 0.4.5
+  * Apply 04_fix-ltsp-shutdown-reboot.patch 
+    Thanks Vagrant Cascadian <vagrant@freegeek.org> (Closes:#596383)
+  * Bumped Standards-Version to 3.9.2 (no changes)
+  * Update package description
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Thu, 14 Jul 2011 00:07:42 +0800
+
 lxsession (0.4.4-3) unstable; urgency=high
 
   * Applied patch from Novell bugtracker which fixed CVE-2010-2532
