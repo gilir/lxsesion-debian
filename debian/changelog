@@ -1,3 +1,10 @@
+lxsession (0.4.1-2) unstable; urgency=low
+
+  * Adjust priority to extra to match overrides
+  * Drop lxsession-lite
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Thu, 14 Jan 2010 21:20:23 +0800
+
 lxsession (0.4.1-1) unstable; urgency=low
 
   * New upstream release

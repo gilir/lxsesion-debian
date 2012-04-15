@@ -1,6 +1,6 @@
 Source: lxsession
 Section: x11
-Priority: optional
+Priority: extra
 Maintainer: Andrew Lee (李健秋) <ajqlee@debian.org>
 Build-Depends: debhelper (>= 5), autotools-dev, libgtk2.0-dev (>=2.6), libdbus-glib-1-dev (>=0.31), intltool, docbook-to-man, xsltproc, docbook-xml, docbook-xsl
 Standards-Version: 3.8.3
@@ -33,9 +33,3 @@ Description: a lightweight X11 session manager
  .
  LXSession has also a built-in lightweight Xsettings daemon, which can 
  configure GTK+ themes, keyboard, and mouse for you on session startup.
-
-Package: lxsession-lite
-Architecture: all
-Depends: lxsession 
-Description: transiational dummy package which can be safely removed
- Dummy package to upgrade to the new lxsession package.
