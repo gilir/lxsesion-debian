@@ -25,6 +25,7 @@
 #include <glib/gi18n.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 #include <fcntl.h>
 #include <limits.h>
 #include <signal.h>
@@ -73,7 +74,8 @@ typedef struct {
     int ltsp : 1;			/* Shutdown and reboot is accomplished via LTSP */
 } HandlerContext;
 
-static gboolean verify_running(char * display_manager, char * executable);
+static gboolean lock_screen(void);
+static gboolean verify_running(const char * display_manager, const char * executable);
 static void logout_clicked(GtkButton * button, HandlerContext * handler_context);
 static void change_root_property(GtkWidget* w, const char* prop_name, const char* value);
 static void shutdown_clicked(GtkButton * button, HandlerContext * handler_context);
@@ -84,9 +86,22 @@ static void switch_user_clicked(GtkButton * button, HandlerContext * handler_con
 static void cancel_clicked(GtkButton * button, gpointer user_data);
 static GtkPositionType get_banner_position(void);
 static GdkPixbuf * get_background_pixbuf(void);
+gboolean expose_event(GtkWidget * widget, GdkEventExpose * event, GdkPixbuf * pixbuf);
+
+/* Try to run lxlock command in order to lock the screen, return TRUE on
+ * success, FALSE if command execution failed
+ */
+static gboolean lock_screen(void)
+{
+    if (!g_spawn_command_line_async("lxlock", NULL))
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
 
 /* Verify that a program is running and that an executable is available. */
-static gboolean verify_running(char * display_manager, char * executable)
+static gboolean verify_running(const char * display_manager, const char * executable)
 {
     /* See if the executable we need to run is in the path. */
     gchar * full_path = g_find_program_in_path(executable);
@@ -154,7 +169,7 @@ static void change_root_property(GtkWidget* w, const char* prop_name, const char
     GdkWindow* root = gtk_widget_get_root_window(w);
     XChangeProperty(GDK_DISPLAY_XDISPLAY(dpy), GDK_WINDOW_XID(root),
                       XInternAtom(GDK_DISPLAY_XDISPLAY(dpy), prop_name, False), XA_STRING, 8,
-                      PropModeReplace, value, strlen(value) + 1);
+                      PropModeReplace, (unsigned char*) value, strlen(value) + 1);
 }
 
 /* Handler for "clicked" signal on Shutdown button. */
@@ -205,6 +220,7 @@ static void suspend_clicked(GtkButton * button, HandlerContext * handler_context
     char * error_result = NULL;
     gtk_label_set_text(GTK_LABEL(handler_context->error_label), NULL);
 
+    lock_screen();
     if (handler_context->suspend_UPower)
         error_result = dbus_UPower_Suspend();
     else if (handler_context->suspend_HAL)
@@ -221,6 +237,7 @@ static void hibernate_clicked(GtkButton * button, HandlerContext * handler_conte
     char * error_result = NULL;
     gtk_label_set_text(GTK_LABEL(handler_context->error_label), NULL);
 
+    lock_screen();
     if (handler_context->hibernate_UPower)
         error_result = dbus_UPower_Hibernate();
     else if (handler_context->hibernate_HAL)
@@ -236,6 +253,7 @@ static void switch_user_clicked(GtkButton * button, HandlerContext * handler_con
 {
     gtk_label_set_text(GTK_LABEL(handler_context->error_label), NULL);
 
+    lock_screen();
     if (handler_context->switch_user_GDM)
         g_spawn_command_line_sync("gdmflexiserver --startnew", NULL, NULL, NULL, NULL);
     else if (handler_context->switch_user_KDM)
@@ -269,6 +287,14 @@ static GdkPixbuf * get_background_pixbuf(void)
 {
     /* Get the root window pixmap. */
     GdkScreen * screen = gdk_screen_get_default();
+#ifdef ENABLE_GTK3
+    GdkPixbuf * pixbuf = gdk_pixbuf_get_from_window(
+        gdk_get_default_root_window(),
+        0,
+        0,
+        gdk_screen_get_width(screen),		/* Width */
+        gdk_screen_get_height(screen));		/* Height */
+#else
     GdkPixbuf * pixbuf = gdk_pixbuf_get_from_drawable(
         NULL,					/* Allocate a new pixbuf */
         gdk_get_default_root_window(),		/* The drawable */
@@ -276,6 +302,7 @@ static GdkPixbuf * get_background_pixbuf(void)
         0, 0, 0, 0,				/* Coordinates */
         gdk_screen_get_width(screen),		/* Width */
         gdk_screen_get_height(screen));		/* Height */
+#endif
 
     /* Make the background darker. */
     if (pixbuf != NULL)
@@ -310,15 +337,19 @@ gboolean expose_event(GtkWidget * widget, GdkEventExpose * event, GdkPixbuf * pi
     {
         /* Copy the appropriate rectangle of the root window pixmap to the drawing area.
          * All drawing areas are immediate children of the toplevel window, so the allocation yields the source coordinates directly. */
-        gdk_draw_pixbuf(
-            widget->window,					/* Drawable to render to */
-            NULL,						/* GC for clipping */
-            pixbuf,						/* Source pixbuf */
-            widget->allocation.x, widget->allocation.y,		/* Source coordinates */
-            0, 0,						/* Destination coordinates */
-            widget->allocation.width, widget->allocation.height,
-            GDK_RGB_DITHER_NORMAL,				/* Dither type */
-            0, 0);						/* Dither offsets */
+#if GTK_CHECK_VERSION(2,14,0)
+       cairo_t * cr = gdk_cairo_create (gtk_widget_get_window(widget));
+#else
+       cairo_t * cr = gdk_cairo_create (widget->window);
+#endif
+       gdk_cairo_set_source_pixbuf (
+           cr,
+           pixbuf,
+           0,
+           0);
+
+       cairo_paint (cr);
+       cairo_destroy(cr);
     }
     return FALSE;
 }

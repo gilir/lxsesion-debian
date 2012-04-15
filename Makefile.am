@@ -1,3 +1,5 @@
+ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
+
 NULL=
 
 SUBDIRS=lxsession lxsession-logout po man
@@ -11,7 +13,11 @@ image_DATA= \
 	images/gnome-session-suspend.png \
 	images/gnome-session-switch.png
 
+scripts=     lxlock
+bin_SCRIPTS= $(scripts)
+
 EXTRA_DIST = \
 	desktop.conf.example \
-	$(image_DATA)
+	$(scripts) \
+	$(image_DATA) \
 	$(NULL)

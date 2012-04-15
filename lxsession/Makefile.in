@@ -32,6 +32,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
+build_triplet = @build@
+host_triplet = @host@
 bin_PROGRAMS = lxsession$(EXEEXT)
 subdir = lxsession
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -55,25 +57,50 @@ am_lxsession_OBJECTS = lxsession-lxsession.$(OBJEXT) \
 	lxsession-xutils.$(OBJEXT) $(am__objects_1)
 lxsession_OBJECTS = $(am_lxsession_OBJECTS)
 am__DEPENDENCIES_1 =
-lxsession_DEPENDENCIES = $(am__DEPENDENCIES_1)
-lxsession_LINK = $(CCLD) $(lxsession_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
-	$(LDFLAGS) -o $@
+lxsession_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
+AM_V_lt = $(am__v_lt_$(V))
+am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
+am__v_lt_0 = --silent
+lxsession_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(lxsession_CFLAGS) \
+	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) \
+	$(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
+	$(AM_CFLAGS) $(CFLAGS)
+AM_V_CC = $(am__v_CC_$(V))
+am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))
+am__v_CC_0 = @echo "  CC    " $@;
+AM_V_at = $(am__v_at_$(V))
+am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))
+am__v_at_0 = @
 CCLD = $(CC)
-LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+	$(AM_LDFLAGS) $(LDFLAGS) -o $@
+AM_V_CCLD = $(am__v_CCLD_$(V))
+am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
+am__v_CCLD_0 = @echo "  CCLD  " $@;
+AM_V_GEN = $(am__v_GEN_$(V))
+am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
+am__v_GEN_0 = @echo "  GEN   " $@;
 SOURCES = $(lxsession_SOURCES)
 DIST_SOURCES = $(lxsession_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
+ADDITIONAL_FLAGS = @ADDITIONAL_FLAGS@
 ALL_LINGUAS = @ALL_LINGUAS@
 AMTAR = @AMTAR@
+AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
+AR = @AR@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -91,11 +118,15 @@ DBUS_CFLAGS = @DBUS_CFLAGS@
 DBUS_LIBS = @DBUS_LIBS@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+DLLTOOL = @DLLTOOL@
+DSYMUTIL = @DSYMUTIL@
+DUMPBIN = @DUMPBIN@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
+FGREP = @FGREP@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
 GLIB_CFLAGS = @GLIB_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
@@ -115,18 +146,28 @@ INTLTOOL_EXTRACT = @INTLTOOL_EXTRACT@
 INTLTOOL_MERGE = @INTLTOOL_MERGE@
 INTLTOOL_PERL = @INTLTOOL_PERL@
 INTLTOOL_UPDATE = @INTLTOOL_UPDATE@
+LD = @LD@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
+LIBTOOL = @LIBTOOL@
+LIPO = @LIPO@
+LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
+MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
 MSGFMT_OPTS = @MSGFMT_OPTS@
 MSGMERGE = @MSGMERGE@
+NM = @NM@
+NMEDIT = @NMEDIT@
+OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
+OTOOL = @OTOOL@
+OTOOL64 = @OTOOL64@
 PACKAGE = @PACKAGE@
 PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
 PACKAGE_NAME = @PACKAGE_NAME@
@@ -142,11 +183,15 @@ POFILES = @POFILES@
 POSUB = @POSUB@
 PO_IN_DATADIR_FALSE = @PO_IN_DATADIR_FALSE@
 PO_IN_DATADIR_TRUE = @PO_IN_DATADIR_TRUE@
+RANLIB = @RANLIB@
+SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
+X11_CFLAGS = @X11_CFLAGS@
+X11_LIBS = @X11_LIBS@
 XGETTEXT = @XGETTEXT@
 XMLCATALOG = @XMLCATALOG@
 XML_CATALOG_FILE = @XML_CATALOG_FILE@
@@ -155,21 +200,31 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
+ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
 am__quote = @am__quote@
 am__tar = @am__tar@
 am__untar = @am__untar@
 bindir = @bindir@
+build = @build@
 build_alias = @build_alias@
+build_cpu = @build_cpu@
+build_os = @build_os@
+build_vendor = @build_vendor@
 builddir = @builddir@
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
+host = @host@
 host_alias = @host_alias@
+host_cpu = @host_cpu@
+host_os = @host_os@
+host_vendor = @host_vendor@
 htmldir = @htmldir@
 includedir = @includedir@
 infodir = @infodir@
@@ -194,11 +249,12 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 NULL = 
-lxsession_CFLAGS = $(GLIB_CFLAGS) \
+lxsession_CFLAGS = $(GLIB_CFLAGS) $(X11_CFLAGS) \
+				$(ADDITIONAL_FLAGS) \
 				-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 				-Werror-implicit-function-declaration
 
-lxsession_LDADD = $(GLIB_LIBS) -lX11
+lxsession_LDADD = $(GLIB_LIBS) $(X11_LIBS)
 lxsession_SOURCES = \
 	lxsession.c \
 	lxsession.h \
@@ -219,7 +275,7 @@ lxsession_SOURCES = \
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .c .o .obj
+.SUFFIXES: .c .lo .o .obj
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -229,9 +285,9 @@ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__confi
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu lxsession/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign lxsession/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu lxsession/Makefile
+	  $(AUTOMAKE) --foreign lxsession/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -256,7 +312,7 @@ install-binPROGRAMS: $(bin_PROGRAMS)
 	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \
 	for p in $$list; do echo "$$p $$p"; done | \
 	sed 's/$(EXEEXT)$$//' | \
-	while read p p1; do if test -f $$p; \
+	while read p p1; do if test -f $$p || test -f $$p1; \
 	  then echo "$$p"; echo "$$p"; else :; fi; \
 	done | \
 	sed -e 'p;s,.*/,,;n;h' -e 's|.*|.|' \
@@ -270,8 +326,8 @@ install-binPROGRAMS: $(bin_PROGRAMS)
 	while read type dir files; do \
 	    if test "$$dir" = .; then dir=; else dir=/$$dir; fi; \
 	    test -z "$$files" || { \
-	      echo " $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files '$(DESTDIR)$(bindir)$$dir'"; \
-	      $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files "$(DESTDIR)$(bindir)$$dir" || exit $$?; \
+	    echo " $(INSTALL_PROGRAM_ENV) $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL_PROGRAM) $$files '$(DESTDIR)$(bindir)$$dir'"; \
+	    $(INSTALL_PROGRAM_ENV) $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL_PROGRAM) $$files "$(DESTDIR)$(bindir)$$dir" || exit $$?; \
 	    } \
 	; done
 
@@ -286,10 +342,16 @@ uninstall-binPROGRAMS:
 	cd "$(DESTDIR)$(bindir)" && rm -f $$files
 
 clean-binPROGRAMS:
-	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+	@list='$(bin_PROGRAMS)'; test -n "$$list" || exit 0; \
+	echo " rm -f" $$list; \
+	rm -f $$list || exit $$?; \
+	test -n "$(EXEEXT)" || exit 0; \
+	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
+	echo " rm -f" $$list; \
+	rm -f $$list
 lxsession$(EXEEXT): $(lxsession_OBJECTS) $(lxsession_DEPENDENCIES) 
 	@rm -f lxsession$(EXEEXT)
-	$(lxsession_LINK) $(lxsession_OBJECTS) $(lxsession_LDADD) $(LIBS)
+	$(AM_V_CCLD)$(lxsession_LINK) $(lxsession_OBJECTS) $(lxsession_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -306,116 +368,146 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lxsession-xutils.Po@am__quote@
 
 .c.o:
-@am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(COMPILE) -c $<
 
 .c.obj:
-@am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(COMPILE) -c `$(CYGPATH_W) '$<'`
 
+.c.lo:
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LTCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
+
 lxsession-lxsession.o: lxsession.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-lxsession.o -MD -MP -MF $(DEPDIR)/lxsession-lxsession.Tpo -c -o lxsession-lxsession.o `test -f 'lxsession.c' || echo '$(srcdir)/'`lxsession.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/lxsession-lxsession.Tpo $(DEPDIR)/lxsession-lxsession.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-lxsession.o -MD -MP -MF $(DEPDIR)/lxsession-lxsession.Tpo -c -o lxsession-lxsession.o `test -f 'lxsession.c' || echo '$(srcdir)/'`lxsession.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lxsession-lxsession.Tpo $(DEPDIR)/lxsession-lxsession.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lxsession.c' object='lxsession-lxsession.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -c -o lxsession-lxsession.o `test -f 'lxsession.c' || echo '$(srcdir)/'`lxsession.c
 
 lxsession-lxsession.obj: lxsession.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-lxsession.obj -MD -MP -MF $(DEPDIR)/lxsession-lxsession.Tpo -c -o lxsession-lxsession.obj `if test -f 'lxsession.c'; then $(CYGPATH_W) 'lxsession.c'; else $(CYGPATH_W) '$(srcdir)/lxsession.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/lxsession-lxsession.Tpo $(DEPDIR)/lxsession-lxsession.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-lxsession.obj -MD -MP -MF $(DEPDIR)/lxsession-lxsession.Tpo -c -o lxsession-lxsession.obj `if test -f 'lxsession.c'; then $(CYGPATH_W) 'lxsession.c'; else $(CYGPATH_W) '$(srcdir)/lxsession.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lxsession-lxsession.Tpo $(DEPDIR)/lxsession-lxsession.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='lxsession.c' object='lxsession-lxsession.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -c -o lxsession-lxsession.obj `if test -f 'lxsession.c'; then $(CYGPATH_W) 'lxsession.c'; else $(CYGPATH_W) '$(srcdir)/lxsession.c'; fi`
 
 lxsession-xdg-autostart.o: xdg-autostart.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xdg-autostart.o -MD -MP -MF $(DEPDIR)/lxsession-xdg-autostart.Tpo -c -o lxsession-xdg-autostart.o `test -f 'xdg-autostart.c' || echo '$(srcdir)/'`xdg-autostart.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/lxsession-xdg-autostart.Tpo $(DEPDIR)/lxsession-xdg-autostart.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xdg-autostart.o -MD -MP -MF $(DEPDIR)/lxsession-xdg-autostart.Tpo -c -o lxsession-xdg-autostart.o `test -f 'xdg-autostart.c' || echo '$(srcdir)/'`xdg-autostart.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lxsession-xdg-autostart.Tpo $(DEPDIR)/lxsession-xdg-autostart.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='xdg-autostart.c' object='lxsession-xdg-autostart.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -c -o lxsession-xdg-autostart.o `test -f 'xdg-autostart.c' || echo '$(srcdir)/'`xdg-autostart.c
 
 lxsession-xdg-autostart.obj: xdg-autostart.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xdg-autostart.obj -MD -MP -MF $(DEPDIR)/lxsession-xdg-autostart.Tpo -c -o lxsession-xdg-autostart.obj `if test -f 'xdg-autostart.c'; then $(CYGPATH_W) 'xdg-autostart.c'; else $(CYGPATH_W) '$(srcdir)/xdg-autostart.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/lxsession-xdg-autostart.Tpo $(DEPDIR)/lxsession-xdg-autostart.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xdg-autostart.obj -MD -MP -MF $(DEPDIR)/lxsession-xdg-autostart.Tpo -c -o lxsession-xdg-autostart.obj `if test -f 'xdg-autostart.c'; then $(CYGPATH_W) 'xdg-autostart.c'; else $(CYGPATH_W) '$(srcdir)/xdg-autostart.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lxsession-xdg-autostart.Tpo $(DEPDIR)/lxsession-xdg-autostart.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='xdg-autostart.c' object='lxsession-xdg-autostart.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -c -o lxsession-xdg-autostart.obj `if test -f 'xdg-autostart.c'; then $(CYGPATH_W) 'xdg-autostart.c'; else $(CYGPATH_W) '$(srcdir)/xdg-autostart.c'; fi`
 
 lxsession-xevent.o: xevent.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xevent.o -MD -MP -MF $(DEPDIR)/lxsession-xevent.Tpo -c -o lxsession-xevent.o `test -f 'xevent.c' || echo '$(srcdir)/'`xevent.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/lxsession-xevent.Tpo $(DEPDIR)/lxsession-xevent.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xevent.o -MD -MP -MF $(DEPDIR)/lxsession-xevent.Tpo -c -o lxsession-xevent.o `test -f 'xevent.c' || echo '$(srcdir)/'`xevent.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lxsession-xevent.Tpo $(DEPDIR)/lxsession-xevent.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='xevent.c' object='lxsession-xevent.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -c -o lxsession-xevent.o `test -f 'xevent.c' || echo '$(srcdir)/'`xevent.c
 
 lxsession-xevent.obj: xevent.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xevent.obj -MD -MP -MF $(DEPDIR)/lxsession-xevent.Tpo -c -o lxsession-xevent.obj `if test -f 'xevent.c'; then $(CYGPATH_W) 'xevent.c'; else $(CYGPATH_W) '$(srcdir)/xevent.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/lxsession-xevent.Tpo $(DEPDIR)/lxsession-xevent.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xevent.obj -MD -MP -MF $(DEPDIR)/lxsession-xevent.Tpo -c -o lxsession-xevent.obj `if test -f 'xevent.c'; then $(CYGPATH_W) 'xevent.c'; else $(CYGPATH_W) '$(srcdir)/xevent.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lxsession-xevent.Tpo $(DEPDIR)/lxsession-xevent.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='xevent.c' object='lxsession-xevent.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -c -o lxsession-xevent.obj `if test -f 'xevent.c'; then $(CYGPATH_W) 'xevent.c'; else $(CYGPATH_W) '$(srcdir)/xevent.c'; fi`
 
 lxsession-settings-daemon.o: settings-daemon.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-settings-daemon.o -MD -MP -MF $(DEPDIR)/lxsession-settings-daemon.Tpo -c -o lxsession-settings-daemon.o `test -f 'settings-daemon.c' || echo '$(srcdir)/'`settings-daemon.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/lxsession-settings-daemon.Tpo $(DEPDIR)/lxsession-settings-daemon.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-settings-daemon.o -MD -MP -MF $(DEPDIR)/lxsession-settings-daemon.Tpo -c -o lxsession-settings-daemon.o `test -f 'settings-daemon.c' || echo '$(srcdir)/'`settings-daemon.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lxsession-settings-daemon.Tpo $(DEPDIR)/lxsession-settings-daemon.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='settings-daemon.c' object='lxsession-settings-daemon.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -c -o lxsession-settings-daemon.o `test -f 'settings-daemon.c' || echo '$(srcdir)/'`settings-daemon.c
 
 lxsession-settings-daemon.obj: settings-daemon.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-settings-daemon.obj -MD -MP -MF $(DEPDIR)/lxsession-settings-daemon.Tpo -c -o lxsession-settings-daemon.obj `if test -f 'settings-daemon.c'; then $(CYGPATH_W) 'settings-daemon.c'; else $(CYGPATH_W) '$(srcdir)/settings-daemon.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/lxsession-settings-daemon.Tpo $(DEPDIR)/lxsession-settings-daemon.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-settings-daemon.obj -MD -MP -MF $(DEPDIR)/lxsession-settings-daemon.Tpo -c -o lxsession-settings-daemon.obj `if test -f 'settings-daemon.c'; then $(CYGPATH_W) 'settings-daemon.c'; else $(CYGPATH_W) '$(srcdir)/settings-daemon.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lxsession-settings-daemon.Tpo $(DEPDIR)/lxsession-settings-daemon.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='settings-daemon.c' object='lxsession-settings-daemon.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -c -o lxsession-settings-daemon.obj `if test -f 'settings-daemon.c'; then $(CYGPATH_W) 'settings-daemon.c'; else $(CYGPATH_W) '$(srcdir)/settings-daemon.c'; fi`
 
 lxsession-xsettings-common.o: xsettings-common.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xsettings-common.o -MD -MP -MF $(DEPDIR)/lxsession-xsettings-common.Tpo -c -o lxsession-xsettings-common.o `test -f 'xsettings-common.c' || echo '$(srcdir)/'`xsettings-common.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/lxsession-xsettings-common.Tpo $(DEPDIR)/lxsession-xsettings-common.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xsettings-common.o -MD -MP -MF $(DEPDIR)/lxsession-xsettings-common.Tpo -c -o lxsession-xsettings-common.o `test -f 'xsettings-common.c' || echo '$(srcdir)/'`xsettings-common.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lxsession-xsettings-common.Tpo $(DEPDIR)/lxsession-xsettings-common.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='xsettings-common.c' object='lxsession-xsettings-common.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -c -o lxsession-xsettings-common.o `test -f 'xsettings-common.c' || echo '$(srcdir)/'`xsettings-common.c
 
 lxsession-xsettings-common.obj: xsettings-common.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xsettings-common.obj -MD -MP -MF $(DEPDIR)/lxsession-xsettings-common.Tpo -c -o lxsession-xsettings-common.obj `if test -f 'xsettings-common.c'; then $(CYGPATH_W) 'xsettings-common.c'; else $(CYGPATH_W) '$(srcdir)/xsettings-common.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/lxsession-xsettings-common.Tpo $(DEPDIR)/lxsession-xsettings-common.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xsettings-common.obj -MD -MP -MF $(DEPDIR)/lxsession-xsettings-common.Tpo -c -o lxsession-xsettings-common.obj `if test -f 'xsettings-common.c'; then $(CYGPATH_W) 'xsettings-common.c'; else $(CYGPATH_W) '$(srcdir)/xsettings-common.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lxsession-xsettings-common.Tpo $(DEPDIR)/lxsession-xsettings-common.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='xsettings-common.c' object='lxsession-xsettings-common.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -c -o lxsession-xsettings-common.obj `if test -f 'xsettings-common.c'; then $(CYGPATH_W) 'xsettings-common.c'; else $(CYGPATH_W) '$(srcdir)/xsettings-common.c'; fi`
 
 lxsession-xsettings-manager.o: xsettings-manager.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xsettings-manager.o -MD -MP -MF $(DEPDIR)/lxsession-xsettings-manager.Tpo -c -o lxsession-xsettings-manager.o `test -f 'xsettings-manager.c' || echo '$(srcdir)/'`xsettings-manager.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/lxsession-xsettings-manager.Tpo $(DEPDIR)/lxsession-xsettings-manager.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xsettings-manager.o -MD -MP -MF $(DEPDIR)/lxsession-xsettings-manager.Tpo -c -o lxsession-xsettings-manager.o `test -f 'xsettings-manager.c' || echo '$(srcdir)/'`xsettings-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lxsession-xsettings-manager.Tpo $(DEPDIR)/lxsession-xsettings-manager.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='xsettings-manager.c' object='lxsession-xsettings-manager.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -c -o lxsession-xsettings-manager.o `test -f 'xsettings-manager.c' || echo '$(srcdir)/'`xsettings-manager.c
 
 lxsession-xsettings-manager.obj: xsettings-manager.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xsettings-manager.obj -MD -MP -MF $(DEPDIR)/lxsession-xsettings-manager.Tpo -c -o lxsession-xsettings-manager.obj `if test -f 'xsettings-manager.c'; then $(CYGPATH_W) 'xsettings-manager.c'; else $(CYGPATH_W) '$(srcdir)/xsettings-manager.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/lxsession-xsettings-manager.Tpo $(DEPDIR)/lxsession-xsettings-manager.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xsettings-manager.obj -MD -MP -MF $(DEPDIR)/lxsession-xsettings-manager.Tpo -c -o lxsession-xsettings-manager.obj `if test -f 'xsettings-manager.c'; then $(CYGPATH_W) 'xsettings-manager.c'; else $(CYGPATH_W) '$(srcdir)/xsettings-manager.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lxsession-xsettings-manager.Tpo $(DEPDIR)/lxsession-xsettings-manager.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='xsettings-manager.c' object='lxsession-xsettings-manager.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -c -o lxsession-xsettings-manager.obj `if test -f 'xsettings-manager.c'; then $(CYGPATH_W) 'xsettings-manager.c'; else $(CYGPATH_W) '$(srcdir)/xsettings-manager.c'; fi`
 
 lxsession-xutils.o: xutils.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xutils.o -MD -MP -MF $(DEPDIR)/lxsession-xutils.Tpo -c -o lxsession-xutils.o `test -f 'xutils.c' || echo '$(srcdir)/'`xutils.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/lxsession-xutils.Tpo $(DEPDIR)/lxsession-xutils.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xutils.o -MD -MP -MF $(DEPDIR)/lxsession-xutils.Tpo -c -o lxsession-xutils.o `test -f 'xutils.c' || echo '$(srcdir)/'`xutils.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lxsession-xutils.Tpo $(DEPDIR)/lxsession-xutils.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='xutils.c' object='lxsession-xutils.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -c -o lxsession-xutils.o `test -f 'xutils.c' || echo '$(srcdir)/'`xutils.c
 
 lxsession-xutils.obj: xutils.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xutils.obj -MD -MP -MF $(DEPDIR)/lxsession-xutils.Tpo -c -o lxsession-xutils.obj `if test -f 'xutils.c'; then $(CYGPATH_W) 'xutils.c'; else $(CYGPATH_W) '$(srcdir)/xutils.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/lxsession-xutils.Tpo $(DEPDIR)/lxsession-xutils.Po
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -MT lxsession-xutils.obj -MD -MP -MF $(DEPDIR)/lxsession-xutils.Tpo -c -o lxsession-xutils.obj `if test -f 'xutils.c'; then $(CYGPATH_W) 'xutils.c'; else $(CYGPATH_W) '$(srcdir)/xutils.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lxsession-xutils.Tpo $(DEPDIR)/lxsession-xutils.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='xutils.c' object='lxsession-xutils.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lxsession_CFLAGS) $(CFLAGS) -c -o lxsession-xutils.obj `if test -f 'xutils.c'; then $(CYGPATH_W) 'xutils.c'; else $(CYGPATH_W) '$(srcdir)/xutils.c'; fi`
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
@@ -533,7 +625,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
+clean-am: clean-binPROGRAMS clean-generic clean-libtool mostlyclean-am
 
 distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
@@ -588,7 +680,8 @@ maintainer-clean-am: distclean-am maintainer-clean-generic
 
 mostlyclean: mostlyclean-am
 
-mostlyclean-am: mostlyclean-compile mostlyclean-generic
+mostlyclean-am: mostlyclean-compile mostlyclean-generic \
+	mostlyclean-libtool
 
 pdf: pdf-am
 
@@ -603,17 +696,18 @@ uninstall-am: uninstall-binPROGRAMS
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-binPROGRAMS \
-	clean-generic ctags distclean distclean-compile \
-	distclean-generic distclean-tags distdir dvi dvi-am html \
-	html-am info info-am install install-am install-binPROGRAMS \
-	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-info install-info-am install-man install-pdf \
-	install-pdf-am install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
-	uninstall-am uninstall-binPROGRAMS
+	clean-generic clean-libtool ctags distclean distclean-compile \
+	distclean-generic distclean-libtool distclean-tags distdir dvi \
+	dvi-am html html-am info info-am install install-am \
+	install-binPROGRAMS install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am tags uninstall uninstall-am \
+	uninstall-binPROGRAMS
 
 				$(NULL)
 
