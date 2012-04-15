@@ -1,5 +1,5 @@
 AC_PREREQ([2.57])
-AC_INIT(lxsession,[0.4.1], [],lxsession)
+AC_INIT(lxsession,[0.4.4], [],lxsession)
 AM_INIT_AUTOMAKE()
 AC_PROG_INTLTOOL(, [no-xml])
 AM_MAINTAINER_MODE
@@ -29,34 +29,40 @@ AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
 
 AC_ARG_ENABLE(
-    [hal],
-    AS_HELP_STRING([--enable-hal],
-                   [Build with Linux HAL support for shutdown/reboot/suspend (default: yes)]),
-    use_hal=$enableval, use_hal="yes")
+    [dbus],
+    AS_HELP_STRING([--enable-dbus],
+                   [Build with Linux D-Bus support for shutdown/reboot/suspend (default: yes)]),
+    use_dbus=$enableval, use_dbus="yes")
 
-if test x"$use_hal" = x"yes"; then
-dnl Check HAL support
-    hal_modules="dbus-1"
-    PKG_CHECK_MODULES(HAL, [$hal_modules], [have_hal=yes], [have_hal=no])
+if test x"$use_dbus" = x"yes"; then
+dnl Check DBUS support
+    dbus_modules="dbus-1"
+    PKG_CHECK_MODULES(DBUS, [$dbus_modules], [have_dbus=yes], [have_dbus=no])
 
-    if test x"$have_hal" = x"yes"; then
-        AC_DEFINE([HAVE_HAL], [1], [Define to 1 if you have HAL.])
+    if test x"$have_dbus" = x"yes"; then
+        AC_DEFINE([HAVE_DBUS], [1], [Define to 1 if you have DBUS.])
     else
-        AC_MSG_ERROR([To use HAL support, you must have developing packages of dbus-glib-1 (>=0.31), or you can use --disable-hal to disable HAL support.])
+        AC_MSG_ERROR([To build with DBUS support, you must have the development package for dbus-1, or you can use --disable-dbus to disable DBUS support.])
     fi
 fi
-AM_CONDITIONAL(USE_HAL, test "$use_hal" = "yes")
-AC_SUBST(HAL_CFLAGS)
-AC_SUBST(HAL_LIBS)
+AM_CONDITIONAL(USE_DBUS, test "$use_dbus" = "yes")
+AC_SUBST(DBUS_CFLAGS)
+AC_SUBST(DBUS_LIBS)
+
+# Generate po/LINGUAS on the fly rather than relying on translators
+# to maintain it manually. This also overcome the problem that Transifex
+# cannot add a language to po/LINGUAS if a new po file is submitted.
+rm -f $srcdir/po/LINGUAS
+for po_file in `ls $srcdir/po/*.po | sort`;
+do
+    lang=`echo "$po_file" | sed "s|.*/po/\(.*\)\.po|\1|g"`
+    echo $lang >> $srcdir/po/LINGUAS
+done
 
 GETTEXT_PACKAGE=lxsession
-#AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION(0.14.1)
 AC_SUBST(GETTEXT_PACKAGE)
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package.])
-
-ALL_LINGUAS="af ar cs da de es et eu fa fi fr gl hr hu id it ja ko lt ml ms nb nl nn pl ps pt pt_BR ru sk sl sv tr uk ur ur_PK vi zh_CN zh_TW"
 AM_GLIB_GNU_GETTEXT
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package.])
 
 if test x"$enable_man" = x"yes"; then
 	AC_PATH_PROG([XSLTPROC], [xsltproc])
@@ -85,7 +91,7 @@ echo
 echo LXSession.................................... : Version $VERSION
 echo
 echo Prefix....................................... : $prefix
-echo Linux HAL support............................ : $use_hal
+echo Linux DBUS support........................... : $use_dbus
 echo
 echo The binary will be installed in $prefix/bin
 echo
