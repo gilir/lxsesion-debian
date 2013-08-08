@@ -17,7 +17,8 @@ Package: lxsession
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Recommends:
- lxde-common, openbox | x-window-manager, openssh-client | ssh-client, upower
+ consolekit, lxde-common, openbox | x-window-manager,
+ openssh-client | ssh-client, upower
 Suggests: gpicview, lxpanel, pcmanfm
 Conflicts: lxde-settings-daemon, lxpolkit
 Replaces: lxde-settings-daemon, lxpolkit
