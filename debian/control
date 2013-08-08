@@ -20,9 +20,9 @@ Recommends:
  consolekit, lxde-common, openbox | x-window-manager,
  openssh-client | ssh-client, upower
 Suggests: gpicview, lxpanel, pcmanfm
-Conflicts: lxde-settings-daemon, lxpolkit
-Replaces: lxde-settings-daemon, lxpolkit
-Provides: x-session-manager, lxpolkit
+Conflicts: lxde-settings-daemon, lxpolkit, lxsession-edit
+Replaces: lxde-settings-daemon, lxpolkit, lxsession-edit
+Provides: x-session-manager, lxpolkit, lxsession-edit
 Description: LXDE default session manager
  LXSession is the default session manager for the Lightweight X11 Desktop
  Environment (LXDE).
