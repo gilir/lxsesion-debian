@@ -16,8 +16,9 @@ Vcs-Git: git://git.lxde.org/git/debian/lxsession.git
 Package: lxsession
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
-Recommends: openbox | x-window-manager, openssh-client | ssh-client, upower
-Suggests: gpicview, lxde-common, lxpanel, pcmanfm
+Recommends:
+ lxde-common, openbox | x-window-manager, openssh-client | ssh-client, upower
+Suggests: gpicview, lxpanel, pcmanfm
 Conflicts: lxde-settings-daemon, lxpolkit
 Replaces: lxde-settings-daemon, lxpolkit
 Provides: x-session-manager, lxpolkit
