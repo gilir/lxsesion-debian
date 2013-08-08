@@ -1,28 +1,119 @@
-NULL=
-
 bin_PROGRAMS = lxsession
 
-lxsession_CFLAGS = $(GLIB_CFLAGS) $(X11_CFLAGS) \
-				$(ADDITIONAL_FLAGS) \
-				-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
-				-Werror-implicit-function-declaration
-				$(NULL)
+if USE_BUILDIN_CLIPBOARD
+buildinclip_SOURCES = \
+    ../lxclipboard/clipboard.c \
+    $(NULL)
 
-lxsession_LDADD = $(GLIB_LIBS) $(X11_LIBS)
+buildinclip_VALAFLAGS = \
+    --pkg lxclipboard \
+	--pkg gtk+-2.0 \
+    -D BUILDIN_CLIPBOARD \
+    $(NULL)
+
+buildinclip_CFLAGS = \
+    $(GTK_CFLAGS) \
+    $(NULL)
+
+buildinclip_LDADD = \
+    $(GTK_LIBS) \
+    $(NULL)
+endif
+
+if USE_BUILDIN_POLKIT
+buildinpolkit_SOURCES = \
+    ../lxpolkit/lxpolkit.c \
+    ../lxpolkit/lxpolkit-listener.c \
+    $(NULL)
+
+buildinpolkit_VALAFLAGS = \
+    --pkg lxpolkit \
+	--pkg gtk+-2.0 \
+    -D BUILDIN_POLKIT \
+    $(NULL)
+
+buildinpolkit_CFLAGS = \
+    $(GTK_CFLAGS) \
+    $(POLKIT_CFLAGS) \
+    $(NULL)
+
+buildinpolkit_LDADD = \
+    $(GTK_LIBS) \
+    $(POLKIT_LIBS) \
+    $(NULL)
+endif
 
 lxsession_SOURCES = \
-	lxsession.c \
-	lxsession.h \
-	xdg-autostart.c \
-	xdg-autostart.h \
-	xevent.c \
-	xevent.h \
-	settings-daemon.c \
-	settings-daemon.h \
-	xsettings-common.h \
-	xsettings-common.c \
-	xsettings-manager.h \
-	xsettings-manager.c \
-	xutils.h \
-	xutils.c \
+    main.vala \
+    app.vala \
+    autostart.vala \
+    conffiles.vala \
+    control.vala \
+    dbus-common.vala \
+    dbus-gnome-session.vala \
+    dbus-lxde-session.vala \
+    environement.vala \
+    options.vala \
+    settings.vala \
+    utils.vala \
+    ../lxsettings-daemon/settings-daemon.c \
+    ../lxsettings-daemon/xevent.c \
+    ../lxsettings-daemon/xsettings-common.c \
+    ../lxsettings-daemon/xsettings-manager.c \
+    ../lxsettings-daemon/xutils.c \
+    ../xdg-autostart/xdg-autostart.c \
+    $(buildinclip_SOURCES) \
+    $(buildinpolkit_SOURCES) \
+    $(NULL)
+
+lxsession_VALAFLAGS = \
+	--vapidir=$(srcdir)/../vapi \
+	--pkg dbus-glib-1 \
+	--pkg gio-2.0 \
+	--pkg gee-1.0 \
+	--pkg posix \
+	--pkg lxsettings-daemon \
+	--pkg xdg-autostart \
+	$(buildinclip_VALAFLAGS) \
+	$(buildinpolkit_VALAFLAGS) \
 	$(NULL)
+
+lxsession_CFLAGS = \
+        -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
+        -DPACKAGE_DATA_DIR="\"$(datadir)"\" \
+        -DPACKAGE_UI_DIR="\"$(datadir)/lxsession/ui"\" \
+	-I$(srcdir)/lxsettings-daemon \
+	-I$(srcdir)/xdg-autostart \
+	$(GLIB_CFLAGS) \
+	$(GIO_CFLAGS) \
+	$(GEE_CFLAGS) \
+	$(DBUSGLIB_CFLAGS) \
+	$(ADDITIONAL_FLAGS) \
+	$(buildinclip_CFLAGS) \
+	$(buildinpolkit_CFLAGS) \
+	-include config.h -w \
+	$(NULL)
+
+lxsession_LDADD = \
+	$(GLIB_LIBS) \
+	$(GIO_LIBS) \
+	$(GEE_LIBS) \
+	$(DBUSGLIB_LIBS) \
+	$(X11_LIBS) \
+	$(buildinclip_LDADD) \
+	$(buildinpolkit_LDADD) \
+	$(NULL)
+
+CLEANFILES = \
+    main.c \
+    app.c \
+    autostart.c \
+    conffiles.c \
+    control.c \
+    dbus-common.c \
+    dbus-gnome-session.c \
+    dbus-lxde-session.c \
+    environement.c \
+    options.c \
+    settings.c \
+    utils.c

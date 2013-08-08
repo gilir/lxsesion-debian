@@ -1,4 +1,4 @@
-# Dutch translation for the lxsession package.
+# Dutch translation of the lxsession package.
 # Copyright (C) the author of the lxsession package.
 # This file is distributed under the same license as the 
 # lxsession package.
@@ -8,19 +8,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxsession\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-22 18:37+0200\n"
-"PO-Revision-Date: 2011-06-13 11:34+0200\n"
-"Last-Translator: Pjotr\n"
+"POT-Creation-Date: 2012-09-23 15:22+0200\n"
+"PO-Revision-Date: 2012-09-25 23:34+0200\n"
+"Last-Translator: Pjotr <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch\n"
-"Language: nl (Dutch)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../lxsession-logout/lxsession-logout.c:48
 msgid "Custom message to show on the dialog"
-msgstr "Aangepaste boodschap voor in dialoogvenster"
+msgstr "Aangepaste boodschap voor dialoogvenster"
 
 #: ../lxsession-logout/lxsession-logout.c:48
 msgid "message"
@@ -48,35 +49,112 @@ msgstr "Fout: %s\n"
 msgid "LXSession is not running."
 msgstr "LXSession draait niet."
 
-#: ../lxsession-logout/lxsession-logout.c:539
+#: ../lxsession-logout/lxsession-logout.c:564
 #, c-format
 msgid "<b><big>Logout %s session?</big></b>"
 msgstr "<b><big>Sessie %s afmelden?</big></b>"
 
-#: ../lxsession-logout/lxsession-logout.c:547
+#: ../lxsession-logout/lxsession-logout.c:572
 msgid "Sh_utdown"
 msgstr "_Afsluiten"
 
-#: ../lxsession-logout/lxsession-logout.c:558
+#: ../lxsession-logout/lxsession-logout.c:583
 msgid "_Reboot"
 msgstr "_Herstarten"
 
-#: ../lxsession-logout/lxsession-logout.c:569
+#: ../lxsession-logout/lxsession-logout.c:594
 msgid "_Suspend"
 msgstr "_Pauzestand"
 
-#: ../lxsession-logout/lxsession-logout.c:580
+#: ../lxsession-logout/lxsession-logout.c:605
 msgid "_Hibernate"
 msgstr "_Slaapstand"
 
-#: ../lxsession-logout/lxsession-logout.c:591
+#: ../lxsession-logout/lxsession-logout.c:616
 msgid "S_witch User"
-msgstr "Gebruiker _Wisselen"
+msgstr "Gebruiker _wisselen"
 
 #. Create the Logout button.
-#: ../lxsession-logout/lxsession-logout.c:600
+#: ../lxsession-logout/lxsession-logout.c:625
 msgid "_Logout"
 msgstr "_Afmelden"
+
+#: ../lxsession-edit/lxsession-edit.c:365
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+#: ../lxsession-edit/lxsession-edit.c:370
+msgid "Application"
+msgstr "Toepassing"
+
+#: ../lxsession-edit/lxsession-edit.c:378
+msgid "Comment"
+msgstr "Commentaar"
+
+#: ../lxpolkit/lxpolkit-listener.c:106
+msgid "Password: "
+msgstr "Wachtwoord: "
+
+#: ../lxpolkit/lxpolkit-listener.c:251
+#, c-format
+msgid "Group: %s"
+msgstr "Groep: %s"
+
+#: ../data/ui/lxsession-edit.ui.h:1 ../data/lxsession-edit.desktop.in.h:1
+msgid "Desktop Session Settings"
+msgstr "Instellingen voor bureaubladsessie"
+
+#: ../data/ui/lxsession-edit.ui.h:2
+msgid "Applications automatically started after entering desktop:"
+msgstr ""
+"Toepassingen die automatisch worden gestart na het verschijnen van het "
+"bureaublad:"
+
+#: ../data/ui/lxsession-edit.ui.h:3
+msgid "Automatically Started Applications"
+msgstr "Automatisch gestarte toepassingen"
+
+#: ../data/ui/lxsession-edit.ui.h:4
+msgid "Window Manager:"
+msgstr "Vensterbeheerder:"
+
+#: ../data/ui/lxsession-edit.ui.h:5
+msgid ""
+"Command line used to launch window manager\n"
+"(The default window manager command for LXDE should be openbox-lxde)"
+msgstr ""
+"Opdrachtregel die wordt gebruikt om de vensterbeheerder te starten\n"
+"(de standaard-opdrachtregel voor de LXDE-vensterbeheerder zou openbox-lxde "
+"moeten zijn)"
+
+#: ../data/ui/lxsession-edit.ui.h:7
+msgid ""
+"<b>Warning:</b> Do <b>NOT</b> touch this unless you know exactly what you "
+"are doing.\n"
+"\n"
+"<b>NOTE:</b> This setting will take effect on next login."
+msgstr ""
+"<b>Waarschuwing:</b> verander hier <b>NIETS</b> aan, tenzij u precies weet "
+"wat u aan het doen bent.\n"
+"\n"
+"<b>LET OP:</b> deze instelling zal van kracht worden bij de volgende "
+"aanmelding."
+
+#: ../data/ui/lxsession-edit.ui.h:10
+msgid "Advanced Options"
+msgstr "Geavanceerde opties"
+
+#: ../data/ui/lxpolkit.ui.h:1
+msgid "Authentication"
+msgstr "Authenticatie"
+
+#: ../data/ui/lxpolkit.ui.h:2
+msgid "Identity:"
+msgstr "Identiteit:"
+
+#: ../data/lxsession-edit.desktop.in.h:2
+msgid "Manage applications loaded in desktop session"
+msgstr "Toepassingen beheren die geladen zijn in de bureaubladsessie"
 
 #~ msgid "Logout"
 #~ msgstr "Afmelden"

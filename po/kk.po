@@ -1,0 +1,147 @@
+# Kazakh translation for lxsession.
+# Copyright (C) 2012 The LXDE team
+# This file is distributed under the same license as the LXDE package.
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-23 15:22+0200\n"
+"PO-Revision-Date: 2012-05-01 18:00+0600\n"
+"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
+"Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
+"Language: kk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Kazakh\n"
+"X-Poedit-Country: KAZAKHSTAN\n"
+
+#: ../lxsession-logout/lxsession-logout.c:48
+msgid "Custom message to show on the dialog"
+msgstr "Сұхбатта көрсетілетін таңдауыңызша хабарлама"
+
+#: ../lxsession-logout/lxsession-logout.c:48
+msgid "message"
+msgstr "хабарлама"
+
+#: ../lxsession-logout/lxsession-logout.c:49
+msgid "Banner to show on the dialog"
+msgstr "Сұхбатта көрсетілетін баннер"
+
+#: ../lxsession-logout/lxsession-logout.c:49
+msgid "image file"
+msgstr "сурет файлы"
+
+#: ../lxsession-logout/lxsession-logout.c:50
+msgid "Position of the banner"
+msgstr "Баннер орналасуы"
+
+#: ../lxsession-logout/lxsession-logout.c:374
+#: ../lxsession-logout/lxsession-logout.c:388
+#, c-format
+msgid "Error: %s\n"
+msgstr "Қате: %s\n"
+
+#: ../lxsession-logout/lxsession-logout.c:388
+msgid "LXSession is not running."
+msgstr "LXSession орындалып тұрған жоқ."
+
+#: ../lxsession-logout/lxsession-logout.c:564
+#, c-format
+msgid "<b><big>Logout %s session?</big></b>"
+msgstr "<b><big>%s сессиясынан шығу керек пе?</big></b>"
+
+#: ../lxsession-logout/lxsession-logout.c:572
+msgid "Sh_utdown"
+msgstr "Сө_ндіру"
+
+#: ../lxsession-logout/lxsession-logout.c:583
+msgid "_Reboot"
+msgstr "Қай_та қосу"
+
+#: ../lxsession-logout/lxsession-logout.c:594
+msgid "_Suspend"
+msgstr "Ұ_йықтату"
+
+#: ../lxsession-logout/lxsession-logout.c:605
+msgid "_Hibernate"
+msgstr "Г_ибернация"
+
+#: ../lxsession-logout/lxsession-logout.c:616
+msgid "S_witch User"
+msgstr "Па_йдаланушыны ауыстыру"
+
+#. Create the Logout button.
+#: ../lxsession-logout/lxsession-logout.c:625
+msgid "_Logout"
+msgstr "Ш_ығу"
+
+#: ../lxsession-edit/lxsession-edit.c:365
+msgid "Enabled"
+msgstr ""
+
+#: ../lxsession-edit/lxsession-edit.c:370
+msgid "Application"
+msgstr ""
+
+#: ../lxsession-edit/lxsession-edit.c:378
+msgid "Comment"
+msgstr ""
+
+#: ../lxpolkit/lxpolkit-listener.c:106
+msgid "Password: "
+msgstr ""
+
+#: ../lxpolkit/lxpolkit-listener.c:251
+#, fuzzy, c-format
+msgid "Group: %s"
+msgstr "Қате: %s\n"
+
+#: ../data/ui/lxsession-edit.ui.h:1 ../data/lxsession-edit.desktop.in.h:1
+msgid "Desktop Session Settings"
+msgstr ""
+
+#: ../data/ui/lxsession-edit.ui.h:2
+msgid "Applications automatically started after entering desktop:"
+msgstr ""
+
+#: ../data/ui/lxsession-edit.ui.h:3
+msgid "Automatically Started Applications"
+msgstr ""
+
+#: ../data/ui/lxsession-edit.ui.h:4
+msgid "Window Manager:"
+msgstr ""
+
+#: ../data/ui/lxsession-edit.ui.h:5
+msgid ""
+"Command line used to launch window manager\n"
+"(The default window manager command for LXDE should be openbox-lxde)"
+msgstr ""
+
+#: ../data/ui/lxsession-edit.ui.h:7
+msgid ""
+"<b>Warning:</b> Do <b>NOT</b> touch this unless you know exactly what you "
+"are doing.\n"
+"\n"
+"<b>NOTE:</b> This setting will take effect on next login."
+msgstr ""
+
+#: ../data/ui/lxsession-edit.ui.h:10
+msgid "Advanced Options"
+msgstr ""
+
+#: ../data/ui/lxpolkit.ui.h:1
+msgid "Authentication"
+msgstr ""
+
+#: ../data/ui/lxpolkit.ui.h:2
+msgid "Identity:"
+msgstr ""
+
+#: ../data/lxsession-edit.desktop.in.h:2
+msgid "Manage applications loaded in desktop session"
+msgstr ""

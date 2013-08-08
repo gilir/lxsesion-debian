@@ -1,37 +1,41 @@
-AC_PREREQ([2.57])
-AC_INIT(lxsession,[0.4.6.1], [],lxsession)
-AM_INIT_AUTOMAKE([1.11 -Wall -Werror foreign])
+# Init
+AC_INIT([lxsession],[0.4.9.2],[],[lxsession])
+
+# Autotols programs
+AM_INIT_AUTOMAKE([1.11.1 -Wall -Werror foreign])
+AC_PREREQ([2.69])
+IT_PROG_INTLTOOL([0.40.0],[no-xml])
+
+#Initialize libtool
+LT_PREREQ([2.2.6])
+LT_INIT()
 
 # Support silent build rules. Disable by either passing --disable-silent-rules
 # to configure or passing V=1 to make
 AM_SILENT_RULES([yes])
-AC_PROG_INTLTOOL(, [no-xml])
-AM_MAINTAINER_MODE
 
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
+# C compiler
 AC_PROG_CC
 AC_PROG_INSTALL
 AM_PROG_CC_C_O
 AC_PROG_CC_STDC
 
-#Initialize libtool
-LT_PREREQ([2.2])
-LT_INIT
 
 AC_CHECK_FUNC([mkstemp],
    AC_DEFINE(HAS_MKSTEMP,1,[Define to 1 if you have the 'mkstemp' function.]))
 
 AC_ARG_ENABLE(man,
-       [AC_HELP_STRING([--enable-man],
-               [regenerate roff man pages from Docbook @<:@default=no@:>@])],
+       [AS_HELP_STRING([--enable-man],
+               [regenerate roff man pages from Docbook @<:@default=yes@:>@])],
        [enable_man="${enableval}"],
-       [enable_man=no]
+       [enable_man=yes]
 )
 
 AC_ARG_ENABLE(more_warnings,
-       [AC_HELP_STRING([--enable-more-warnings],
+       [AS_HELP_STRING([--enable-more-warnings],
                [Add more warnings @<:@default=no@:>@])],
        [enable_more_warnings="${enableval}"],
        [enable_more_warnings=no]
@@ -42,13 +46,10 @@ if test x"$enable_more_warnings" = x"yes"; then
 fi
 AC_SUBST(ADDITIONAL_FLAGS)
 
-AC_ARG_ENABLE(gtk3,
-AC_HELP_STRING([--enable-gtk3],[enable to use gtk-3.0 instead of gtk-2.0]),
-[case "${enableval}" in
-  yes)  enable_gtk3=yes ;;
-  no)   enable_gtk3=no ;;
-  *) AC_MSG_ERROR([bad value "${enableval}" for --enable-gtk3, use "yes" (default) or "no".]) ;;
-esac],[])
+AC_ARG_ENABLE([gtk3],
+    AS_HELP_STRING([--enable-gtk3],
+                   [enable to use gtk-3.0 instead of gtk-2.0]),
+    enable_gtk3=$enableval, enable_gtk3="no")
 
 if test "x$enable_gtk3" = "xyes" ; then
   CFLAGS="$CFLAGS -DENABLE_GTK3"
@@ -68,26 +69,61 @@ PKG_CHECK_MODULES(GLIB, [glib-2.0 >= 2.6.0])
 AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
 
-AC_ARG_ENABLE(
-    [dbus],
-    AS_HELP_STRING([--enable-dbus],
-                   [Build with Linux D-Bus support for shutdown/reboot/suspend (default: yes)]),
-    use_dbus=$enableval, use_dbus="yes")
+PKG_CHECK_MODULES(GIO, [gio-unix-2.0])
+AC_SUBST(GIO_CFLAGS)
+AC_SUBST(GIO_LIBS)
 
-if test x"$use_dbus" = x"yes"; then
-dnl Check DBUS support
-    dbus_modules="dbus-1"
-    PKG_CHECK_MODULES(DBUS, [$dbus_modules], [have_dbus=yes], [have_dbus=no])
+PKG_CHECK_MODULES(GEE, [gee-1.0])
+AC_SUBST(GEE_CFLAGS)
+AC_SUBST(GEE_LIBS)
 
-    if test x"$have_dbus" = x"yes"; then
-        AC_DEFINE([HAVE_DBUS], [1], [Define to 1 if you have DBUS.])
-    else
-        AC_MSG_ERROR([To build with DBUS support, you must have the development package for dbus-1, or you can use --disable-dbus to disable DBUS support.])
-    fi
-fi
-AM_CONDITIONAL(USE_DBUS, test "$use_dbus" = "yes")
+PKG_CHECK_MODULES(DBUSGLIB, [dbus-glib-1])
+AC_SUBST(DBUSGLIB_CFLAGS)
+AC_SUBST(DBUSGLIB_LIBS)
+
+polkit_modules="polkit-agent-1"
+PKG_CHECK_MODULES(POLKIT, [$polkit_modules])
+AC_SUBST(POLKIT_CFLAGS)
+AC_SUBST(POLKIT_LIBS)
+
+PKG_CHECK_MODULES(DBUS, [dbus-1])
 AC_SUBST(DBUS_CFLAGS)
 AC_SUBST(DBUS_LIBS)
+
+AC_ARG_ENABLE(
+    [buildin-clipboard],
+    AS_HELP_STRING([--enable-buildin-clipboard],
+                   [Build with build-in clipboard support (default: no)]),
+    use_buildin_clipboard=$enableval, use_buildin_clipboard="no")
+
+AM_CONDITIONAL(USE_BUILDIN_CLIPBOARD, test "$use_buildin_clipboard" = "yes")
+
+AC_ARG_ENABLE(
+    [buildin-polkit],
+    AS_HELP_STRING([--enable-buildin-polkit],
+                   [Build with build-in polkit-agent support (default: no)]),
+    use_buildin_polkit=$enableval, use_buildin_polkit="no")
+
+AM_CONDITIONAL(USE_BUILDIN_POLKIT, test "$use_buildin_polkit" = "yes")
+
+AM_PROG_VALAC([0.14.0])
+if test "x$VALAC" = "x"; then
+	AC_MSG_ERROR([You need Vala compiler])
+fi
+
+# debug flags
+AC_ARG_ENABLE(debug,
+    [AS_HELP_STRING([--enable-debug],[build libfm with debug support @<:@default=no@:>@])],
+    [enable_debug="${enableval}"],
+    [enable_debug=no]
+)
+if test "$enable_debug" = "yes"; then
+    # turn on debug and disable optimization
+    CPPFLAGS="$CPPFLAGS -DG_ENABLE_DEBUG -O0 -g"
+else
+    # turn off glib debug checks
+    CPPFLAGS="$CPPFLAGS -DG_DISABLE_ASSERT -DG_DISABLE_CHECKS -DG_DISABLE_CAST_CHECKS"
+fi
 
 # Generate po/LINGUAS on the fly rather than relying on translators
 # to maintain it manually. This also overcome the problem that Transifex
@@ -119,19 +155,34 @@ fi
 
 AM_CONDITIONAL(ENABLE_REGENERATE_MAN, test "x$enable_man" != "xno")
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
   Makefile
+  data/Makefile
+  data/ui/Makefile
+  lxclipboard/Makefile
+  lxlock/Makefile
+  lxpolkit/Makefile
   lxsession/Makefile
+  lxsession-default/Makefile
+  lxsession-default-apps/Makefile
+  lxsession-edit/Makefile
   lxsession-logout/Makefile
-  po/Makefile.in
+  lxsettings-daemon/Makefile
   man/Makefile
+  po/Makefile.in
+  vapi/Makefile
+  xdg-autostart/Makefile
 ])
+AC_OUTPUT
 
 echo
 echo LXSession.................................... : Version $VERSION
 echo
 echo Prefix....................................... : $prefix
-echo Linux DBUS support........................... : $use_dbus
+echo Cliboard build-in suport..................... : $use_buildin_clipboard
+echo Polkit-agent build-in suport................. : $use_buildin_polkit
+echo Enable GTK3 support.......................... : $enable_gtk3
+echo Enable debug................................. : $enable_debug
 echo Man pages generation support................. : $enable_man
 echo
 echo The binary will be installed in $prefix/bin

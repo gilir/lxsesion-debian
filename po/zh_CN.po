@@ -7,14 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxsession-lite\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-22 18:37+0200\n"
-"PO-Revision-Date: 2008-08-05 09:58+0800\n"
-"Last-Translator: ideal <05281253@bjtu.edu.cn>\n"
+"POT-Creation-Date: 2012-09-23 15:22+0200\n"
+"PO-Revision-Date: 2012-10-14 12:42+0200\n"
+"Last-Translator: Wylmer <wantinghard@gmail.com>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
-"Language: \n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../lxsession-logout/lxsession-logout.c:48
 msgid "Custom message to show on the dialog"
@@ -46,35 +48,107 @@ msgstr "错误：%s\n"
 msgid "LXSession is not running."
 msgstr "LXSession 不在运行。"
 
-#: ../lxsession-logout/lxsession-logout.c:539
+#: ../lxsession-logout/lxsession-logout.c:564
 #, c-format
 msgid "<b><big>Logout %s session?</big></b>"
 msgstr "<b><big>注销 %s 会话？</big></b>"
 
-#: ../lxsession-logout/lxsession-logout.c:547
+#: ../lxsession-logout/lxsession-logout.c:572
 msgid "Sh_utdown"
 msgstr "关机(_U)"
 
-#: ../lxsession-logout/lxsession-logout.c:558
+#: ../lxsession-logout/lxsession-logout.c:583
 msgid "_Reboot"
 msgstr "重新启动(_R)"
 
-#: ../lxsession-logout/lxsession-logout.c:569
+#: ../lxsession-logout/lxsession-logout.c:594
 msgid "_Suspend"
 msgstr "挂起(_S)"
 
-#: ../lxsession-logout/lxsession-logout.c:580
+#: ../lxsession-logout/lxsession-logout.c:605
 msgid "_Hibernate"
 msgstr "休眠(_H)"
 
-#: ../lxsession-logout/lxsession-logout.c:591
+#: ../lxsession-logout/lxsession-logout.c:616
 msgid "S_witch User"
 msgstr "切换用户(_W)"
 
 #. Create the Logout button.
-#: ../lxsession-logout/lxsession-logout.c:600
+#: ../lxsession-logout/lxsession-logout.c:625
 msgid "_Logout"
 msgstr "注销(_L)"
+
+#: ../lxsession-edit/lxsession-edit.c:365
+msgid "Enabled"
+msgstr "已启用"
+
+#: ../lxsession-edit/lxsession-edit.c:370
+msgid "Application"
+msgstr "应用程序"
+
+#: ../lxsession-edit/lxsession-edit.c:378
+msgid "Comment"
+msgstr "注释"
+
+#: ../lxpolkit/lxpolkit-listener.c:106
+msgid "Password: "
+msgstr "密码："
+
+#: ../lxpolkit/lxpolkit-listener.c:251
+#, c-format
+msgid "Group: %s"
+msgstr "组：%s"
+
+#: ../data/ui/lxsession-edit.ui.h:1 ../data/lxsession-edit.desktop.in.h:1
+msgid "Desktop Session Settings"
+msgstr "桌面会话设置"
+
+#: ../data/ui/lxsession-edit.ui.h:2
+msgid "Applications automatically started after entering desktop:"
+msgstr "在进入桌面后自动启动的应用程序："
+
+#: ../data/ui/lxsession-edit.ui.h:3
+msgid "Automatically Started Applications"
+msgstr "自动启动的应用程序"
+
+#: ../data/ui/lxsession-edit.ui.h:4
+msgid "Window Manager:"
+msgstr "窗口管理器："
+
+#: ../data/ui/lxsession-edit.ui.h:5
+msgid ""
+"Command line used to launch window manager\n"
+"(The default window manager command for LXDE should be openbox-lxde)"
+msgstr ""
+"启动窗口管理器的命令行语句\n"
+"(LXDE 默认窗口管理器的命令应为 openbox-lxde)"
+
+#: ../data/ui/lxsession-edit.ui.h:7
+msgid ""
+"<b>Warning:</b> Do <b>NOT</b> touch this unless you know exactly what you "
+"are doing.\n"
+"\n"
+"<b>NOTE:</b> This setting will take effect on next login."
+msgstr ""
+"<b>警告：</b> 如果您不清楚这样做的后果，<b>不要</b>动这项设置。\n"
+"\n"
+"<b>注：</b> 此设置下次登录时生效。"
+
+#: ../data/ui/lxsession-edit.ui.h:10
+msgid "Advanced Options"
+msgstr "高级选项"
+
+#: ../data/ui/lxpolkit.ui.h:1
+msgid "Authentication"
+msgstr "认证"
+
+#: ../data/ui/lxpolkit.ui.h:2
+msgid "Identity:"
+msgstr "身份："
+
+#: ../data/lxsession-edit.desktop.in.h:2
+msgid "Manage applications loaded in desktop session"
+msgstr "管理桌面会话中加载的应用程序"
 
 #~ msgid "Logout"
 #~ msgstr "注销"

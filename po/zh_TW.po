@@ -7,18 +7,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-22 18:37+0200\n"
-"PO-Revision-Date: 2008-03-01 21:09+0800\n"
-"Last-Translator: 洪任諭 <pcman.tw@gmail.com>\n"
+"POT-Creation-Date: 2012-09-23 15:22+0200\n"
+"PO-Revision-Date: 2012-09-30 05:23+0200\n"
+"Last-Translator: Walter <wwycheuk@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../lxsession-logout/lxsession-logout.c:48
 msgid "Custom message to show on the dialog"
-msgstr "顯示在對話框上的自訂訊息"
+msgstr "顯示在對話框的自訂訊息"
 
 #: ../lxsession-logout/lxsession-logout.c:48
 msgid "message"
@@ -26,7 +28,7 @@ msgstr "訊息"
 
 #: ../lxsession-logout/lxsession-logout.c:49
 msgid "Banner to show on the dialog"
-msgstr "顯示在對話框上的圖片"
+msgstr "顯示在對話框的圖片"
 
 #: ../lxsession-logout/lxsession-logout.c:49
 msgid "image file"
@@ -46,35 +48,107 @@ msgstr "錯誤：%s\n"
 msgid "LXSession is not running."
 msgstr "LXSession 並未執行"
 
-#: ../lxsession-logout/lxsession-logout.c:539
+#: ../lxsession-logout/lxsession-logout.c:564
 #, c-format
 msgid "<b><big>Logout %s session?</big></b>"
 msgstr "<b><big>登出 %s 作業階段？</big></b>"
 
-#: ../lxsession-logout/lxsession-logout.c:547
+#: ../lxsession-logout/lxsession-logout.c:572
 msgid "Sh_utdown"
 msgstr "關機(_U)"
 
-#: ../lxsession-logout/lxsession-logout.c:558
+#: ../lxsession-logout/lxsession-logout.c:583
 msgid "_Reboot"
 msgstr "重新啟動(_R)"
 
-#: ../lxsession-logout/lxsession-logout.c:569
+#: ../lxsession-logout/lxsession-logout.c:594
 msgid "_Suspend"
 msgstr "暫停(_S)"
 
-#: ../lxsession-logout/lxsession-logout.c:580
+#: ../lxsession-logout/lxsession-logout.c:605
 msgid "_Hibernate"
 msgstr "休眠(_H)"
 
-#: ../lxsession-logout/lxsession-logout.c:591
+#: ../lxsession-logout/lxsession-logout.c:616
 msgid "S_witch User"
 msgstr "切換使用者(_W)"
 
 #. Create the Logout button.
-#: ../lxsession-logout/lxsession-logout.c:600
+#: ../lxsession-logout/lxsession-logout.c:625
 msgid "_Logout"
 msgstr "登出(_L)"
+
+#: ../lxsession-edit/lxsession-edit.c:365
+msgid "Enabled"
+msgstr "啟用"
+
+#: ../lxsession-edit/lxsession-edit.c:370
+msgid "Application"
+msgstr "應用程式"
+
+#: ../lxsession-edit/lxsession-edit.c:378
+msgid "Comment"
+msgstr "評語"
+
+#: ../lxpolkit/lxpolkit-listener.c:106
+msgid "Password: "
+msgstr "密碼："
+
+#: ../lxpolkit/lxpolkit-listener.c:251
+#, c-format
+msgid "Group: %s"
+msgstr "群組：%s"
+
+#: ../data/ui/lxsession-edit.ui.h:1 ../data/lxsession-edit.desktop.in.h:1
+msgid "Desktop Session Settings"
+msgstr "桌面工作階段設定"
+
+#: ../data/ui/lxsession-edit.ui.h:2
+msgid "Applications automatically started after entering desktop:"
+msgstr "進入桌面後自動啟動的應用程式："
+
+#: ../data/ui/lxsession-edit.ui.h:3
+msgid "Automatically Started Applications"
+msgstr "自動啟動的應用程式"
+
+#: ../data/ui/lxsession-edit.ui.h:4
+msgid "Window Manager:"
+msgstr "視窗管理員："
+
+#: ../data/ui/lxsession-edit.ui.h:5
+msgid ""
+"Command line used to launch window manager\n"
+"(The default window manager command for LXDE should be openbox-lxde)"
+msgstr ""
+"啟動視窗管理員的指令\n"
+"(LXDE 的預設視窗管理員指令應為 openbox-lxde)"
+
+#: ../data/ui/lxsession-edit.ui.h:7
+msgid ""
+"<b>Warning:</b> Do <b>NOT</b> touch this unless you know exactly what you "
+"are doing.\n"
+"\n"
+"<b>NOTE:</b> This setting will take effect on next login."
+msgstr ""
+"<b>警告：</b><b>不要</b>改動此設定，除非您很清楚知道自己在做什麼。\n"
+"\n"
+"<b>注意：</b>此設定會在下次登入時生效。"
+
+#: ../data/ui/lxsession-edit.ui.h:10
+msgid "Advanced Options"
+msgstr "進階選項"
+
+#: ../data/ui/lxpolkit.ui.h:1
+msgid "Authentication"
+msgstr "身份驗證"
+
+#: ../data/ui/lxpolkit.ui.h:2
+msgid "Identity:"
+msgstr "身份："
+
+#: ../data/lxsession-edit.desktop.in.h:2
+msgid "Manage applications loaded in desktop session"
+msgstr "管理在桌面工作階段載入的應用程式"
 
 #~ msgid "Logout"
 #~ msgstr "登出"

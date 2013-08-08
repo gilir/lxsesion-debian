@@ -25,9 +25,9 @@
 #include <glib.h>
 #include <X11/Xlib.h>
 
-gboolean start_settings_daemon(GKeyFile* kf);
+gboolean settings_daemon_start(GKeyFile* kf);
 
-void settings_deamon_reload();
+void settings_daemon_reload(GKeyFile* kf);
 
 /* called by x11_event_dispatch() */
 void settings_manager_selection_clear( XEvent* evt );

@@ -61,6 +61,10 @@ typedef struct {
     int hibernate_available : 1;	/* Hibernate is available */
     int switch_user_available : 1;	/* Switch User is available */
 
+    int shutdown_logind : 1;		/* Shutdown is available via logind */
+    int reboot_logind : 1;		/* Reboot is available via logind */
+    int suspend_logind : 1;		/* Suspend is available via logind */
+    int hibernate_logind : 1;		/* Hibernate is available via logind */
     int shutdown_ConsoleKit : 1;	/* Shutdown is available via ConsoleKit */
     int reboot_ConsoleKit : 1;		/* Reboot is available via ConsoleKit */
     int suspend_UPower : 1;		/* Suspend is available via UPower */
@@ -70,11 +74,17 @@ typedef struct {
     int suspend_HAL : 1;		/* Suspend is available via HAL */
     int hibernate_HAL : 1;		/* Hibernate is available via HAL */
     int switch_user_GDM : 1;		/* Switch User is available via GDM */
-    int switch_user_KDM : 1;		/* Switch User is available via KDM */
+    int switch_user_LIGHTDM : 1;	/* Switch User is available via GDM */
+    int switch_user_KDM : 1;		/* Switch User is available via LIGHTDM */
+    int switch_user_LXDM : 1;		/* Switch User is available via LXDM */
     int ltsp : 1;			/* Shutdown and reboot is accomplished via LTSP */
+
+    int lock_screen : 1;                /* Lock screen available */
+
 } HandlerContext;
 
 static gboolean lock_screen(void);
+static const gchar* determine_lock_screen(void);
 static gboolean verify_running(const char * display_manager, const char * executable);
 static void logout_clicked(GtkButton * button, HandlerContext * handler_context);
 static void change_root_property(GtkWidget* w, const char* prop_name, const char* value);
@@ -93,12 +103,31 @@ gboolean expose_event(GtkWidget * widget, GdkEventExpose * event, GdkPixbuf * pi
  */
 static gboolean lock_screen(void)
 {
-    if (!g_spawn_command_line_async("lxlock", NULL))
+    const gchar* program = determine_lock_screen();
+
+    if (program)
     {
+        g_spawn_command_line_async(program, NULL);
         return TRUE;
     }
     return FALSE;
 }
+
+static const gchar* determine_lock_screen(void)
+{
+    const gchar* program = NULL;
+
+    if (g_find_program_in_path("lxlock"))
+    {
+        program = "lxlock";
+    }
+    else if (g_find_program_in_path("xdg-screensaver"))
+    {
+        program = "xdg-screensaver lock";
+    }
+    return program;
+}
+
 
 /* Verify that a program is running and that an executable is available. */
 static gboolean verify_running(const char * display_manager, const char * executable)
@@ -158,7 +187,15 @@ static gboolean verify_running(const char * display_manager, const char * execut
 /* Handler for "clicked" signal on Logout button. */
 static void logout_clicked(GtkButton * button, HandlerContext * handler_context)
 {
-    kill(handler_context->lxsession_pid, SIGTERM);
+    if (handler_context->lxsession_pid != 0)
+    {
+        kill(handler_context->lxsession_pid, SIGTERM);
+    }
+    else
+    {
+        /* Assume we are under openbox */
+        g_spawn_command_line_async("openbox --exit", NULL);
+    }
     gtk_main_quit();
 }
 
@@ -181,10 +218,15 @@ static void shutdown_clicked(GtkButton * button, HandlerContext * handler_contex
     if (handler_context->ltsp)
     {
         change_root_property(GTK_WIDGET(button), "LTSP_LOGOUT_ACTION", "HALT");
-        kill(handler_context->lxsession_pid, SIGTERM);
+        if (handler_context->lxsession_pid != 0)
+        {
+            kill(handler_context->lxsession_pid, SIGTERM);
+        }
     }
     else if (handler_context->shutdown_ConsoleKit)
         error_result = dbus_ConsoleKit_Stop();
+    else if (handler_context->shutdown_logind)
+        error_result = dbus_logind_PowerOff();
     else if (handler_context->shutdown_HAL)
         error_result = dbus_HAL_Shutdown();
 
@@ -202,10 +244,15 @@ static void reboot_clicked(GtkButton * button, HandlerContext * handler_context)
     if (handler_context->ltsp)
     {
         change_root_property(GTK_WIDGET(button), "LTSP_LOGOUT_ACTION", "REBOOT");
-        kill(handler_context->lxsession_pid, SIGTERM);
+        if (handler_context->lxsession_pid != 0)
+        {
+            kill(handler_context->lxsession_pid, SIGTERM);
+        }
     }
     else if (handler_context->reboot_ConsoleKit)
         error_result = dbus_ConsoleKit_Restart();
+    else if (handler_context->reboot_logind)
+        error_result = dbus_logind_Reboot();
     else if (handler_context->reboot_HAL)
         error_result = dbus_HAL_Reboot();
 
@@ -223,6 +270,8 @@ static void suspend_clicked(GtkButton * button, HandlerContext * handler_context
     lock_screen();
     if (handler_context->suspend_UPower)
         error_result = dbus_UPower_Suspend();
+    else if (handler_context->suspend_logind)
+        error_result = dbus_logind_Suspend();
     else if (handler_context->suspend_HAL)
         error_result = dbus_HAL_Suspend();
 
@@ -240,6 +289,8 @@ static void hibernate_clicked(GtkButton * button, HandlerContext * handler_conte
     lock_screen();
     if (handler_context->hibernate_UPower)
         error_result = dbus_UPower_Hibernate();
+    else if (handler_context->hibernate_logind)
+        error_result = dbus_logind_Hibernate();
     else if (handler_context->hibernate_HAL)
         error_result = dbus_HAL_Hibernate();
 
@@ -258,6 +309,20 @@ static void switch_user_clicked(GtkButton * button, HandlerContext * handler_con
         g_spawn_command_line_sync("gdmflexiserver --startnew", NULL, NULL, NULL, NULL);
     else if (handler_context->switch_user_KDM)
         g_spawn_command_line_sync("kdmctl reserve", NULL, NULL, NULL, NULL);
+    else if (handler_context->switch_user_LIGHTDM)
+        dbus_Lightdm_SwitchToGreeter();
+    else if(handler_context->switch_user_LXDM)
+        g_spawn_command_line_sync("lxdm-binary -c USER_SWITCH", NULL, NULL, NULL, NULL);
+
+    gtk_main_quit();
+}
+
+/* Handler for "clicked" signal on Lock button. */
+static void lock_screen_clicked(GtkButton * button, HandlerContext * handler_context)
+{
+    gtk_label_set_text(GTK_LABEL(handler_context->error_label), NULL);
+
+    lock_screen();
     gtk_main_quit();
 }
 
@@ -380,34 +445,51 @@ int main(int argc, char * argv[])
     HandlerContext handler_context;
     memset(&handler_context, 0, sizeof(handler_context));
 
-    /* Ensure that we are running under lxsession. */
+    /* Get the lxsession PID. */
     const char * p = g_getenv("_LXSESSION_PID");
     if (p != NULL) handler_context.lxsession_pid = atoi(p);
-    if (handler_context.lxsession_pid == 0)
+
+    /* Initialize capabilities of the logind mechanism. */
+    if (dbus_logind_CanPowerOff())
     {
-        g_print( _("Error: %s\n"), _("LXSession is not running."));
-        return 1;
+        handler_context.shutdown_available = TRUE;
+        handler_context.shutdown_logind = TRUE;
+    }
+    if (dbus_logind_CanReboot())
+    {
+        handler_context.reboot_available = TRUE;
+        handler_context.reboot_logind = TRUE;
+    }
+    if (dbus_logind_CanSuspend())
+    {
+        handler_context.suspend_available = TRUE;
+        handler_context.suspend_logind = TRUE;
+    }
+    if (dbus_logind_CanHibernate())
+    {
+        handler_context.hibernate_available = TRUE;
+        handler_context.hibernate_logind = TRUE;
     }
 
     /* Initialize capabilities of the ConsoleKit mechanism. */
-    if (dbus_ConsoleKit_CanStop())
+    if (!handler_context.shutdown_available && dbus_ConsoleKit_CanStop())
     {
         handler_context.shutdown_available = TRUE;
         handler_context.shutdown_ConsoleKit = TRUE;
     }
-    if (dbus_ConsoleKit_CanRestart())
+    if (!handler_context.reboot_available && dbus_ConsoleKit_CanRestart())
     {
         handler_context.reboot_available = TRUE;
         handler_context.reboot_ConsoleKit = TRUE;
     }
 
     /* Initialize capabilities of the UPower mechanism. */
-    if (dbus_UPower_CanSuspend())
+    if (!handler_context.suspend_available && dbus_UPower_CanSuspend())
     {
         handler_context.suspend_available = TRUE;
         handler_context.suspend_UPower = TRUE;
     }
-    if (dbus_UPower_CanHibernate())
+    if (!handler_context.hibernate_available && dbus_UPower_CanHibernate())
     {
         handler_context.hibernate_available = TRUE;
         handler_context.hibernate_UPower = TRUE;
@@ -442,6 +524,34 @@ int main(int argc, char * argv[])
         handler_context.switch_user_GDM = TRUE;
     }
 
+    /* If we are under GDM3, its "Switch User" is available. */
+    if (verify_running("gdm3", "gdmflexiserver"))
+    {
+        handler_context.switch_user_available = TRUE;
+        handler_context.switch_user_GDM = TRUE;
+    }
+
+    /* lightdm also use gdmflexiserver */
+    if (verify_running("lightdm", "gdmflexiserver"))
+    {
+        handler_context.switch_user_available = TRUE;
+        handler_context.switch_user_GDM = TRUE;
+    }
+
+    /* lightdm also use gdmflexiserver */
+    if (verify_running("lightdm", "gdmflexiserver"))
+    {
+        handler_context.switch_user_available = TRUE;
+        handler_context.switch_user_GDM = TRUE;
+    }
+
+    /* lightdm can also be find by the env */
+    if (g_getenv("XDG_SEAT_PATH"))
+    {
+        handler_context.switch_user_available = TRUE;
+        handler_context.switch_user_LIGHTDM = TRUE;
+    }
+
     /* If we are under KDM, its "Switch User" is available. */
     if (verify_running("kdm", "kdmctl"))
     {
@@ -449,9 +559,26 @@ int main(int argc, char * argv[])
         handler_context.switch_user_KDM = TRUE;
     }
 
+    if (verify_running("lxdm", "lxdm-binary"))
+    {
+        handler_context.switch_user_available = TRUE;
+        handler_context.switch_user_LXDM = TRUE;
+    }
+
     /* LTSP support */
     if (g_getenv("LTSP_CLIENT"))
+    {
         handler_context.ltsp = TRUE;
+        handler_context.shutdown_available = TRUE;
+        handler_context.reboot_available = TRUE;
+    }
+
+    /* Lock screen */
+    const gchar* very_lock_screen = determine_lock_screen();
+    if (very_lock_screen)
+    {
+        handler_context.lock_screen = TRUE;
+    }
 
     /* Make the button images accessible. */
     gtk_icon_theme_append_search_path(gtk_icon_theme_get_default(), PACKAGE_DATA_DIR "/lxsession/images");
@@ -536,7 +663,33 @@ int main(int argc, char * argv[])
         const char * session_name = g_getenv("DESKTOP_SESSION");
         if (session_name == NULL)
             session_name = "LXDE";
-        prompt = g_strdup_printf(_("<b><big>Logout %s session?</big></b>"), session_name);
+
+        const gchar *command_line = "lsb_release -r -s";
+        gchar *output = NULL;
+        GError *error;
+
+        if (!g_spawn_command_line_sync( command_line,
+                                        &output,
+                                        NULL,
+                                        NULL,
+                                        &error))
+        {
+
+            fprintf (stderr, "Error: %s\n", error->message);
+            g_error_free (error);
+
+        }
+
+        if (output == NULL)
+        {
+            output = "";
+        }
+        else
+        {
+            output[strlen ( output ) - 1] = '\0';
+        }
+
+        prompt = g_strdup_printf(_("<b><big>Logout %s %s session ?</big></b>"), session_name, output);
     }
     gtk_label_set_markup(GTK_LABEL(label), prompt);
     gtk_box_pack_start(GTK_BOX(controls), label, FALSE, FALSE, 4);
@@ -594,6 +747,17 @@ int main(int argc, char * argv[])
         gtk_button_set_alignment(GTK_BUTTON(switch_user_button), 0.0, 0.5);
         g_signal_connect(G_OBJECT(switch_user_button), "clicked", G_CALLBACK(switch_user_clicked), &handler_context);
         gtk_box_pack_start(GTK_BOX(controls), switch_user_button, FALSE, FALSE, 4);
+    }
+
+    /* Create the Lock Screen button. */
+    if (handler_context.lock_screen && !handler_context.ltsp)
+    {
+        GtkWidget * lock_screen_button = gtk_button_new_with_mnemonic(_("L_ock Screen"));
+        GtkWidget * image = gtk_image_new_from_icon_name("system-lock-screen", GTK_ICON_SIZE_BUTTON);
+        gtk_button_set_image(GTK_BUTTON(lock_screen_button), image);
+        gtk_button_set_alignment(GTK_BUTTON(lock_screen_button), 0.0, 0.5);
+        g_signal_connect(G_OBJECT(lock_screen_button), "clicked", G_CALLBACK(lock_screen_clicked), &handler_context);
+        gtk_box_pack_start(GTK_BOX(controls), lock_screen_button, FALSE, FALSE, 4);
     }
 
     /* Create the Logout button. */

@@ -1,0 +1,147 @@
+# Uyghur translation for lxsession.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Gheyret Kenji <gheyret@gmail.com>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: lxsession\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-23 15:22+0200\n"
+"PO-Revision-Date: 2011-11-09 16:10+0900\n"
+"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../lxsession-logout/lxsession-logout.c:48
+msgid "Custom message to show on the dialog"
+msgstr "سۆزلەشكۈدە كۆرۈنىدىغان ئۇچۇر"
+
+#: ../lxsession-logout/lxsession-logout.c:48
+msgid "message"
+msgstr "ئۇچۇر"
+
+#: ../lxsession-logout/lxsession-logout.c:49
+msgid "Banner to show on the dialog"
+msgstr "سۆزلەشكۈدە كۆرۈنىدىغان لەۋھە"
+
+#: ../lxsession-logout/lxsession-logout.c:49
+msgid "image file"
+msgstr "سۈرەت ھۆججىتى"
+
+#: ../lxsession-logout/lxsession-logout.c:50
+msgid "Position of the banner"
+msgstr "لەۋھەنىڭ ئورنى"
+
+#: ../lxsession-logout/lxsession-logout.c:374
+#: ../lxsession-logout/lxsession-logout.c:388
+#, c-format
+msgid "Error: %s\n"
+msgstr "خاتالىق: %s\n"
+
+#: ../lxsession-logout/lxsession-logout.c:388
+msgid "LXSession is not running."
+msgstr "LXSession ئىجرا بولمىغان."
+
+#: ../lxsession-logout/lxsession-logout.c:564
+#, c-format
+msgid "<b><big>Logout %s session?</big></b>"
+msgstr "<b><big>ئەڭگىمە %s دىن چىقامسىز؟</big></b>"
+
+#: ../lxsession-logout/lxsession-logout.c:572
+msgid "Sh_utdown"
+msgstr "تاقا(_U)"
+
+#: ../lxsession-logout/lxsession-logout.c:583
+msgid "_Reboot"
+msgstr "قايتا قوزغات(_R):"
+
+#: ../lxsession-logout/lxsession-logout.c:594
+msgid "_Suspend"
+msgstr "توڭلات(_S)"
+
+#: ../lxsession-logout/lxsession-logout.c:605
+msgid "_Hibernate"
+msgstr "ئۈچەككە كىر(_H)"
+
+#: ../lxsession-logout/lxsession-logout.c:616
+msgid "S_witch User"
+msgstr "ئىشلەتكۈچى ئالماشتۇر(_W)"
+
+#. Create the Logout button.
+#: ../lxsession-logout/lxsession-logout.c:625
+msgid "_Logout"
+msgstr "چىق(_L)"
+
+#: ../lxsession-edit/lxsession-edit.c:365
+msgid "Enabled"
+msgstr "ئىناۋەتلىك"
+
+#: ../lxsession-edit/lxsession-edit.c:370
+msgid "Application"
+msgstr "پروگرامما"
+
+#: ../lxsession-edit/lxsession-edit.c:378
+msgid "Comment"
+msgstr "ئىزاھات"
+
+#: ../lxpolkit/lxpolkit-listener.c:106
+msgid "Password: "
+msgstr "ئىم: "
+
+#: ../lxpolkit/lxpolkit-listener.c:251
+#, c-format
+msgid "Group: %s"
+msgstr "گۇرۇپپا: %s"
+
+#: ../data/ui/lxsession-edit.ui.h:1 ../data/lxsession-edit.desktop.in.h:1
+msgid "Desktop Session Settings"
+msgstr "ئۈستەلئۈستى ئەڭگىمە تەڭشىكى"
+
+#: ../data/ui/lxsession-edit.ui.h:2
+msgid "Applications automatically started after entering desktop:"
+msgstr "ئۈستەلئۈستىگە كىرگەندىلا ئاپتوماتىك ئىجرا بولىدىغان پروگراممىلار:"
+
+#: ../data/ui/lxsession-edit.ui.h:3
+msgid "Automatically Started Applications"
+msgstr "ئاپتوماتىك قوزغىلىدىغان پروگراممىلار"
+
+#: ../data/ui/lxsession-edit.ui.h:4
+msgid "Window Manager:"
+msgstr "كۆزنەك باشقۇرغۇ:"
+
+#: ../data/ui/lxsession-edit.ui.h:5
+msgid ""
+"Command line used to launch window manager\n"
+"(The default window manager command for LXDE should be openbox-lxde)"
+msgstr "كۆزنەك باشقۇرغۇنى ئىجرا قىلىدىغان بۇيرۇق قۇرى\n"
+"(LXDE نىڭ كۆڭۈلدىكى كۆزنەك باشقۇرغۇ چوقۇم openbox-lxde بولۇشى كېرەك)"
+
+#: ../data/ui/lxsession-edit.ui.h:7
+msgid ""
+"<b>Warning:</b> Do <b>NOT</b> touch this unless you know exactly what you "
+"are doing.\n"
+"\n"
+"<b>NOTE:</b> This setting will take effect on next login."
+msgstr "<b>ئاگاھلاندۇرۇش:</b> نېمە قىلىشنى ئېنىق بىلمىگەن ئەھۋال ئاستىدا <b>زادىلا تەگمەڭ</b>.\n"
+"\n"
+"<b>دىققەت:</b> بۇ تەڭشەكلەر كېيىنكى قېتىم كىرگەندە ئاندىن ئۈنۈملۈكتۇر."
+
+#: ../data/ui/lxsession-edit.ui.h:10
+msgid "Advanced Options"
+msgstr "ئالىي تاللانما"
+
+#: ../data/ui/lxpolkit.ui.h:1
+msgid "Authentication"
+msgstr "كىملىك دەلىللەش"
+
+#: ../data/ui/lxpolkit.ui.h:2
+msgid "Identity:"
+msgstr "كىملىك:"
+
+#: ../data/lxsession-edit.desktop.in.h:2
+msgid "Manage applications loaded in desktop session"
+msgstr "ئۈستەلئۈستى ئەڭگىمەسىگە ئوقۇلغان پروگراممىلارنى باشقۇرىدۇ"

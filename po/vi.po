@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-22 18:37+0200\n"
-"PO-Revision-Date: 2010-01-26 08:39+0200\n"
-"Last-Translator: Hiếu <scamemiv@gmail.com>\n"
+"POT-Creation-Date: 2012-09-23 15:22+0200\n"
+"PO-Revision-Date: 2012-10-12 06:32+0200\n"
+"Last-Translator: Duy Hung <nguyentieuhau@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: ../lxsession-logout/lxsession-logout.c:48
 msgid "Custom message to show on the dialog"
@@ -48,35 +48,108 @@ msgstr "Lỗi: %s\n"
 msgid "LXSession is not running."
 msgstr "LXSession chưa chạy."
 
-#: ../lxsession-logout/lxsession-logout.c:539
+#: ../lxsession-logout/lxsession-logout.c:564
 #, c-format
 msgid "<b><big>Logout %s session?</big></b>"
 msgstr "<b><big>Đăng thoát phiên làm việc của %s?</big></b>"
 
-#: ../lxsession-logout/lxsession-logout.c:547
+#: ../lxsession-logout/lxsession-logout.c:572
 msgid "Sh_utdown"
 msgstr "Tắt _máy"
 
-#: ../lxsession-logout/lxsession-logout.c:558
+#: ../lxsession-logout/lxsession-logout.c:583
 msgid "_Reboot"
 msgstr "_Khởi động lại"
 
-#: ../lxsession-logout/lxsession-logout.c:569
+#: ../lxsession-logout/lxsession-logout.c:594
 msgid "_Suspend"
 msgstr "_Ngưng máy"
 
-#: ../lxsession-logout/lxsession-logout.c:580
+#: ../lxsession-logout/lxsession-logout.c:605
 msgid "_Hibernate"
 msgstr "N_gủ đông"
 
-#: ../lxsession-logout/lxsession-logout.c:591
+#: ../lxsession-logout/lxsession-logout.c:616
 msgid "S_witch User"
 msgstr "_Chuyển đổi người dùng"
 
 #. Create the Logout button.
-#: ../lxsession-logout/lxsession-logout.c:600
+#: ../lxsession-logout/lxsession-logout.c:625
 msgid "_Logout"
 msgstr "Đăng _thoát"
+
+#: ../lxsession-edit/lxsession-edit.c:365
+msgid "Enabled"
+msgstr "Đã bật"
+
+#: ../lxsession-edit/lxsession-edit.c:370
+msgid "Application"
+msgstr "Ứng dụng"
+
+#: ../lxsession-edit/lxsession-edit.c:378
+msgid "Comment"
+msgstr "Chú thích"
+
+#: ../lxpolkit/lxpolkit-listener.c:106
+msgid "Password: "
+msgstr "Mật khẩu:"
+
+#: ../lxpolkit/lxpolkit-listener.c:251
+#, c-format
+msgid "Group: %s"
+msgstr "Nhóm: %s"
+
+#: ../data/ui/lxsession-edit.ui.h:1 ../data/lxsession-edit.desktop.in.h:1
+msgid "Desktop Session Settings"
+msgstr "Thiết lập phiên làm việc desktop"
+
+#: ../data/ui/lxsession-edit.ui.h:2
+msgid "Applications automatically started after entering desktop:"
+msgstr "Ứng dụng tự động chạy sau khi vào desktop"
+
+#: ../data/ui/lxsession-edit.ui.h:3
+msgid "Automatically Started Applications"
+msgstr "Ứng dụng tự động chạy"
+
+#: ../data/ui/lxsession-edit.ui.h:4
+msgid "Window Manager:"
+msgstr "Bộ quản lý cửa sổ:"
+
+#: ../data/ui/lxsession-edit.ui.h:5
+msgid ""
+"Command line used to launch window manager\n"
+"(The default window manager command for LXDE should be openbox-lxde)"
+msgstr ""
+"Dòng lệnh dùng để khởi động bộ quản lý cửa sổ\n"
+"(lệnh mặc địch cho bộ quản lý cửa sổ trong LXDE nên là openbox-lxde)"
+
+#: ../data/ui/lxsession-edit.ui.h:7
+msgid ""
+"<b>Warning:</b> Do <b>NOT</b> touch this unless you know exactly what you "
+"are doing.\n"
+"\n"
+"<b>NOTE:</b> This setting will take effect on next login."
+msgstr ""
+"<b>Cảnh báo:</b> <b>ĐỪNG</b> thay đổi thiết lập này trừ khi bạn biết rõ bạn "
+"đang làm gì.\n"
+"\n"
+"<b>Ghi chú:</b> Thiết lập này sẽ có hiệu lực vào lần đăng nhập tới."
+
+#: ../data/ui/lxsession-edit.ui.h:10
+msgid "Advanced Options"
+msgstr "Tùy chọn nâng cao"
+
+#: ../data/ui/lxpolkit.ui.h:1
+msgid "Authentication"
+msgstr "Xác thực"
+
+#: ../data/ui/lxpolkit.ui.h:2
+msgid "Identity:"
+msgstr "Nhận dạng:"
+
+#: ../data/lxsession-edit.desktop.in.h:2
+msgid "Manage applications loaded in desktop session"
+msgstr "Quản lý ứng dụng được nạp trong phiên làm việc desktop"
 
 #~ msgid "Logout"
 #~ msgstr "Đăng thoát"
