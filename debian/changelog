@@ -1,3 +1,10 @@
+lxsession (0.4.6.1-4) unstable; urgency=low
+
+  * Added upower as recommends to make suspend and hibernate works by 
+    default. (Close: #679539).
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Sun, 08 Jul 2012 05:16:33 +0800
+
 lxsession (0.4.6.1-3) unstable; urgency=low
 
   * Correcting spelling of upstream-name field in copyright file.
