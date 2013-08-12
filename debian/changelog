@@ -1,3 +1,32 @@
+lxsession (0.4.9.2-1) unstable; urgency=low
+
+  [ Andrew Lee (李健秋) ]
+  * Merging upstream version 0.4.9.2.
+    (Closes: #704862, #594833, #642336, #679477, #646864, #646219)
+
+  * Bumpped standard-version.
+  * debian/rules: enable build-in clipboard and polkit-agent support.
+  * debian/control: conflicts, replace and provides lxpolkit.
+  * debian/control: add build-deps on libgee-dev.
+  * debian/control: add build-deps on libpolkit-agent-1-dev.
+  * debian/control: move lxde-common from suggests to recommends. 
+    (Closes: #713842)
+  * debian/control: add consolekit as recommends. (Closes: #676819)
+
+  [ Mateusz Łukasik ]
+  * debian/lxsession.examples: Update location of the examples files.
+
+  [ Andrew Lee (李健秋) ]
+  * debian/lxsession.postinst: Apply minor fix from
+    Jakub Wilk <jwilk@debian.org>. (Closes: #688651)
+  * Drop patches already included upstream:
+    - 01-gdm3-user-switch.patch
+    - 02-ltsp-shutdown-reboot.patch
+  * debian/control: build-deps on valac-0.14 | valac.
+  * debian/control: conflicts, replace and provides lxsession-edit.
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Thu, 08 Aug 2013 18:19:34 +0800
+
 lxsession (0.4.6.1-4) unstable; urgency=low
 
   * Added upower as recommends to make suspend and hibernate works by 
