@@ -4,7 +4,7 @@
 	dh ${@} --with autotools_dev
 
 override_dh_auto_configure:
-	dh_auto_configure -- --enable-buildin-clipboard --enable-buildin-polkit
+	dh_auto_configure -- --enable-buildin-clipboard --enable-buildin-polkit --disable-silent-rules
 
 override_dh_auto_install:
 	$(MAKE) DESTDIR=$(CURDIR)/debian/lxsession install
