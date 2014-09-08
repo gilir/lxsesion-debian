@@ -15,7 +15,7 @@ Vcs-Git: git://git.lxde.org/git/debian/lxsession.git
 
 Package: lxsession
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}, lsb-release
 Recommends:
  consolekit, lxde-common, openbox | x-window-manager,
  openssh-client | ssh-client, upower
