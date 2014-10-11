@@ -15,20 +15,71 @@ Vcs-Git: git://git.lxde.org/git/debian/lxsession.git
 
 Package: lxsession
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, lsb-release
+Depends:
+ ${misc:Depends}, ${shlibs:Depends},
+ lsb-release, lxsession-data, lxsession-logout
 Recommends:
- consolekit, lxde-common, openbox | x-window-manager,
- openssh-client | ssh-client, upower
+ lxde-common, lxsession-edit, openbox | x-window-manager,
+ openssh-client | ssh-client
 Suggests: gpicview, lxpanel, pcmanfm
-Conflicts: lxde-settings-daemon, lxpolkit, lxsession-edit
-Replaces: lxde-settings-daemon, lxpolkit, lxsession-edit
-Provides: x-session-manager, lxpolkit, lxsession-edit
+Conflicts: lxde-settings-daemon
+Breaks: lxpolkit (<< 0.5.0), lxsession-edit (<< 0.5.0)
+Replaces:
+ lxde-settings-daemon, lxpolkit (<< 0.5.0), lxsession-edit (<< 0.5.0)
+Provides: x-session-manager, lxpolkit
 Description: LXDE default session manager
  LXSession is the default session manager for the Lightweight X11 Desktop
  Environment (LXDE).
  .
  It is derived from XSM, has fewer dependencies and more features. It is
  desktop-independent and can be used with any window manager.
+
+Package: lxsession-data
+Architecture: all
+Depends: ${misc:Depends}
+Breaks: lxsession (<< 0.5.0)
+Replaces: lxsession (<< 0.5.0)
+Description: LXDE default session manager (common files)
+ LXSession is the default session manager for the Lightweight X11 Desktop
+ Environment (LXDE).
+ .
+ This package provides common files for all applications provided by lxsession.
+
+Package: lxsession-edit
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}, lxsession-data
+Breaks: lxsession (<< 0.5.0)
+Replaces: lxsession (<< 0.5.0)
+Description: LXDE application session editor
+ LXSession is the default session manager for the Lightweight X11 Desktop
+ Environment (LXDE).
+ .
+ LXSession-Edit is a simple session editor GUI which follows autostart specs
+ from FreeDesktop.Org.
+
+Package: lxpolkit
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}, lxsession-data
+Breaks: lxsession (<< 0.5.0)
+Replaces: lxsession (<< 0.5.0)
+Description: LXDE PolicyKit authentication agent
+ LXPolkit is a GUI application for the Lightweight X11 Desktop Environment
+ (LXDE).
+ .
+ It's a simple PolicyKit authentication agent.
+
+Package: lxsession-logout
+Architecture: any
+Breaks: lxsession (<< 0.5.0)
+Replaces: lxsession (<< 0.5.0)
+Depends:
+ ${misc:Depends}, ${shlibs:Depends},
+ lxsession-data, consolekit | upower
+Description: LXDE session logout GUI
+ LXSession is the default session manager for the Lightweight X11 Desktop
+ Environment (LXDE).
+ .
+ LXSession-logout is a simple utility for logout and quit a session.
 
 Package: lxsession-dbg
 Section: debug
@@ -38,5 +89,37 @@ Depends: ${misc:Depends}, lxsession (= ${binary:Version})
 Description: LXDE default session manager (debug)
  LXSession is the default session manager for the Lightweight X11 Desktop
  Environment (LXDE).
+ .
+ This package contains the debugging symbols.
+
+Package: lxsession-edit-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: ${misc:Depends}, lxsession-edit (= ${binary:Version})
+Description: LXDE application session editor (debug)
+ LXSession-Edit is a GUI application for the Lightweight X11 Desktop Environment
+ (LXDE).
+ .
+ This package contains the debugging symbols.
+
+Package: lxpolkit-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: ${misc:Depends}, lxpolkit (= ${binary:Version})
+Description: LXDE PolicyKit authentication agent (debug)
+ LXPolkit is a GUI application for the Lightweight X11 Desktop Environment
+ (LXDE).
+ .
+ This package contains the debugging symbols.
+
+Package: lxsession-logout-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: ${misc:Depends}, lxsession-logout (= ${binary:Version})
+Description: LXDE session logout GUI (debug)
+ LXSession-logout is a simple utility for logout and quit a session.
  .
  This package contains the debugging symbols.

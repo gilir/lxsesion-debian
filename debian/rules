@@ -1,13 +1,10 @@
 #!/usr/bin/make -f
 
 %:
-	dh ${@} --with autotools_dev
+	dh ${@} --with autotools-dev
 
 override_dh_auto_configure:
 	dh_auto_configure -- --enable-buildin-clipboard --enable-buildin-polkit --disable-silent-rules
-
-override_dh_auto_install:
-	$(MAKE) DESTDIR=$(CURDIR)/debian/lxsession install
 
 override_dh_auto_test:
 	# disabled: test fails in po directory
@@ -16,4 +13,8 @@ override_dh_builddeb:
 	dh_builddeb -- -Zxz -z9
 
 override_dh_strip:
-	dh_strip --dbg-package=lxsession-dbg
+	dh_strip -plxsession --dbg-package=lxsession-dbg
+	dh_strip -plxsession-edit --dbg-package=lxsession-edit-dbg
+	dh_strip -plxsession-logout --dbg-package=lxsession-logout-dbg
+	dh_strip -plxpolkit --dbg-package=lxpolkit-dbg
+	dh_strip -Nlxsession -Nlxsession-edit -Nlxsession-logout -Nlxpolkit
