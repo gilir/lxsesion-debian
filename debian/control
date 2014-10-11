@@ -76,7 +76,7 @@ Breaks: lxsession (<< 0.5.0)
 Replaces: lxsession (<< 0.5.0)
 Depends:
  ${misc:Depends}, ${shlibs:Depends},
- lxsession-data, consolekit | upower
+ lxsession-data, consolekit | upower (<< 0.99)
 Description: LXDE session logout GUI
  LXSession is the default session manager for the Lightweight X11 Desktop
  Environment (LXDE).
