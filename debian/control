@@ -6,7 +6,7 @@ Uploaders:
  Andrew Lee (李健秋) <ajqlee@debian.org>
 Build-Depends:
  debhelper (>= 9), autotools-dev, docbook-to-man, docbook-xml, docbook-xsl,
- intltool, libdbus-glib-1-dev, libgee-dev, libpolkit-agent-1-dev,
+ intltool, libdbus-glib-1-dev, libpolkit-agent-1-dev,
  libgtk2.0-dev, valac, xsltproc
 Standards-Version: 3.9.5
 Homepage: http://www.lxde.org/
