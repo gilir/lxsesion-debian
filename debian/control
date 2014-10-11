@@ -27,7 +27,7 @@ Breaks: lxpolkit (<< 0.5.0), lxsession-edit (<< 0.5.0)
 Replaces:
  lxde-settings-daemon, lxpolkit (<< 0.5.0), lxsession-edit (<< 0.5.0),
  lxsession-default-apps
-Provides: x-session-manager, lxpolkit, lxsession-default-apps
+Provides: x-session-manager, lxpolkit, lxsession-default-apps, policykit-1-gnome
 Description: LXDE default session manager
  LXSession is the default session manager for the Lightweight X11 Desktop
  Environment (LXDE).
@@ -63,6 +63,7 @@ Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}, lxsession-data
 Breaks: lxsession (<< 0.5.0)
 Replaces: lxsession (<< 0.5.0)
+Provides: policykit-1-gnome
 Description: LXDE PolicyKit authentication agent
  LXPolkit is a GUI application for the Lightweight X11 Desktop Environment
  (LXDE).
