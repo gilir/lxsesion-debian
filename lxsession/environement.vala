@@ -47,13 +47,15 @@ namespace Lxsession
             session = session_arg;
             desktop_environment = desktop_environment_arg;
             display_name = Environment.get_variable(display_env);
+            home_path = Environment.get_variable("HOME");
+            config_home = Environment.get_variable("XDG_CONFIG_HOME");
 
         }
 
-        public void export_env()
+        /* Export environment that doesn't need settings, should be export before reading settings */
+        public void export_primary_env ()
         {
-
-            message("Exporting variable");
+            message("Exporting primary_variable");
             message("desktop_environnement %s", desktop_environment_env);
             pid_str = "%d".printf (Posix.getpid());
             Environment.set_variable(session_env, session, true);
@@ -63,19 +65,24 @@ namespace Lxsession
 
             Environment.set_application_name ("lxsession");
 
-            home_path = Environment.get_variable("HOME");
-            config_home = Environment.get_variable("XDG_CONFIG_HOME");
-
-            Environment.set_variable("XDG_MENU_PREFIX", global_settings.env_menu_prefix, true);
-
-            set_xdg_dirs ();
-            set_misc ();
-
             if (config_home == null)
             {
                 config_home = home_path + "/.config";
                 Environment.set_variable("XDG_CONFIG_HOME", config_home, true);
             }
+
+            set_xdg_dirs (null);
+        }
+
+        public void export_env()
+        {
+            message("Exporting variable");
+            message("desktop_environnement %s", desktop_environment_env);
+
+            Environment.set_variable("XDG_MENU_PREFIX", global_settings.get_item_string("Environment", "menu_prefix", null), true);
+
+            set_xdg_dirs ("all");
+            set_misc ();
 
         }
 
@@ -100,7 +107,7 @@ namespace Lxsession
             }
         }
 
-        public void set_xdg_dirs ()
+        public void set_xdg_dirs (string? mode)
         {
             /* TODO Allow several value, like Lubuntu;Xubuntu; */
             string custom_config;
@@ -109,7 +116,7 @@ namespace Lxsession
             string return_data;
 
             config_dirs = Environment.get_variable("XDG_CONFIG_DIRS");
-            data_dirs = Environment.get_variable("XDG_CONFIG_DIRS");
+            data_dirs = Environment.get_variable("XDG_DATA_DIRS");
 
             if (session == "Lubuntu")
             {
@@ -123,14 +130,17 @@ namespace Lxsession
                 custom_data ="/usr/local/share:/usr/share:/usr/share/gdm:/var/lib/menu-xdg";
             }
 
-            switch (global_settings.env_type)
+            if (mode == "all")
             {
-                case "lubuntu":
-                    custom_config = "/etc/xdg/lubuntu:/etc/xdg" ;
-                    custom_data = "/etc/xdg/lubuntu:/usr/local/share:/usr/share:/usr/share/gdm:/var/lib/menu-xdg";
-                    break;
-                default:
-                    break;
+                switch (global_settings.get_item_string("Environment", "type", null))
+                {
+                    case "lubuntu":
+                        custom_config = "/etc/xdg/lubuntu:/etc/xdg" ;
+                        custom_data = "/etc/xdg/lubuntu:/usr/local/share:/usr/share:/usr/share/gdm:/var/lib/menu-xdg";
+                        break;
+                    default:
+                        break;
+                }
             }
 
             if (config_dirs == null)
@@ -140,8 +150,30 @@ namespace Lxsession
             }
             else
             {
-                return_config = custom_config + ":" + config_dirs;
-                message ("custom_config :%s", custom_config);
+                string[] custom_config_array = custom_config.split_set(":",0);
+                string[] config_dirs_array = config_dirs.split_set(":",0);
+
+                string custom_config_check = "";
+
+                foreach (string custom_str in custom_config_array)
+                {
+                    bool delete_str = false;
+                    foreach (string config_str in config_dirs_array)
+                    {
+                        if (custom_str == config_str)
+                        {
+                            delete_str = true;
+                        }
+                    }
+
+                    if (delete_str == false)
+                    {
+                        custom_config_check = custom_config_check + custom_str +":";
+                    }
+                }
+
+                return_config = custom_config_check + config_dirs;
+                message ("custom_config :%s", custom_config_check);
                 message ("config_dirs :%s", config_dirs);
                 message ("confir_dirs not null, export : %s", return_config);
             }
@@ -159,8 +191,30 @@ namespace Lxsession
             }
             else
             {
-                return_data = custom_data + ":" + data_dirs;
-                message ("custom_data :%s", custom_data);
+                string[] custom_data_array = custom_data.split_set(":",0);
+                string[] data_dirs_array = data_dirs.split_set(":",0);
+
+                string custom_data_check = "";
+
+                foreach (string custom_data_str in custom_data_array)
+                {
+                    bool delete_data_str = false;
+                    foreach (string data_str in data_dirs_array)
+                    {
+                        if (custom_data_str == data_str)
+                        {
+                            delete_data_str = true;
+                        }
+                    }
+
+                    if (delete_data_str == false)
+                    {
+                        custom_data_check = custom_data_check + custom_data_str +":";
+                    }
+                }
+
+                return_data = custom_data_check + data_dirs;
+                message ("custom_data :%s", custom_data_check);
                 message ("data_dirs :%s", data_dirs);
                 message ("data_dirs not null, export : %s", return_data);
             }
@@ -175,14 +229,7 @@ namespace Lxsession
         public void set_misc ()
         {
             /* Clean up number of desktop set by GDM */
-            try
-            {
-                Process.spawn_command_line_async("xprop -root -remove _NET_NUMBER_OF_DESKTOPS -remove _NET_DESKTOP_NAMES -remove _NET_CURRENT_DESKTOP");
-            }
-            catch (GLib.SpawnError err)
-            {
-                message (err.message);
-            }
+            lxsession_spawn_command_line_async("xprop -root -remove _NET_NUMBER_OF_DESKTOPS -remove _NET_DESKTOP_NAMES -remove _NET_CURRENT_DESKTOP");
 
             /* Start Dbus */
             string dbus_path;
@@ -195,14 +242,7 @@ namespace Lxsession
             {
                 if (dbus_env ==null)
                 {
-                    try
-                    {
-                        Process.spawn_command_line_async("dbus-launch --sh-syntax --exit-with-session");
-                    }
-                    catch (GLib.SpawnError err)
-                    {
-                        message (err.message);
-                    }
+                    lxsession_spawn_command_line_async("dbus-launch --sh-syntax --exit-with-session");
                 }
             }
 
@@ -212,7 +252,19 @@ namespace Lxsession
             /* Add path for Qt plugins (usefull for razor session */
             string qt_plugin;
             qt_plugin = Environment.get_variable("QT_PLUGIN_PATH");
-            Environment.set_variable("QT_PLUGIN_PATH" , qt_plugin + ":/usr/lib64/kde4/plugins:/usr/lib/kde4/plugins", true);
+            if (qt_plugin != null)
+            {
+                if (qt_plugin != "")
+                {
+                    Environment.set_variable("QT_PLUGIN_PATH" , qt_plugin + ":/usr/lib64/kde4/plugins:/usr/lib/kde4/plugins", true);
+                }
+            }
+
+            /* Add support for App menu */
+            if (global_settings.get_item_string("Environment", "ubuntu_menuproxy", null) == "true")
+            {
+                Environment.set_variable("UBUNTU_MENUPROXY", "libappmenu.so", true);
+            }
         }
     }
 

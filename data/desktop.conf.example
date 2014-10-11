@@ -75,6 +75,9 @@ screenshot_manager/command=
 # Upgrade by default (dbus-send --session --print-reply --dest="org.lxde.SessionManager" /org/lxde/SessionManager org.lxde.SessionManager.UpgradeManagerLaunch)
 upgrade_manager/command=
 
+# Updates checker, support build-in and update-notifier
+updates_manager/command=
+
 # Clipboard support (use lxclipboard to use build-in support if enable at build time)
 clipboard/command=lxclipboard
 
@@ -82,19 +85,74 @@ clipboard/command=lxclipboard
 composite_manager/command=
 composite_manager/autostart=true
 
+# Utility to lock screen
+lock_manager/command=lxlock
+
+# Utility to display messages (only lxsession-message-* supported)
+message_manager/command=lxsession-message-gtk
+
+# Utility to load and apply xsettings (options available : "gnome", "xfce" and "build-in" for using build-in support of lxsession)
+xsettings_manager/command=build-in
+
+# Utility for displaying notification
+notification/command=
+notification/autostart=true
+
+# Utility for running a keybindings daemon
+keybindings/command=
+keybindings/autostart=true
+
+# Utility to set proxy environment variable. Options available : build-in
+# http: Set the variable to export
+proxy_manager/command=build-in
+proxy_manager/http=
+
+# Aaccessibility to enable (GNOME, KDE or other). Only GNOME supported now.
+a11y/command = gnome
+
+# Default Keyring program (default for ssh-agent, gnome-all for gnome-keyring-daemon full support)
+keyring/command=ssh-agent
+
+# Command to launch for configuring Xrandr ex: xrandr --mode ...
+xrandr/command=
+
+# Default web browser (desktop is the corresponding desktop file)
+webbrowser/command=
+webbrowser/desktop=
+
+# Default email client (desktop is the corresponding desktop file)
+email/command=
+email/desktop=
+
+# Other default application
+pdf_reader/command=
+video_player/command=
+audio_player/command=
+images_display/command=
+text_editor/command=
+archive/command=
+charmap/command=
+calculator/command=
+spreadsheet/command=
+bittorent/command=
+document/command=
+webcam/command=
+burn/command=
+notes/command=
+disk_utility/command=
+tasks/command=
+
 # Disable autostart of applications in system and home autostart directory
 # all : disable all applications (home, system, specify in this config file)
 # config-only : disable applications from home and system (start only the ones in this config file)
 # no : autostart all applications
 disable_autostart=no
 
-# Default web browser (desktop is the corresponding desktop file)
-webbrowser/command=
-webbrowser/desktop=
-
 [State]
 # unknown if untested, yes if on laptop, no if not
 laptop_mode=unknown
+# Try to guess the default
+guess_default=true
 
 [Dbus]
 # Default Dbus interfaces, should be always true
@@ -111,32 +169,11 @@ layout=
 variant=
 options=
 
-[XRandr]
-# Mode command only available
-mode=
-# Command to launch for configuring Xrandr ex: xrandr --mode ...
-command=
-
-[Security]
-# Default Keyring program (default for ssh-agent, gnome-all for gnome-keyring-daemon full support
-keyring=ssh-agent
-
-[a11y]
-# Accessibility options
-# Type of accessibility to enable (GNOME, KDE or other). Only GNOME supported now.
-type=gnome
-
-[Updates]
-# Updates checker, support build-in and update-notifier
-type=
-
 [Environment]
 type=
 menu_prefix=lxde-
-
-[Proxy]
-http=
-
+# Enable appmenu integration
+ubuntu_menuproxy=false
 
 [GTK]
 #iNet/DoubleClickTime=400

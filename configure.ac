@@ -1,14 +1,9 @@
-# Init
-AC_INIT([lxsession],[0.4.9.2],[],[lxsession])
+AC_INIT([lxsession],[0.5.0],[],[lxsession])
 
 # Autotols programs
-AM_INIT_AUTOMAKE([1.11.1 -Wall -Werror foreign])
-AC_PREREQ([2.69])
+AM_INIT_AUTOMAKE([1.11.1 -Wall -Werror foreign no-dist-gzip dist-xz])
+AC_PREREQ([2.68])
 IT_PROG_INTLTOOL([0.40.0],[no-xml])
-
-#Initialize libtool
-LT_PREREQ([2.2.6])
-LT_INIT()
 
 # Support silent build rules. Disable by either passing --disable-silent-rules
 # to configure or passing V=1 to make
@@ -46,21 +41,6 @@ if test x"$enable_more_warnings" = x"yes"; then
 fi
 AC_SUBST(ADDITIONAL_FLAGS)
 
-AC_ARG_ENABLE([gtk3],
-    AS_HELP_STRING([--enable-gtk3],
-                   [enable to use gtk-3.0 instead of gtk-2.0]),
-    enable_gtk3=$enableval, enable_gtk3="no")
-
-if test "x$enable_gtk3" = "xyes" ; then
-  CFLAGS="$CFLAGS -DENABLE_GTK3"
-  gtk_modules="gtk+-3.0 >= 3.0.0"
-else
-  gtk_modules="gtk+-2.0 >= 2.6.0"
-fi
-PKG_CHECK_MODULES(GTK, [$gtk_modules])
-AC_SUBST(GTK_CFLAGS)
-AC_SUBST(GTK_LIBS)
-
 PKG_CHECK_MODULES(X11, [x11])
 AC_SUBST(X11_CFLAGS)
 AC_SUBST(X11_LIBS)
@@ -73,42 +53,67 @@ PKG_CHECK_MODULES(GIO, [gio-unix-2.0])
 AC_SUBST(GIO_CFLAGS)
 AC_SUBST(GIO_LIBS)
 
-PKG_CHECK_MODULES(GEE, [gee-1.0])
-AC_SUBST(GEE_CFLAGS)
-AC_SUBST(GEE_LIBS)
-
 PKG_CHECK_MODULES(DBUSGLIB, [dbus-glib-1])
 AC_SUBST(DBUSGLIB_CFLAGS)
 AC_SUBST(DBUSGLIB_LIBS)
-
-polkit_modules="polkit-agent-1"
-PKG_CHECK_MODULES(POLKIT, [$polkit_modules])
-AC_SUBST(POLKIT_CFLAGS)
-AC_SUBST(POLKIT_LIBS)
 
 PKG_CHECK_MODULES(DBUS, [dbus-1])
 AC_SUBST(DBUS_CFLAGS)
 AC_SUBST(DBUS_LIBS)
 
 AC_ARG_ENABLE(
-    [buildin-clipboard],
-    AS_HELP_STRING([--enable-buildin-clipboard],
-                   [Build with build-in clipboard support (default: no)]),
-    use_buildin_clipboard=$enableval, use_buildin_clipboard="no")
+    [gtk],
+    AS_HELP_STRING([--enable-gtk],
+                   [Build with gtk support (default: yes)]),
+    use_gtk=$enableval, use_gtk="yes")
+
+AM_CONDITIONAL(USE_GTK, test "$use_gtk" = "yes")
+
+if test "x$use_gtk" = "xno" ; then
+  enable_gtk3="no"
+  use_buildin_clipboard="no"
+  use_buildin_polkit="no"
+else
+  AC_ARG_ENABLE([gtk3],
+      AS_HELP_STRING([--enable-gtk3],
+                     [enable to use gtk-3.0 instead of gtk-2.0]),
+      enable_gtk3=$enableval, enable_gtk3="no")
+
+  if test "x$enable_gtk3" = "xyes" ; then
+    CFLAGS="$CFLAGS -DENABLE_GTK3"
+    gtk_modules="gtk+-3.0 >= 3.0.0"
+  else
+    gtk_modules="gtk+-2.0 >= 2.6.0"
+  fi
+  PKG_CHECK_MODULES(GTK, [$gtk_modules])
+  AC_SUBST(GTK_CFLAGS)
+  AC_SUBST(GTK_LIBS)
+
+  polkit_modules="polkit-agent-1"
+  PKG_CHECK_MODULES(POLKIT, [$polkit_modules])
+  AC_SUBST(POLKIT_CFLAGS)
+  AC_SUBST(POLKIT_LIBS)
+
+  AC_ARG_ENABLE(
+      [buildin-clipboard],
+      AS_HELP_STRING([--enable-buildin-clipboard],
+                     [Build with build-in clipboard support (default: no)]),
+      use_buildin_clipboard=$enableval, use_buildin_clipboard="no")
+
+  AC_ARG_ENABLE(
+      [buildin-polkit],
+      AS_HELP_STRING([--enable-buildin-polkit],
+                     [Build with build-in polkit-agent support (default: no)]),
+      use_buildin_polkit=$enableval, use_buildin_polkit="no")
+
+fi
 
 AM_CONDITIONAL(USE_BUILDIN_CLIPBOARD, test "$use_buildin_clipboard" = "yes")
-
-AC_ARG_ENABLE(
-    [buildin-polkit],
-    AS_HELP_STRING([--enable-buildin-polkit],
-                   [Build with build-in polkit-agent support (default: no)]),
-    use_buildin_polkit=$enableval, use_buildin_polkit="no")
-
 AM_CONDITIONAL(USE_BUILDIN_POLKIT, test "$use_buildin_polkit" = "yes")
 
-AM_PROG_VALAC([0.14.0])
+AM_PROG_VALAC([0.16.0])
 if test "x$VALAC" = "x"; then
-	AC_MSG_ERROR([You need Vala compiler])
+  AC_MSG_ERROR([You need Vala compiler])
 fi
 
 # debug flags
@@ -159,19 +164,8 @@ AC_CONFIG_FILES([
   Makefile
   data/Makefile
   data/ui/Makefile
-  lxclipboard/Makefile
-  lxlock/Makefile
-  lxpolkit/Makefile
-  lxsession/Makefile
-  lxsession-default/Makefile
-  lxsession-default-apps/Makefile
-  lxsession-edit/Makefile
-  lxsession-logout/Makefile
-  lxsettings-daemon/Makefile
   man/Makefile
   po/Makefile.in
-  vapi/Makefile
-  xdg-autostart/Makefile
 ])
 AC_OUTPUT
 
@@ -179,8 +173,9 @@ echo
 echo LXSession.................................... : Version $VERSION
 echo
 echo Prefix....................................... : $prefix
-echo Cliboard build-in suport..................... : $use_buildin_clipboard
-echo Polkit-agent build-in suport................. : $use_buildin_polkit
+echo GTK support.................................. : $use_gtk
+echo GTK Cliboard build-in suport................. : $use_buildin_clipboard
+echo GTK Polkit-agent build-in suport............. : $use_buildin_polkit
 echo Enable GTK3 support.......................... : $enable_gtk3
 echo Enable debug................................. : $enable_debug
 echo Man pages generation support................. : $enable_man

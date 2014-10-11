@@ -21,7 +21,6 @@
    TODO packagekit handler (GUI and stuff) ?
    TODO Use wnck for managing launching applications ?
 */
-using Gee;
 using Posix;
 
 namespace Lxsession
@@ -31,7 +30,7 @@ public class AppObject: GLib.Object
 {
 
     /* Core App Object, all other App objects should inherent from it
-       You should not do an instance of it, use GenericAppObject if you want
+       You should not do an instance of it, use SimpleAppObject if you want
        a usefull Object
     */
 
@@ -41,13 +40,22 @@ public class AppObject: GLib.Object
     public string[] command { get; set;}
     public bool guard { get; set; default = false;}
     public string application_type { get; set;}
+    public int crash_count { get; set; default = 0;}
+
+    /* Number of time the application have to crash before stoping to reload */
+    public int stop_reload { get; set; default = 5;}
 
     public AppObject()
     {
-
+        init();
     }
 
     public void launch ()
+    {
+        generic_launch (null);
+    }
+
+    public void generic_launch (string? arg1)
     {
         if (this.name != null)
         {
@@ -55,16 +63,17 @@ public class AppObject: GLib.Object
             {
                 try
                 {
+                    string[] spawn_env = Environ.get ();
                     Process.spawn_async (
-                                 null,
+                                 arg1,
                                  this.command,
-                                 null,
+                                 spawn_env,
                                  SpawnFlags.SEARCH_PATH | SpawnFlags.DO_NOT_REAP_CHILD,
                                  null,
                                  out this.pid);
                     ChildWatch.add(this.pid, callback_pid);
 
-                    GLib.stdout.printf ("Launching %s ", this.name);
+                    message ("Launching %s ", this.name);
 
                     for (int a = 0 ; a <= this.command.length ; a++)
                     {
@@ -104,8 +113,6 @@ public class AppObject: GLib.Object
     {
         message("Reloading process");
         this.stop();
-        this.read_config_settings();
-        this.read_settings();
         this.launch();
     }
 
@@ -125,7 +132,7 @@ public class AppObject: GLib.Object
         Process.close_pid (pid);
 
         if (this.guard == true)
-        { 
+        {
             switch (status)
             {
                 case 0:
@@ -138,26 +145,22 @@ public class AppObject: GLib.Object
                     message("Exit normal, don't reload");
                     break;
                 default:
-                    message("Exit not normal, reload");
-                    this.launch();
+                    message("Exit not normal, try to reload");
+                    this.crash_count = this.crash_count + 1;
+                    if (this.crash_count <= this.stop_reload)
+                    {
+                        this.launch();
+                    }
+                    else
+                    {
+                        message("Application crashed too much, stop reloading");
+                    }
                     break;
-		    }
+	        }
         }
     }
 }
 
-
-public class GenericAppObject: AppObject
-{
-
-    public GenericAppObject(AppType app_type)
-    {
-        this.name = app_type.name;
-        this.command = app_type.command;
-        this.guard = app_type.guard;
-        this.application_type = app_type.application_type;
-    }
-}   
 
 public class SimpleAppObject: AppObject
 {
@@ -170,6 +173,36 @@ public class SimpleAppObject: AppObject
         this.application_type = "";
     }
 } 
+
+public class GenericAppObject: AppObject
+{
+
+    public GenericAppObject(AppType app_type)
+    {
+        this.name = app_type.name;
+        this.command = app_type.command;
+        this.guard = app_type.guard;
+        this.application_type = app_type.application_type;
+    }
+} 
+
+public class GenericSimpleApp: SimpleAppObject
+{
+    public string settings_command { get; set; default = "";}
+
+    public GenericSimpleApp (string argument)
+    {
+        settings_command = argument;
+        init();
+    }
+
+    public override void read_settings()
+    {
+        string[] create_command = settings_command.split_set(" ",0);
+        this.name = create_command[0];
+        this.command = create_command;
+    }
+}
 
 public class WindowsManagerApp: SimpleAppObject
 {
@@ -185,19 +218,19 @@ public class WindowsManagerApp: SimpleAppObject
 
     public override void read_settings()
     {
-        if (global_settings.window_manager != null)
+        if (global_settings.get_item_string("Session", "window_manager", null) != null)
         {
             mode = "simple";
-            wm_command = global_settings.window_manager;
+            wm_command = global_settings.get_item_string("Session", "window_manager", null);
             session = "";
             extras = "";
         }
         else
         {
             mode = "advanced";
-            wm_command = global_settings.windows_manager_command;
-            session = global_settings.windows_manager_session;
-            extras = global_settings.windows_manager_extras;
+            wm_command = global_settings.get_item_string("Session", "windows_manager", "command");
+            session = global_settings.get_item_string("Session", "windows_manager", "session");
+            extras = global_settings.get_item_string("Session", "windows_manager", "extras");
         }
 
         string session_command;
@@ -271,28 +304,29 @@ public class WindowsManagerApp: SimpleAppObject
     private string find_window_manager()
     {
 
-        var wm_list = new ArrayList<string> ();
+        var wm_list = new Array<string> ();
 
-        wm_list.add("openbox-lxde");
-        wm_list.add("openbox-lubuntu");
-        wm_list.add("openbox");
-        wm_list.add("compiz");
-        wm_list.add("kwin");
-        wm_list.add("mutter");
-        wm_list.add("fluxbox");
-        wm_list.add("metacity");
-        wm_list.add("xfwin");
-        wm_list.add("matchbox");
+        wm_list.append_val("openbox-lxde");
+        wm_list.append_val("openbox-lubuntu");
+        wm_list.append_val("openbox");
+        wm_list.append_val("compiz");
+        wm_list.append_val("kwin");
+        wm_list.append_val("mutter");
+        wm_list.append_val("fluxbox");
+        wm_list.append_val("metacity");
+        wm_list.append_val("xfwin");
+        wm_list.append_val("matchbox");
 
         string return_value = "";
 
-        foreach (string i in wm_list)
+        for(int i = 0; i < wm_list.length; ++i)
         {
-            string test_wm = Environment.find_program_in_path(i);
+			unowned string wm = wm_list.index(i);
+            string test_wm = Environment.find_program_in_path(wm);
             if ( test_wm != null)
             {
-                message ("Finding %s",i);
-                return_value = i;
+                message ("Finding %s",wm);
+                return_value = wm;
                 break;
             }
         }
@@ -312,15 +346,14 @@ public class WindowsManagerApp: SimpleAppObject
         {
             this.name = "wm_safe";
             this.command = {find_window_manager()};
-            global_sig.update_window_manager("wm_safe");
+            global_settings.set_generic_default("Session", "windows_manager", "command", "string", "wm_safe");
         }
 
         Process.close_pid (pid);
 
         if (this.guard == true)
         { 
-
-		    switch (status)
+	        switch (status)
             {
                 case 0:
                     message("Exit normal, don't reload");
@@ -332,21 +365,35 @@ public class WindowsManagerApp: SimpleAppObject
                     message("Exit normal, don't reload");
                     break;
                 default:
-                    message("Exit not normal, reload");
-                    this.launch();
+                    message("Exit not normal, try to reload");
+                    this.crash_count = this.crash_count + 1;
+                    if (this.crash_count <= this.stop_reload)
+                    {
+                        this.launch();
+                    }
+                    else
+                    {
+                        message("Application crashed too much, stop reloading");
+                    }
                     break;
-		    }
+	        }
         }
     }
 
-    public new void launch () {
+    public new void launch ()
+    {
+        this.read_config_settings();
+        this.read_settings();
+
         if (this.name != null)
         {
-            try {
+            try
+            {
+                string[] spawn_env = Environ.get ();
                 Process.spawn_async (
                              null,
                              this.command,
-                             null,
+                             spawn_env,
                              SpawnFlags.SEARCH_PATH | SpawnFlags.DO_NOT_REAP_CHILD,
                              null,
                              out pid);
@@ -359,7 +406,8 @@ public class WindowsManagerApp: SimpleAppObject
                 GLib.stdout.printf("\n");
 
             }
-            catch (SpawnError err){
+            catch (SpawnError err)
+            {
                 warning (err.message);
             }
         }
@@ -379,8 +427,10 @@ public class PanelApp: SimpleAppObject
 
     public override void read_config_settings()
     {
-        panel_command = global_settings.panel_command;
-        panel_session = global_settings.panel_session;
+        panel_command = global_settings.get_item_string("Session", "panel", "command");
+        // message("DEBUG6 : %s", global_settings.get_item_string("Session", "panel", "command"));
+        panel_session = global_settings.get_item_string("Session", "panel", "session");
+        // message("DEBUG6 : %s", global_settings.get_item_string("Session", "panel", "session"));
     }
 
     public override void read_settings()
@@ -423,8 +473,8 @@ public class DockApp: PanelApp
 
     public override void read_config_settings()
     {
-        panel_command = global_settings.dock_command;
-        panel_session = global_settings.dock_session;
+        panel_command = global_settings.get_item_string("Session", "dock", "command");
+        panel_session = global_settings.get_item_string("Session", "dock", "session");
     }
 }
 
@@ -439,7 +489,7 @@ public class ScreensaverApp: SimpleAppObject
 
     public override void read_settings()
     {
-        screensaver_command = global_settings.screensaver_command;
+        screensaver_command = global_settings.get_item_string("Session", "screensaver", "command");
 
         switch (screensaver_command) 
         {
@@ -470,8 +520,8 @@ public class PowerManagerApp: SimpleAppObject
 
     public override void read_settings()
     {
-        powermanager_command = global_settings.power_manager_command;
-        laptop_mode = global_settings.laptop_mode;
+        powermanager_command = global_settings.get_item_string("Session", "power_manager", "command");
+        laptop_mode = global_settings.get_item_string("State", "laptop_mode", null);
 
         switch (powermanager_command) 
         {
@@ -512,9 +562,9 @@ public class FileManagerApp: SimpleAppObject
 
     public override void read_settings()
     {
-        filemanager_command = global_settings.file_manager_command;
-        filemanager_session = global_settings.file_manager_session;
-        filemanager_extras = global_settings.file_manager_extras;
+        filemanager_command = global_settings.get_item_string("Session", "file_manager", "command");
+        filemanager_session = global_settings.get_item_string("Session", "file_manager", "session");
+        filemanager_extras = global_settings.get_item_string("Session", "file_manager", "extras");
 
         switch (filemanager_command) 
         {
@@ -569,14 +619,14 @@ public class DesktopApp: SimpleAppObject
     public override void read_settings()
     {
 
-        desktop_command = global_settings.desktop_command;
-        desktop_wallpaper = global_settings.desktop_wallpaper;   
+        desktop_command = global_settings.get_item_string("Session", "desktop_manager", "command");
+        desktop_wallpaper = global_settings.get_item_string("Session", "desktop_manager", "wallpaper");   
 
         switch (desktop_command) 
         {
             case "filemanager":
-                string filemanager_session = global_settings.file_manager_session;
-                string filemanager_extras = global_settings.file_manager_extras;
+                string filemanager_session = global_settings.get_item_string("Session", "file_manager", "session");
+                string filemanager_extras = global_settings.get_item_string("Session", "file_manager", "extras");
 
                 if (global_file_manager != null)
                 {
@@ -585,20 +635,20 @@ public class DesktopApp: SimpleAppObject
                     global_file_manager = filemanager;
                 }
 
-                switch (global_settings.file_manager_command)
+                switch (global_settings.get_item_string("Session", "file_manager", "command"))
                 {
                     case "pcmanfm":
-                        this.name = global_settings.file_manager_command;
+                        this.name = global_settings.get_item_string("Session", "file_manager", "command");
                         string create_command = "pcmanfm --desktop --profile " + filemanager_session + filemanager_extras;
                         this.command = create_command.split_set(" ",0);
                         break;
                     case "pcmanfm-qt":
-                        this.name = global_settings.file_manager_command;
+                        this.name = global_settings.get_item_string("Session", "file_manager", "command");
                         string create_command = "pcmanfm-qt --desktop --profile " + filemanager_session + filemanager_extras;
                         this.command = create_command.split_set(" ",0);
                         break;
                     case "nautilus":
-                        this.name = global_settings.file_manager_command;
+                        this.name = global_settings.get_item_string("Session", "file_manager", "command");
                         string create_command = "nautilus" + " -n " + filemanager_extras;
                         this.command = create_command.split_set(" ",0);
                         break;
@@ -617,6 +667,25 @@ public class DesktopApp: SimpleAppObject
         }
         this.guard = true;
     }
+
+    public void launch_settings()
+    {
+        string[] backup_command = this.command;
+
+        switch (this.name)
+        {
+            case "pcmanfm":
+                string create_settings_command = "pcmanfm --desktop-pref";
+                this.command = create_settings_command.split_set(" ",0);
+                break;
+
+            default:
+                break;
+        }
+        this.launch();
+        this.command = backup_command;
+    }
+
 }
 
 public class PolkitApp: SimpleAppObject
@@ -630,7 +699,7 @@ public class PolkitApp: SimpleAppObject
 
     public override void read_settings()
     {
-        polkit_command = global_settings.polkit_command;
+        polkit_command = global_settings.get_item_string("Session", "polkit", "command");
 
         switch (polkit_command) 
         {
@@ -645,18 +714,22 @@ public class PolkitApp: SimpleAppObject
                 this.command = create_command.split_set(" ",0);
                 break;
             case "lxpolkit":
-#if BUILDIN_POLKIT
-                policykit_agent_init();
-#else
+                message("polkit separate");
                 this.name = "lxpolkit";
                 string create_command = "lxpolkit";
                 this.command = create_command.split_set(" ",0);
-#endif
                 break;
         }
         this.guard = true;
 
     }
+
+#if BUILDIN_POLKIT
+    public new void launch ()
+    {
+        policykit_agent_init();
+    }
+#endif
 
     public void deactivate ()
     {
@@ -678,8 +751,8 @@ public class NetworkGuiApp: SimpleAppObject
 
     public override void read_settings()
     {
-        network_command = global_settings.network_gui_command;
-        laptop_mode = global_settings.laptop_mode;
+        network_command = global_settings.get_item_string("Session", "network_gui", "command");
+        laptop_mode = global_settings.get_item_string("State", "laptop_mode", null);
 
         switch (network_command)
         {
@@ -733,7 +806,7 @@ public class AudioManagerApp: SimpleAppObject
 
     public override void read_settings()
     {
-        audiomanager_command = global_settings.audio_manager_command;
+        audiomanager_command = global_settings.get_item_string("Session", "audio_manager", "command");
 
         switch (audiomanager_command)
         {
@@ -765,9 +838,9 @@ public class QuitManagerApp: SimpleAppObject
 
     public override void read_settings()
     {
-        quitmanager_command = global_settings.quit_manager_command;
-        quitmanager_image = global_settings.quit_manager_image;
-        quitmanager_layout = global_settings.quit_manager_layout;
+        quitmanager_command = global_settings.get_item_string("Session", "quit_manager", "command");
+        quitmanager_image = global_settings.get_item_string("Session", "quit_manager", "image");
+        quitmanager_layout = global_settings.get_item_string("Session", "quit_manager", "layout");
 
         switch (quitmanager_command)
         {
@@ -796,7 +869,7 @@ public class WorkspaceManagerApp: SimpleAppObject
 
     public override void read_settings()
     {
-        workspacemanager_command = global_settings.workspace_manager_command;
+        workspacemanager_command = global_settings.get_item_string("Session", "workspace_manager", "command");
 
         switch (workspacemanager_command)
         {
@@ -825,7 +898,7 @@ public class LauncherManagerApp: SimpleAppObject
 
     public override void read_settings()
     {
-        launchermanager_command = global_settings.launcher_manager_command;
+        launchermanager_command = global_settings.get_item_string("Session", "launcher_manager", "command");
 
         switch (launchermanager_command)
         {
@@ -848,14 +921,7 @@ public class LauncherManagerApp: SimpleAppObject
         {
             case "synapse":
                 string create_autostart_command = "synapse --startup";
-                try
-                {
-                    Process.spawn_command_line_async(create_autostart_command);
-                }
-                catch (SpawnError err)
-                {
-                    warning (err.message);
-                }
+                lxsession_spawn_command_line_async(create_autostart_command);
                 break;
             default:
                 this.launch();
@@ -873,10 +939,13 @@ public class TerminalManagerApp: SimpleAppObject
         init();
     }
 
+    public override void read_config_settings()
+    {
+        terminalmanager_command = global_settings.get_item_string("Session", "terminal_manager", "command");
+    }
+
     public override void read_settings()
     {
-        terminalmanager_command = global_settings.terminal_manager_command;
-
         switch (terminalmanager_command)
         {
             case "lxterminal":
@@ -891,25 +960,82 @@ public class TerminalManagerApp: SimpleAppObject
                 break;
         }
     }
+
+    public new void launch (string argument)
+    {
+        if (argument == "")
+        {
+            argument = null;
+        }
+
+        generic_launch (argument);
+    }
 }
 
-public class CompositeManagerApp: SimpleAppObject
+public class ProxyManagerApp: SimpleAppObject
 {
-    string compositemanager_command;
+    string proxymanager_command;
+    string proxymanager_http;
 
-    public CompositeManagerApp ()
+    public ProxyManagerApp ()
     {
         init();
     }
 
     public override void read_settings()
     {
-        compositemanager_command = global_settings.composite_manager_command;
+        proxymanager_command = global_settings.get_item_string("Session", "proxy_manager", "command");
+        proxymanager_http = global_settings.get_item_string("Session", "proxy_manager", "http");
 
-        switch (compositemanager_command)
+        switch (proxymanager_command)
         {
+            case "build-in":
+                switch (proxymanager_http)
+                {
+                    case null:
+                        break;
+                    case "":
+                        break;
+                    case " ":
+                        break;
+                    default:
+                    Environment.set_variable("HTTP_PROXY", proxymanager_http, true);
+                    break;
+                }
+                break;
+        }
+    }
+}
+
+public class A11yApp: SimpleAppObject
+{
+    string a11y_command;
+
+    public A11yApp ()
+    {
+        init();
+    }
+
+    public override void read_settings()
+    {
+        a11y_command = global_settings.get_item_string("Session", "a11y", "command");
+
+        switch (a11y_command)
+        {
+            case null:
+                break;
+            case "":
+                break;
+            case " ":
+                break;
+            case "gnome":
+                string tmp_command = "/usr/lib/at-spi2-core/at-spi-bus-launcher --launch-immediately";
+                string[] create_command = tmp_command.split_set(" ",0);
+                this.name = create_command[0];
+                this.command = create_command;
+                break;
             default:
-                string[] create_command = compositemanager_command.split_set(" ",0);
+                string[] create_command = a11y_command.split_set(" ",0);
                 this.name = create_command[0];
                 this.command = create_command;
                 break;
@@ -917,21 +1043,32 @@ public class CompositeManagerApp: SimpleAppObject
     }
 }
 
-public class IMApp: SimpleAppObject
+public class XrandrApp: SimpleAppObject
 {
-    public string im_command;
+    /*  Don't use GenericApp, we may want to implement other option than
+        reading a xrandr command directly
+    */
+    string xrandr_command;
 
-    public IMApp ()
+    public XrandrApp ()
     {
         init();
     }
 
     public override void read_settings()
     {
-        switch (im_command)
+        xrandr_command = global_settings.get_item_string("Session", "xrandr", "command");
+
+        switch (xrandr_command)
         {
+            case null:
+                break;
+            case "":
+                break;
+            case " ":
+                break;
             default:
-                string[] create_command = im_command.split_set(" ",0);
+                string[] create_command = xrandr_command.split_set(" ",0);
                 this.name = create_command[0];
                 this.command = create_command;
                 break;
@@ -939,52 +1076,37 @@ public class IMApp: SimpleAppObject
     }
 }
 
-public class IM1App: IMApp
+public class KeyringApp: SimpleAppObject
 {
-    public IM1App ()
+    string keyring_command;
+    string keyring_type;
+
+    public KeyringApp ()
     {
         init();
-    }
-
-    public override void read_config_settings()
-    {
-        im_command = global_settings.im1_command;
-    }
-}
-
-public class IM2App: IMApp
-{
-    public IM2App ()
-    {
-        init();
-    }
-
-    public override void read_config_settings()
-    {
-        im_command = global_settings.im2_command;
-    }
-}
-
-public class WidgetApp: SimpleAppObject
-{
-    public string widget_command;
-
-    public WidgetApp ()
-    {
-        init();
-    }
-
-    public override void read_config_settings()
-    {
-        widget_command = global_settings.widget1_command;
     }
 
     public override void read_settings()
     {
-        switch (widget_command)
+        keyring_command = global_settings.get_item_string("Session", "keyring", "command");
+        keyring_type = global_settings.get_item_string("Session", "keyring", "type");
+
+        switch (keyring_command)
         {
+            case "gnome-all":
+                string tmp_command = "gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg";
+                string[] create_command = tmp_command.split_set(" ",0);
+                this.name = create_command[0];
+                this.command = create_command;
+                break;
+            case "ssh-agent":
+                string tmp_command = "/usr/bin/ssh-agent -s";
+                string[] create_command = tmp_command.split_set(" ",0);
+                this.name = create_command[0];
+                this.command = create_command;
+                break;
             default:
-                string[] create_command = widget_command.split_set(" ",0);
+                string[] create_command = keyring_command.split_set(" ",0);
                 this.name = create_command[0];
                 this.command = create_command;
                 break;
@@ -1003,7 +1125,7 @@ public class ScreenshotManagerApp: SimpleAppObject
 
     public override void read_settings()
     {
-        screenshotmanager_command = global_settings.screenshot_manager_command;
+        screenshotmanager_command = global_settings.get_item_string("Session", "screenshot_manager", "command");
 
         switch (screenshotmanager_command)
         {
@@ -1014,11 +1136,14 @@ public class ScreenshotManagerApp: SimpleAppObject
                 break;
         }
     }
+
     public void window_launch()
     {
+        read_settings();
+
         string[] backup_command = this.command;
 
-        switch (this.name)
+        switch (screenshotmanager_command)
         {
             case "scrot":
                 string create_window_command = "scrot -u -b";
@@ -1028,31 +1153,102 @@ public class ScreenshotManagerApp: SimpleAppObject
             default:
                 break;
         }
+
         this.launch();
         this.command = backup_command;
     }
 }
 
-public class UpgradeManagerApp: SimpleAppObject
+public class UpdatesManagerApp: SimpleAppObject
 {
-    string upgrademanager_command;
+    string updatesmanager_command;
 
-    public UpgradeManagerApp ()
+    public UpdatesManagerApp ()
     {
         init();
     }
 
     public override void read_settings()
     {
-        upgrademanager_command = global_settings.upgrade_manager_command;
+        updatesmanager_command = global_settings.get_item_string("Session", "updates_manager", "command");
 
-        switch (upgrademanager_command)
+        switch (updatesmanager_command)
         {
+            case null:
+                break;
+            case "":
+                break;
+            case " ":
+                break;
+            case "build-in":
+                setup_apt_config ();
+                break;
             default:
-                string[] create_command = upgrademanager_command.split_set(" ",0);
+                string[] create_command = updatesmanager_command.split_set(" ",0);
                 this.name = create_command[0];
                 this.command = create_command;
                 break;
+        }
+    }
+
+    public void on_apt_update_file_change ()
+    {
+        /* Launch something that check if updates are available */
+        /* For now, use apt-check from update-notifier */
+
+        string command = "/usr/bin/nice" + " " + "/usr/bin/ionice" + " " + "-c3" + " " + "/usr/lib/update-notifier/apt-check";
+        string[] create_command = command.split_set(" ",0);
+        string standard_output = "";
+        string standard_error = "";
+        string[] updates_num;
+        int exit_status;
+
+        try {
+            string[] spawn_env = Environ.get ();
+            Process.spawn_sync (
+                        null,
+                        create_command,
+                        spawn_env,
+                        SpawnFlags.STDOUT_TO_DEV_NULL,
+                        null, 
+                        out standard_output,
+                        out standard_error,
+                        out exit_status);
+
+            message ("Launching %s", command);
+            message ("Update state: %s", standard_error);
+            message ("Update exit status: %i", exit_status);
+
+        }
+        catch (SpawnError err)
+        {
+            warning (err.message);
+        }
+
+        if (standard_error != "")
+        {
+            updates_num = standard_error.split_set(";",2);
+            message ("Number of upgrades: %s", updates_num[0]);
+            message ("Number of security upgrades: %s", updates_num[1]);
+        }
+    }
+
+    public void setup_apt_config ()
+    {
+        try
+        {
+            string apt_update_path = "/var/lib/apt/periodic/update-success-stamp";
+            GLib.File apt_update_file ;
+            GLib.FileMonitor apt_update_monitor ;
+
+            apt_update_file = File.new_for_path(apt_update_path);
+            apt_update_monitor = apt_update_file.monitor_file(GLib.FileMonitorFlags.NONE);
+            apt_update_monitor.changed.connect(on_apt_update_file_change);
+            message ("Monitoring apt changes");
+        }
+        catch (GLib.Error err)
+        {
+            message (err.message);
         }
     }
 }

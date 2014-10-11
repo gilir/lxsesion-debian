@@ -21,41 +21,32 @@
 
 #include <glib.h>
 
-/* Interface to logind for shutdown, reboot, suspend and hibernate. */
-extern gboolean dbus_logind_CanPowerOff(void);
-extern gboolean dbus_logind_CanReboot(void);
-extern gboolean dbus_logind_CanSuspend(void);
-extern gboolean dbus_logind_CanHibernate(void);
-extern char * dbus_logind_PowerOff(void);
-extern char * dbus_logind_Reboot(void);
-extern char * dbus_logind_Suspend(void);
-extern char * dbus_logind_Hibernate(void);
-
 /* Interface to ConsoleKit for shutdown and reboot. */
 extern gboolean dbus_ConsoleKit_CanStop(void);
 extern gboolean dbus_ConsoleKit_CanRestart(void);
-extern char * dbus_ConsoleKit_Stop(void);
-extern char * dbus_ConsoleKit_Restart(void);
+extern gboolean dbus_ConsoleKit_Stop(GError **);
+extern gboolean dbus_ConsoleKit_Restart(GError **);
 
 /* Interface to UPower for suspend and hibernate. */
 extern gboolean dbus_UPower_CanSuspend(void);
 extern gboolean dbus_UPower_CanHibernate(void);
-extern char * dbus_UPower_Suspend(void);
-extern char * dbus_UPower_Hibernate(void);
+extern gboolean dbus_UPower_Suspend(GError **);
+extern gboolean dbus_UPower_Hibernate(GError **);
 
-/* Interface to HAL for shutdown, reboot, suspend, and hibernate.
- * HAL is being replaced by the above two mechanisms; this support is legacy. */
-extern gboolean dbus_HAL_CanShutdown(void);
-extern gboolean dbus_HAL_CanReboot(void);
-extern gboolean dbus_HAL_CanSuspend(void);
-extern gboolean dbus_HAL_CanHibernate(void);
-extern char * dbus_HAL_Shutdown(void);
-extern char * dbus_HAL_Reboot(void);
-extern char * dbus_HAL_Suspend(void);
-extern char * dbus_HAL_Hibernate(void);
+/* Interface to systemd for suspend, hibernate, shutdown and reboot. */
+extern gboolean dbus_systemd_CanPowerOff(void);
+extern gboolean dbus_systemd_CanReboot(void);
+extern gboolean dbus_systemd_CanSuspend(void);
+extern gboolean dbus_systemd_CanHibernate(void);
+extern void dbus_systemd_PowerOff(GError **);
+extern void dbus_systemd_Reboot(GError **);
+extern void dbus_systemd_Suspend(GError **);
+extern void dbus_systemd_Hibernate(GError **);
 
-extern char * dbus_LXDE_Logout(void);
+/* Interface to lightdm for switch user. */
+extern gboolean dbus_Lightdm_SwitchToGreeter (GError **error);
 
-extern char * dbus_Lightdm_SwitchToGreeter();
+/* Interface to lxde for logout. */
+extern gboolean dbus_LXDE_Logout (GError **error);
 
 #endif
