@@ -1,6 +1,11 @@
 man_MANS = \
 	lxsession.1 \
-	lxsession-logout.1
+	lxsession-logout.1 \
+	lxclipboard.1 \
+	lxlock.1 \
+	lxsession-default.1 \
+	lxsession-default-terminal.1 \
+	lxsession-default-apps.1
 
 man_XMANS = \
 	lxsession.xml \
@@ -19,7 +24,8 @@ lxsession.1: lxsession.xml
 lxsession-logout.1: lxsession-logout.xml
 	$(XSLTPROC) -nonet http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl $<        
 
-CLEANFILES = $(man_MANS) 
+CLEANFILES = lxsession.1 \
+	lxsession-logout.1
 else
 
 $(man_MANS):

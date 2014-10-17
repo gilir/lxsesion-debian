@@ -77,15 +77,16 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 subdir = data
-DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am
+DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
+	$(srcdir)/lxpolkit.desktop.in.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/intltool.m4 \
-	$(top_srcdir)/acinclude.m4 $(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
-CONFIG_CLEAN_FILES =
+CONFIG_CLEAN_FILES = lxpolkit.desktop.in
 CONFIG_CLEAN_VPATH_FILES =
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -141,8 +142,9 @@ am__uninstall_files_from_dir = { \
     || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
-am__installdirs = "$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(imagedir)"
-DATA = $(desktop_DATA) $(image_DATA)
+am__installdirs = "$(DESTDIR)$(autostartdir)" \
+	"$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(imagedir)"
+DATA = $(autostart_DATA) $(desktop_DATA) $(image_DATA)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 am__recursive_targets = \
@@ -236,6 +238,7 @@ GMSGFMT = @GMSGFMT@
 GREP = @GREP@
 GTK_CFLAGS = @GTK_CFLAGS@
 GTK_LIBS = @GTK_LIBS@
+HIDE_LXPOLKIT_AUTOSTART = @HIDE_LXPOLKIT_AUTOSTART@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -347,9 +350,13 @@ desktop_in_files = \
 	$(NULL)
 
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+autostartdir = $(sysconfdir)/xdg/autostart
+autostart_in_files = lxpolkit.desktop.in
+autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
 DISTCLEANFILES = \
 	lxsession-default-apps.desktop \
 	lxsession-edit.desktop \
+	lxpolkit.desktop \
 	$(NULL)
 
 imagedir = $(datadir)/lxsession/images
@@ -366,6 +373,8 @@ EXTRA_DIST = \
 	conffiles.conf.example \
 	$(desktop_DATA) \
 	$(desktop_in_files) \
+	$(autostart_DATA) \
+	$(autostart_in_files) \
 	$(image_DATA) \
 	$(NULL)
 
@@ -402,6 +411,29 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
+lxpolkit.desktop.in: $(top_builddir)/config.status $(srcdir)/lxpolkit.desktop.in.in
+	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
+install-autostartDATA: $(autostart_DATA)
+	@$(NORMAL_INSTALL)
+	@list='$(autostart_DATA)'; test -n "$(autostartdir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(autostartdir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(autostartdir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(autostartdir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(autostartdir)" || exit $$?; \
+	done
+
+uninstall-autostartDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(autostart_DATA)'; test -n "$(autostartdir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(autostartdir)'; $(am__uninstall_files_from_dir)
 install-desktopDATA: $(desktop_DATA)
 	@$(NORMAL_INSTALL)
 	@list='$(desktop_DATA)'; test -n "$(desktopdir)" || list=; \
@@ -604,7 +636,7 @@ check: check-recursive
 all-am: Makefile $(DATA)
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(imagedir)"; do \
+	for dir in "$(DESTDIR)$(autostartdir)" "$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(imagedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -658,7 +690,8 @@ info: info-recursive
 
 info-am:
 
-install-data-am: install-desktopDATA install-imageDATA
+install-data-am: install-autostartDATA install-desktopDATA \
+	install-imageDATA
 
 install-dvi: install-dvi-recursive
 
@@ -702,22 +735,24 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-desktopDATA uninstall-imageDATA
+uninstall-am: uninstall-autostartDATA uninstall-desktopDATA \
+	uninstall-imageDATA
 
 .MAKE: $(am__recursive_targets) install-am install-strip
 
 .PHONY: $(am__recursive_targets) CTAGS GTAGS TAGS all all-am check \
 	check-am clean clean-generic cscopelist-am ctags ctags-am \
 	distclean distclean-generic distclean-tags distdir dvi dvi-am \
-	html html-am info info-am install install-am install-data \
-	install-data-am install-desktopDATA install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-imageDATA install-info install-info-am install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	installdirs-am maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-generic pdf pdf-am ps ps-am tags \
-	tags-am uninstall uninstall-am uninstall-desktopDATA \
+	html html-am info info-am install install-am \
+	install-autostartDATA install-data install-data-am \
+	install-desktopDATA install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-imageDATA \
+	install-info install-info-am install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs installdirs-am \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-generic pdf pdf-am ps ps-am tags tags-am uninstall \
+	uninstall-am uninstall-autostartDATA uninstall-desktopDATA \
 	uninstall-imageDATA
 
 @INTLTOOL_DESKTOP_RULE@

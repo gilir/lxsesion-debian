@@ -112,17 +112,18 @@ DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	lxsession/environement.c lxsession/options.c \
 	lxsession/process.c lxsession/settings.c lxsession/utils.c \
 	lxsettings-daemon/main.c xdg-autostart/main.c depcomp \
-	$(srcdir)/lxsession_lxsession_vala.stamp \
-	$(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp \
-	$(srcdir)/xdg_autostart_lxsession_xdg_autostart_vala.stamp \
-	$(srcdir)/lxsession_db_lxsession_db_vala.stamp \
 	$(srcdir)/lxclipboard_lxclipboard_vala.stamp \
+	$(srcdir)/lxsession_db_lxsession_db_vala.stamp \
+	$(srcdir)/lxsession_lxsession_vala.stamp \
+	$(srcdir)/lxpolkit_lxpolkit_vala.stamp \
 	$(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp \
-	$(srcdir)/lxpolkit_lxpolkit_vala.stamp AUTHORS COPYING \
-	ChangeLog NEWS README TODO compile install-sh missing
+	$(srcdir)/xdg_autostart_lxsession_xdg_autostart_vala.stamp \
+	$(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp \
+	AUTHORS COPYING ChangeLog NEWS README TODO compile install-sh \
+	missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/intltool.m4 \
-	$(top_srcdir)/acinclude.m4 $(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
@@ -529,6 +530,7 @@ GMSGFMT = @GMSGFMT@
 GREP = @GREP@
 GTK_CFLAGS = @GTK_CFLAGS@
 GTK_LIBS = @GTK_LIBS@
+HIDE_LXPOLKIT_AUTOSTART = @HIDE_LXPOLKIT_AUTOSTART@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -2055,6 +2057,29 @@ xdg-autostart/xdg_autostart_lxsession_xdg_autostart-xdg-autostart.obj: xdg-autos
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='xdg-autostart/xdg-autostart.c' object='xdg-autostart/xdg_autostart_lxsession_xdg_autostart-xdg-autostart.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xdg_autostart_lxsession_xdg_autostart_CFLAGS) $(CFLAGS) -c -o xdg-autostart/xdg_autostart_lxsession_xdg_autostart-xdg-autostart.obj `if test -f 'xdg-autostart/xdg-autostart.c'; then $(CYGPATH_W) 'xdg-autostart/xdg-autostart.c'; else $(CYGPATH_W) '$(srcdir)/xdg-autostart/xdg-autostart.c'; fi`
+$(srcdir)/lxclipboard/main.c: $(srcdir)/lxclipboard_lxclipboard_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/lxclipboard_lxclipboard_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxclipboard_lxclipboard_vala.stamp; \
+	fi
+$(srcdir)/lxclipboard_lxclipboard_vala.stamp: lxclipboard/main.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxclipboard_lxclipboard_VALAFLAGS) $(VALAFLAGS) -C lxclipboard/main.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/lxsession-db/main.c: $(srcdir)/lxsession_db_lxsession_db_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_db_lxsession_db_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_db_lxsession_db_vala.stamp; \
+	fi
+$(srcdir)/lxsession-db/desktop-files-backend.c: $(srcdir)/lxsession_db_lxsession_db_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_db_lxsession_db_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_db_lxsession_db_vala.stamp; \
+	fi
+$(srcdir)/lxsession_db_lxsession_db_vala.stamp: lxsession-db/main.vala lxsession-db/desktop-files-backend.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxsession_db_lxsession_db_VALAFLAGS) $(VALAFLAGS) -C lxsession-db/main.vala lxsession-db/desktop-files-backend.vala
+	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/lxsession/main.c: $(srcdir)/lxsession_lxsession_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_lxsession_vala.stamp; fi
 	@if test -f $@; then :; else \
@@ -2124,6 +2149,33 @@ $(srcdir)/lxsession_lxsession_vala.stamp: lxsession/main.vala lxsession/app.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxsession_lxsession_VALAFLAGS) $(VALAFLAGS) -C lxsession/main.vala lxsession/app.vala lxsession/autostart.vala lxsession/conffiles.vala lxsession/control.vala lxsession/dbus-common.vala lxsession/dbus-gnome-session.vala lxsession/dbus-lxde-session.vala lxsession/environement.vala lxsession/options.vala lxsession/process.vala lxsession/settings.vala lxsession/utils.vala
 	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/lxpolkit/main.c: $(srcdir)/lxpolkit_lxpolkit_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/lxpolkit_lxpolkit_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxpolkit_lxpolkit_vala.stamp; \
+	fi
+$(srcdir)/lxpolkit_lxpolkit_vala.stamp: lxpolkit/main.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxpolkit_lxpolkit_VALAFLAGS) $(VALAFLAGS) -C lxpolkit/main.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/lxsettings-daemon/main.c: $(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp; \
+	fi
+$(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp: lxsettings-daemon/main.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxsettings_daemon_lxsettings_daemon_VALAFLAGS) $(VALAFLAGS) -C lxsettings-daemon/main.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/xdg-autostart/main.c: $(srcdir)/xdg_autostart_lxsession_xdg_autostart_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/xdg_autostart_lxsession_xdg_autostart_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/xdg_autostart_lxsession_xdg_autostart_vala.stamp; \
+	fi
+$(srcdir)/xdg_autostart_lxsession_xdg_autostart_vala.stamp: xdg-autostart/main.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(xdg_autostart_lxsession_xdg_autostart_VALAFLAGS) $(VALAFLAGS) -C xdg-autostart/main.vala
+	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/lxsession-default-apps/autostart.c: $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; fi
 	@if test -f $@; then :; else \
@@ -2152,56 +2204,6 @@ $(srcdir)/lxsession-default-apps/utils.c: $(srcdir)/lxsession_default_apps_lxses
 $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp: lxsession-default-apps/autostart.vala lxsession-default-apps/main.vala lxsession-default-apps/combobox.vala lxsession-default-apps/dbus-backend.vala lxsession-default-apps/utils.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxsession_default_apps_lxsession_default_apps_VALAFLAGS) $(VALAFLAGS) -C lxsession-default-apps/autostart.vala lxsession-default-apps/main.vala lxsession-default-apps/combobox.vala lxsession-default-apps/dbus-backend.vala lxsession-default-apps/utils.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/xdg-autostart/main.c: $(srcdir)/xdg_autostart_lxsession_xdg_autostart_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/xdg_autostart_lxsession_xdg_autostart_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/xdg_autostart_lxsession_xdg_autostart_vala.stamp; \
-	fi
-$(srcdir)/xdg_autostart_lxsession_xdg_autostart_vala.stamp: xdg-autostart/main.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(xdg_autostart_lxsession_xdg_autostart_VALAFLAGS) $(VALAFLAGS) -C xdg-autostart/main.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/lxsession-db/main.c: $(srcdir)/lxsession_db_lxsession_db_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_db_lxsession_db_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_db_lxsession_db_vala.stamp; \
-	fi
-$(srcdir)/lxsession-db/desktop-files-backend.c: $(srcdir)/lxsession_db_lxsession_db_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_db_lxsession_db_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_db_lxsession_db_vala.stamp; \
-	fi
-$(srcdir)/lxsession_db_lxsession_db_vala.stamp: lxsession-db/main.vala lxsession-db/desktop-files-backend.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxsession_db_lxsession_db_VALAFLAGS) $(VALAFLAGS) -C lxsession-db/main.vala lxsession-db/desktop-files-backend.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/lxclipboard/main.c: $(srcdir)/lxclipboard_lxclipboard_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/lxclipboard_lxclipboard_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxclipboard_lxclipboard_vala.stamp; \
-	fi
-$(srcdir)/lxclipboard_lxclipboard_vala.stamp: lxclipboard/main.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxclipboard_lxclipboard_VALAFLAGS) $(VALAFLAGS) -C lxclipboard/main.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/lxsettings-daemon/main.c: $(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp; \
-	fi
-$(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp: lxsettings-daemon/main.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxsettings_daemon_lxsettings_daemon_VALAFLAGS) $(VALAFLAGS) -C lxsettings-daemon/main.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/lxpolkit/main.c: $(srcdir)/lxpolkit_lxpolkit_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/lxpolkit_lxpolkit_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxpolkit_lxpolkit_vala.stamp; \
-	fi
-$(srcdir)/lxpolkit_lxpolkit_vala.stamp: lxpolkit/main.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxpolkit_lxpolkit_VALAFLAGS) $(VALAFLAGS) -C lxpolkit/main.vala
 	$(AM_V_at)mv -f $@-t $@
 
 # This directory's subdirectories are mostly independent; you can cd
