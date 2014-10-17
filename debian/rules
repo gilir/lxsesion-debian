@@ -6,6 +6,9 @@
 override_dh_auto_configure:
 	dh_auto_configure -- --enable-buildin-clipboard --disable-silent-rules
 
+override_dh_install:
+	dh_install --fail-missing
+
 override_dh_strip:
 	dh_strip -plxsession --dbg-package=lxsession-dbg
 	dh_strip -plxsession-edit --dbg-package=lxsession-edit-dbg
