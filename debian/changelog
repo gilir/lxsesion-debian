@@ -1,3 +1,53 @@
+lxsession (0.5.1-1) unstable; urgency=medium
+
+  [ Andriy Grytsenko ]
+  * Adding --disable-silent-rules to fix buildlog checker warning.
+  * Bump Standards-Version to 3.9.5.
+  * Removing Daniel Baumann from Uploaders by his request (Closes: #704347).
+  * Updating watch file to support XZ tarball format and non-numeric versions.
+
+  [ Mateusz Łukasik ]
+  * Remove valac-0.14 from build depends. (Closes: #739166)
+  * Add lsb-release to depends. (Closes: #719614, #731865)
+
+  [ Andriy Grytsenko ]
+  * Merging upstream version 0.5.0:
+    - Fixed too big CPU consumption (Closes: #721466).
+    - Fixed working of reboot and shutdown (Closes: #731489).
+    - Removed easily circumvented dm-tool lock usage (Closes: #740163).
+    - Fixed duplicated network-manager-gnome autostart (Closes: #746193).
+    - Increased dbus timeout for password query (Closes: #756005).
+  * Removing 03-libx11-linking.patch, issue is fixed by upstream.
+  * Splitting lxsession package: new packages are lxpolkit, lxsession-data,
+    lxsession-edit, lxsession-logout.
+  * Adding relations with lxsession-default-apps (for Ubuntu compatibility).
+  * Adding Provides: policykit-1-gnome for lxpolkit and lxsession since they
+    provide that functionality.
+  * Adding versioned dependency on upower (<< 0.99) (Closes: #752423).
+  * Adding variant dependency systemd [linux-any] for lxsession-logout
+    (Closes: #764305).
+  * Removing build dependency on libgee-dev (Closes: #753875).
+  * Enabling parallel build (pass --parallel to dh).
+  * Removing override_dh_auto_test target, issue was fixed by upstream.
+  * Removing obsolete target override_dh_builddeb from debian/rules file.
+  * Removing build dependencies to build C code from VALA and man from XML,
+    original tarball contains all code ready.
+  * Adding myself to uploaders.
+  * Bump Standards-Version to 3.9.6.
+  * Updating debian/copyright file.
+  * Adding a lintian override against word 'desactivate' used in button name.
+  * Merging upstream version 0.5.1.
+  * Adding etc/xdg/autostart/lxpolkit.desktop into lxpolkit package.
+  * Adding manpages provided by upstream to lxsession package.
+  * Removing lintian override for lxlock, it has a man page now.
+  * Removing --enable-buildin-polkit option from configure, it doesn't work
+    currently.
+  * Adding --fail-missing option to dh_install.
+  * Adding lintian override against debian-watch-may-check-gpg-signature.
+  * Adding 01-no-dup-polkit.patch to avoid duplicate lxpolkit invocation.
+
+ -- Andriy Grytsenko <andrej@rep.kiev.ua>  Fri, 17 Oct 2014 23:52:40 +0300
+
 lxsession (0.4.9.2-1) unstable; urgency=low
 
   [ Andrew Lee (李健秋) ]
