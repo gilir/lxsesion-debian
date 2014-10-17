@@ -4,8 +4,7 @@
 	dh ${@} --with autotools-dev --parallel
 
 override_dh_auto_configure:
-	dh_auto_configure -- --enable-buildin-clipboard --enable-buildin-polkit --disable-silent-rules
-
+	dh_auto_configure -- --enable-buildin-clipboard --disable-silent-rules
 
 override_dh_strip:
 	dh_strip -plxsession --dbg-package=lxsession-dbg
