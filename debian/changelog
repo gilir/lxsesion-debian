@@ -18,8 +18,6 @@ lxsession (0.5.1-1) unstable; urgency=medium
     - Fixed duplicated network-manager-gnome autostart (Closes: #746193).
     - Increased dbus timeout for password query (Closes: #756005).
   * Removing 03-libx11-linking.patch, issue is fixed by upstream.
-  * Splitting lxsession package: new packages are lxpolkit, lxsession-data,
-    lxsession-edit, lxsession-logout.
   * Adding relations with lxsession-default-apps (for Ubuntu compatibility).
   * Adding Provides: policykit-1-gnome for lxpolkit and lxsession since they
     provide that functionality.
@@ -31,13 +29,13 @@ lxsession (0.5.1-1) unstable; urgency=medium
   * Removing override_dh_auto_test target, issue was fixed by upstream.
   * Removing obsolete target override_dh_builddeb from debian/rules file.
   * Removing build dependencies to build C code from VALA and man from XML,
-    original tarball contains all code ready.
+    they were never used since original tarball contains all code ready.
   * Adding myself to uploaders.
   * Bump Standards-Version to 3.9.6.
   * Updating debian/copyright file.
   * Adding a lintian override against word 'desactivate' used in button name.
   * Merging upstream version 0.5.1.
-  * Adding etc/xdg/autostart/lxpolkit.desktop into lxpolkit package.
+  * Adding etc/xdg/autostart/lxpolkit.desktop into the package.
   * Adding manpages provided by upstream to lxsession package.
   * Removing lintian override for lxlock, it has a man page now.
   * Removing --enable-buildin-polkit option from configure, it doesn't work
@@ -46,7 +44,7 @@ lxsession (0.5.1-1) unstable; urgency=medium
   * Adding lintian override against debian-watch-may-check-gpg-signature.
   * Adding 01-no-dup-polkit.patch to avoid duplicate lxpolkit invocation.
 
- -- Andriy Grytsenko <andrej@rep.kiev.ua>  Fri, 17 Oct 2014 23:52:40 +0300
+ -- Andriy Grytsenko <andrej@rep.kiev.ua>  Sat, 18 Oct 2014 03:32:50 +0300
 
 lxsession (0.4.9.2-1) unstable; urgency=low
 

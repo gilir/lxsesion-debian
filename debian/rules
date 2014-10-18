@@ -10,8 +10,4 @@ override_dh_install:
 	dh_install --fail-missing
 
 override_dh_strip:
-	dh_strip -plxsession --dbg-package=lxsession-dbg
-	dh_strip -plxsession-edit --dbg-package=lxsession-edit-dbg
-	dh_strip -plxsession-logout --dbg-package=lxsession-logout-dbg
-	dh_strip -plxpolkit --dbg-package=lxpolkit-dbg
-	dh_strip -Nlxsession -Nlxsession-edit -Nlxsession-logout -Nlxpolkit
+	dh_strip --dbg-package=lxsession-dbg
