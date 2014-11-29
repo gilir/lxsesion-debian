@@ -1,3 +1,12 @@
+lxsession (0.5.1-2) unstable; urgency=high
+
+  * Adding 02-fix-db-update.patch from upstream to fix block on database update
+    (Closes: #768043, #770975, #771147).
+  * Adding valac into Build-Depends, patching requires it.
+  * Cleaning lxsession_lxsession_vala.stamp, patching requires it.
+
+ -- Andriy Grytsenko <andrej@rep.kiev.ua>  Sat, 29 Nov 2014 14:55:02 +0200
+
 lxsession (0.5.1-1) unstable; urgency=medium
 
   [ Andriy Grytsenko ]
