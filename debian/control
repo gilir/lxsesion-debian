@@ -38,14 +38,3 @@ Description: LXDE default session manager
  .
  It is derived from XSM, has fewer dependencies and more features. It is
  desktop-independent and can be used with any window manager.
-
-Package: lxsession-dbg
-Section: debug
-Priority: extra
-Architecture: any
-Depends: ${misc:Depends}, lxsession (= ${binary:Version})
-Description: LXDE default session manager (debug)
- LXSession is the default session manager for the Lightweight X11 Desktop
- Environment (LXDE).
- .
- This package contains the debugging symbols.
