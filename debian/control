@@ -31,7 +31,7 @@ Replaces:
  lxde-settings-daemon, lxpolkit, lxsession-default-apps, lxsession-edit
 Provides:
  x-session-manager, lxde-settings-daemon, lxpolkit, lxsession-default-apps,
- lxsession-edit, lxsession-logout, policykit-1-gnome
+ lxsession-edit, lxsession-logout, polkit-1-auth-agent
 Description: LXDE default session manager
  LXSession is the default session manager for the Lightweight X11 Desktop
  Environment (LXDE).
