@@ -19,7 +19,7 @@ Package: lxsession
 Architecture: any
 Depends:
  ${misc:Depends}, ${shlibs:Depends},
- lsb-release,
+ lsb-release, policykit-1
  consolekit | upower (<< 0.99) | systemd [linux-any]
 Recommends:
  lxde-common, openbox | x-window-manager,
