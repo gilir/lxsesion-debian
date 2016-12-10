@@ -19,7 +19,7 @@ Package: lxsession
 Architecture: any
 Depends:
  ${misc:Depends}, ${shlibs:Depends},
- lsb-release, policykit-1, laptop-detect
+ lsb-release, laptop-detect, lxpolkit | polkit-1-auth-agent,
  lxsession-data
  consolekit | libpam-systemd [linux-any]
 Recommends:
@@ -27,12 +27,12 @@ Recommends:
  openssh-client | ssh-client
 Suggests: gpicview, lxpanel, pcmanfm
 Conflicts:
- lxde-settings-daemon, lxpolkit, lxsession-default-apps
+ lxde-settings-daemon, lxsession-default-apps
 Replaces:
- lxde-settings-daemon, lxpolkit, lxsession-default-apps
+ lxde-settings-daemon, lxsession-default-apps
 Provides:
- x-session-manager, lxde-settings-daemon, lxpolkit, lxsession-default-apps,
- lxsession-logout, polkit-1-auth-agent
+ x-session-manager, lxde-settings-daemon, lxsession-default-apps,
+ lxsession-logout
 Breaks: lxsession-data (<< 0.5.3-1)
 Description: LXDE default session manager
  LXSession is the default session manager for the Lightweight X11 Desktop
@@ -62,3 +62,15 @@ Description: configure what application start up automaticlly in LXDE
  which follows autostart specs from FreeDesktop.Org.
  .
  This package can be used without lxsession package as well.
+
+Package: lxpolkit
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, lxsession-data, policykit-1
+Breaks: lxsession (<< 0.5.3-1)
+Replaces: lxsession (<< 0.5.3-1)
+Provides: polkit-1-auth-agent
+Description: LXDE PolicyKit authentication agent
+ LXPolkit is a GUI application for the Lightweight X11 Desktop Environment
+ (LXDE).
+ .
+ It's a simple PolicyKit authentication agent.
