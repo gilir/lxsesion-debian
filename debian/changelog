@@ -1,3 +1,44 @@
+lxsession (0.5.3-1) unstable; urgency=medium
+
+  [ Julien Lavergne ]
+  * Stop building built-in support, for easy integration with qt session.
+
+  [ Andriy Grytsenko ]
+  * Rebuild all .c from .vala to be up to date.
+  * Changing Maintainer e-mail to Alioth based one.
+  * Using https for VCS fields in debian/control file.
+  * Using dh-autoreconf instead of autotools-dev.
+  * Adding dependency on policykit-1 (Closes: #773126, #773480, #814915).
+  * Replacing Provides policykit-1-gnome with polkit-1-auth-agent
+    (Closes: #826490, #842267).
+  * Removing override_dh_strip rule from debian/rules.
+  * Removing upower (<< 0.99) from Depends, it's not available anymore.
+  * Merging upstream version 0.5.3.
+  * Adding libunique-dev to Build-Depends.
+  * Bump Standards-Version to 3.9.8.
+  * Adding laptop-detect to Depends on lxsession as it tries to run that
+    utility.
+  * Updating lxsession-xsettings in lxsession.install, it was moved.
+  * Removing 01-no-dup-polkit.patch, it's included by upstream.
+  * Removing 02-fix-db-update.patch, it's included by upstream.
+  * Enabling hardening (set DEB_BUILD_MAINT_OPTIONS indebian/rules).
+  * Recommend lxde-session instead of lxde-common.
+  * Don't recommend openbox, lxde-session will depend on it instead.
+  * Splitting out lxsession-data package.
+  * Splitting out lxsession-edit package.
+  * Splitting out lxpolkit package.
+  * Splitting out lxlock package.
+  * Splitting out lxsession-logout package. It can be used independently
+    (LP: #1423326).
+  * Splitting out lxsession-default-apps package, it may be optional.
+  * Splitting out lxde-settings-daemon package, lxsession does not need it
+    but it can be used independently instead.
+  * Adding manual pages coming with package to install (Closes: #722037).
+  * Adding proper dependency from lxlock to supported screen lockers
+    (Closes: #780024).
+
+ -- Andriy Grytsenko <andrej@rep.kiev.ua>  Sat, 10 Dec 2016 14:10:53 +0200
+
 lxsession (0.5.1-2) unstable; urgency=high
 
   * Adding 02-fix-db-update.patch from upstream to fix block on database update
