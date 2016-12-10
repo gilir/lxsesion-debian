@@ -82,6 +82,7 @@ namespace Lxsession
             Environment.set_variable("XDG_MENU_PREFIX", global_settings.get_item_string("Environment", "menu_prefix", null), true);
 
             set_xdg_dirs ("all");
+            set_export();
             set_misc ();
 
         }
@@ -226,6 +227,34 @@ namespace Lxsession
             }
         }
 
+        public void set_export ()
+        {
+
+            KeyFile env_kf;
+
+            env_kf = load_keyfile (get_config_path ("desktop.conf"));
+
+            try
+            {
+                if (env_kf.get_keys("Environment_variable") != null)
+                {
+                    string[] env_list = env_kf.get_keys("Environment_variable");
+                    foreach (string entry in env_list)
+                    {
+                        if (entry != null)
+                        {
+                            debug("set_export, entry: %s", entry);
+                            Environment.set_variable(entry, env_kf.get_value("Environment_variable",entry), true);
+                        }
+	                }
+                }
+            }
+            catch (GLib.KeyFileError e)
+            {
+                message ("No entry in [Environment_variable]. %s", e.message);
+            }
+        }
+
         public void set_misc ()
         {
             /* Clean up number of desktop set by GDM */
@@ -240,14 +269,60 @@ namespace Lxsession
 
             if (dbus_path == null)
             {
-                if (dbus_env ==null)
+                if (dbus_env == null)
                 {
                     lxsession_spawn_command_line_async("dbus-launch --sh-syntax --exit-with-session");
                 }
             }
 
-            /* Enable GTK+2 integration for OpenOffice.org, if available. */
-            Environment.set_variable("SAL_USE_VCLPLUGIN", "gtk", true);
+            if (global_settings.get_item_string("Environment", "toolkit_integration", null) == "true")
+            {
+            /* Enable toolkit integration for OpenOffice.org / LibreOffice, if available. */
+            string toolkit_variable = global_settings.get_item_string("Environment", "toolkit_integration", null);
+
+                switch (toolkit_variable)
+                {
+                    case "gtk2":
+                        Environment.set_variable("SAL_USE_VCLPLUGIN", "gtk", true);
+                        break;
+                    case "gtk3":
+                        Environment.set_variable("SAL_USE_VCLPLUGIN", "gtk3", true);
+                        break;
+                    case "gtk":
+                        Environment.set_variable("SAL_USE_VCLPLUGIN", "gtk", true);
+                        break;
+                    case "gen":
+                        Environment.set_variable("SAL_USE_VCLPLUGIN", "gen", true);
+                        break;
+                    case "kde4":
+                        Environment.set_variable("SAL_USE_VCLPLUGIN", "kde4", true);
+                        break;
+                    case "kde":
+                        Environment.set_variable("SAL_USE_VCLPLUGIN", "kde4", true);
+                        break;
+                    case "qt":
+                        Environment.set_variable("SAL_USE_VCLPLUGIN", "kde4", true);
+                        break;
+                    case "qt4":
+                        Environment.set_variable("SAL_USE_VCLPLUGIN", "kde4", true);
+                        break;
+                    default:
+                        Environment.set_variable("SAL_USE_VCLPLUGIN", "gtk", true);
+                        break;
+                }
+            }
+
+            /* Disable GTK+ 3 overlay scrollbar */
+            if (global_settings.get_item_string("Environment", "gtk", "overlay_scrollbar_disable") == "true")
+            {
+                Environment.set_variable("GTK_OVERLAY_SCROLLING", "0", true);
+            }
+
+            /* Force theme for QT apps */
+            if (global_settings.get_item_string("Environment", "qt", "force_theme") != null)
+            {
+                Environment.set_variable("QT_STYLE_OVERRIDE", global_settings.get_item_string("Environment", "qt", "force_theme"), true);
+            }
 
             /* Add path for Qt plugins (usefull for razor session */
             string qt_plugin;
@@ -264,6 +339,21 @@ namespace Lxsession
             if (global_settings.get_item_string("Environment", "ubuntu_menuproxy", null) == "true")
             {
                 Environment.set_variable("UBUNTU_MENUPROXY", "libappmenu.so", true);
+            }
+
+            /* Export variable for im manager */
+            if (global_settings.get_item_string("Session", "im_manager", "command") != null)
+            {
+                Environment.set_variable("GTK_IM_MODULE", global_settings.get_item_string("Session", "im_manager", "command") , true);
+                Environment.set_variable("QT_IM_MODULE", global_settings.get_item_string("Session", "im_manager", "command") , true);
+                Environment.set_variable("XMODIFIERS=@im", global_settings.get_item_string("Session", "im_manager", "command") , true);
+            }
+
+            /* Add some needed variables for LXQt / Qt */
+            if (global_settings.get_item_string("Environment", "qt", "platform") != null)
+            {
+                Environment.set_variable("QT_PLATFORM_PLUGIN", global_settings.get_item_string("Environment", "qt", "platform"), true);
+                Environment.set_variable("QT_QPA_PLATFORMTHEME", global_settings.get_item_string("Environment", "qt", "platform"), true);
             }
         }
     }

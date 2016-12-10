@@ -17,6 +17,8 @@
 using Gtk;
 using Posix;
 
+const string GETTEXT_PACKAGE = "lxsession";
+
 namespace LDefaultApps
 {
     public class UpdateWindows : Gtk.Window
@@ -30,7 +32,7 @@ namespace LDefaultApps
 	        this.window_position = Gtk.WindowPosition.CENTER;
             try
             {
-                this.icon = IconTheme.get_default ().load_icon ("xfwm4", 48, 0);
+                this.icon = IconTheme.get_default ().load_icon ("preferences-desktop", 48, 0);
             }
             catch (Error e)
             {
@@ -70,7 +72,12 @@ namespace LDefaultApps
             Process.close_pid (pid);
             MainWindows win = new MainWindows(kf);
             win.show_all();
+#if USE_GTK2
             this.hide_all();
+#endif
+#if USE_GTK3
+            this.hide();
+#endif
         }
 
         public KeyFile get_keyfile()
@@ -90,6 +97,14 @@ namespace LDefaultApps
         {
 		    this.title = _("LXSession configuration");
 		    this.window_position = Gtk.WindowPosition.CENTER;
+            try
+            {
+                this.icon = IconTheme.get_default ().load_icon ("preferences-desktop", 48, 0);
+            }
+            catch (Error e)
+            {
+                message ("Could not load application icon: %s\n", e.message);
+            }
 		    this.set_default_size (600, 400);
             this.destroy.connect (Gtk.main_quit);
 
@@ -165,7 +180,7 @@ namespace LDefaultApps
             string dock_more_help_message = session_string_help;
             init_application(builder, kf, dbus_backend, "dock", "", dock_help_message, dock_more, dock_more_help_message, null);
 
-            string file_manager_help_message = _("File manager is the component which open the files.\nSee \"More\" to add options to handle the desktop, or openning files ");
+            string file_manager_help_message = _("File manager is the component which open the files.\nSee \"More\" to add options to handle the desktop, or opening files ");
             string[] file_manager_more = {"combobox_manual", "session", "extra", "handle_desktop", "mime_association", "mime_available"};
             string file_manager_more_help_message = manual_setting_help + session_string_help + extra_string_help + handle_desktop_help + mime_association_help + mime_available_help;
             init_application_combobox (builder, kf, dbus_backend, "file_manager", "", file_manager_help_message, file_manager_more, file_manager_more_help_message, null);
@@ -390,13 +405,24 @@ namespace LDefaultApps
             init_list_view(known_apps);
             load_autostart(Environment.get_variable("XDG_CURRENT_DESKTOP"));
             known_apps.set_model (get_autostart_list ());
+#if USE_GTK2
             known_apps_box.hide_all();
+#endif
+#if USE_GTK3
+            known_apps_box.hide();
+#endif
 
             disable_autostart_combobox.changed.connect (() => {
                 if (return_combobox_text(disable_autostart_combobox) == "all")
                 {
+#if USE_GTK2
                     auto_vbox.hide_all();
                     running_apps.hide_all();
+#endif
+#if USE_GTK3
+                    auto_vbox.hide();
+                    running_apps.hide();
+#endif
                 }
                 else
                 {
@@ -410,7 +436,12 @@ namespace LDefaultApps
                 }
                 else
                 {
+#if USE_GTK2
                     known_apps_box.hide_all();
+#endif
+#if USE_GTK3
+                    known_apps_box.hide();
+#endif
                 }
                 dbus_backend.Set("disable_autostart", "", return_combobox_text(disable_autostart_combobox));
             });
@@ -546,6 +577,8 @@ namespace LDefaultApps
 
     public static int main(string[] args)
     {
+        Intl.textdomain(GETTEXT_PACKAGE);
+        Intl.bind_textdomain_codeset(GETTEXT_PACKAGE, "utf-8");
         /* Init GTK */
         Gtk.init (ref args);
 

@@ -18,10 +18,13 @@ scripts= \
     lxlock/lxlock \
     lxsession-default/lxsession-default \
     lxsession-default/lxsession-default-terminal \
-    lxsession-utils/lxsession-xsettings \
     $(NULL)
 
 bin_SCRIPTS= $(scripts)
+
+pkglibexec_SCRIPTS = \
+    lxsession-utils/lxsession-xsettings \
+    $(NULL)
 
 noinst_DATA = \
     vapi/config.vapi \
@@ -38,6 +41,7 @@ CLEANFILES = \
 EXTRA_DIST = \
     $(noinst_DATA) \
     $(scripts) \
+    lxsession-utils/lxsession-xsettings \
     $(NULL)
 
 if USE_GTK
@@ -54,6 +58,10 @@ lxclipboard_lxclipboard_vala_SOURCES = \
     lxclipboard/main.vala \
     $(NULL)
 
+CLEANFILES += lxclipboard/main.c \
+    lxclipboard_lxclipboard_vala.stamp \
+    $(NULL)
+
 lxclipboard_lxclipboard_SOURCES = \
     $(lxclipboard_lxclipboard_vala_SOURCES) \
     lxclipboard/clipboard.c \
@@ -61,11 +69,11 @@ lxclipboard_lxclipboard_SOURCES = \
 
 lxclipboard_lxclipboard_VALAFLAGS = \
     --vapidir=$(srcdir)/vapi \
-    --pkg gtk+-2.0 \
+    --pkg @VALA_GTK_LIBS@ \
     --pkg lxclipboard \
     $(NULL)
 
-lxclipboard_lxclipboard_CFLAGS = \
+lxclipboard_lxclipboard_CPPFLAGS = \
     $(GTK_CFLAGS) \
     $(GLIB_CFLAGS) \
     $(ADDITIONAL_FLAGS) \
@@ -78,8 +86,21 @@ lxclipboard_lxclipboard_LDADD = \
     $(X11_LIBS) \
     $(NULL)
 
+if USE_GTK3
+lxclipboard_lxclipboard_VALAFLAGS += --define USE_GTK3
+else
+lxclipboard_lxclipboard_VALAFLAGS += --define USE_GTK2
+lxclipboard_lxclipboard_VALAFLAGS += --pkg unique-1.0
+lxclipboard_lxclipboard_CPPFLAGS += $(UNIQUE_CFLAGS)
+lxclipboard_lxclipboard_LDADD += $(UNIQUE_LIBS)
+endif
+
 lxpolkit_lxpolkit_vala_SOURCES = \
     lxpolkit/main.vala \
+    $(NULL)
+
+CLEANFILES += lxpolkit/main.c \
+    lxpolkit_lxpolkit_vala.stamp \
     $(NULL)
 
 lxpolkit_lxpolkit_SOURCES = \
@@ -90,11 +111,11 @@ lxpolkit_lxpolkit_SOURCES = \
 
 lxpolkit_lxpolkit_VALAFLAGS = \
     --vapidir=$(srcdir)/vapi \
-    --pkg gtk+-2.0 \
+    --pkg @VALA_GTK_LIBS@ \
     --pkg lxpolkit \
     $(NULL)
 
-lxpolkit_lxpolkit_CFLAGS = \
+lxpolkit_lxpolkit_CPPFLAGS = \
     $(GTK_CFLAGS) \
     $(GLIB_CFLAGS) \
     $(POLKIT_CFLAGS) \
@@ -112,22 +133,36 @@ lxpolkit_lxpolkit_LDADD = \
     $(X11_LIBS) \
     $(NULL)
 
+if USE_GTK3
+lxpolkit_lxpolkit_VALAFLAGS += --define USE_GTK3
+else
+lxpolkit_lxpolkit_VALAFLAGS += --define USE_GTK2
+lxpolkit_lxpolkit_VALAFLAGS += --pkg unique-1.0
+lxpolkit_lxpolkit_CPPFLAGS += $(UNIQUE_CFLAGS)
+lxpolkit_lxpolkit_LDADD += $(UNIQUE_LIBS)
+endif
+
 lxsession_db_lxsession_db_SOURCES = \
     lxsession-db/main.vala \
     lxsession-db/desktop-files-backend.vala \
     $(NULL)
 
-lxsession_db_lxsession_db_VALAFLAGS = \
-    --vapidir=$(srcdir)/vapi \
-    --pkg gtk+-2.0 \
+CLEANFILES += \
+    lxsession-db/main.c \
+    lxsession-db/desktop-files-backend.c \
+    lxsession_db_lxsession_db_vala.stamp \
     $(NULL)
 
-lxsession_db_lxsession_db_CFLAGS = \
+lxsession_db_lxsession_db_VALAFLAGS = \
+    --vapidir=$(srcdir)/vapi \
+    --pkg @VALA_GTK_LIBS@ \
+    $(NULL)
+
+lxsession_db_lxsession_db_CPPFLAGS = \
     -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
     -DPACKAGE_DATA_DIR="\"$(datadir)"\" \
     -DPACKAGE_UI_DIR="\"$(datadir)/lxsession-default-apps/ui"\" \
     $(GTK_CFLAGS) \
-    $(GEE_CFLAGS) \
     $(GLIB_CFLAGS) \
     $(ADDITIONAL_FLAGS) \
     -include config.h -w \
@@ -135,12 +170,11 @@ lxsession_db_lxsession_db_CFLAGS = \
 
 lxsession_db_lxsession_db_LDADD = \
     $(GTK_LIBS) \
-    $(GEE_LIBS) \
     $(GLIB_LIBS) \
     $(X11_LIBS) \
     $(NULL)
 
-lxsession_edit_lxsession_edit_CFLAGS = \
+lxsession_edit_lxsession_edit_CPPFLAGS = \
     -I$(top_srcdir) \
     $(GTK_CFLAGS) \
     $(ADDITIONAL_FLAGS) \
@@ -172,6 +206,15 @@ lxsession_default_apps_lxsession_default_apps_vala_SOURCES = \
     lxsession-default-apps/utils.vala \
     $(NULL)
 
+CLEANFILES += \
+    lxsession-default-apps/autostart.c \
+    lxsession-default-apps/main.c \
+    lxsession-default-apps/combobox.c \
+    lxsession-default-apps/dbus-backend.c \
+    lxsession-default-apps/utils.c \
+    lxsession_default_apps_lxsession_default_apps_vala.stamp \
+    $(NULL)
+
 lxsession_default_apps_lxsession_default_apps_SOURCES = \
     $(lxsession_default_apps_lxsession_default_apps_vala_SOURCES) \
     $(lxsession_edit_lxsession_edit_common_SOURCES) \
@@ -179,15 +222,14 @@ lxsession_default_apps_lxsession_default_apps_SOURCES = \
 
 lxsession_default_apps_lxsession_default_apps_VALAFLAGS = \
     --vapidir=$(srcdir)/vapi \
-    --pkg gtk+-2.0 \
-    --pkg dbus-glib-1 \
+    --pkg @VALA_GTK_LIBS@ \
     --pkg gio-2.0 \
     --pkg posix \
     --pkg lxsession-edit \
     --pkg config \
     $(NULL)
 
-lxsession_default_apps_lxsession_default_apps_CFLAGS = \
+lxsession_default_apps_lxsession_default_apps_CPPFLAGS = \
     -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
     -DPACKAGE_DATA_DIR="\"$(datadir)"\" \
     -DPACKAGE_UI_DIR="\"$(datadir)/lxsession-default-apps/ui"\" \
@@ -214,16 +256,7 @@ buildinclip_SOURCES = \
 
 buildinclip_VALAFLAGS = \
     --pkg lxclipboard \
-    --pkg gtk+-2.0 \
     -D BUILDIN_CLIPBOARD \
-    $(NULL)
-
-buildinclip_CFLAGS = \
-    $(GTK_CFLAGS) \
-    $(NULL)
-
-buildinclip_LDADD = \
-    $(GTK_LIBS) \
     $(NULL)
 endif
 
@@ -239,17 +272,15 @@ buildinpolkit_VALAFLAGS = \
     $(NULL)
 
 buildinpolkit_CFLAGS = \
-    $(GTK_CFLAGS) \
     $(POLKIT_CFLAGS) \
     $(NULL)
 
 buildinpolkit_LDADD = \
-    $(GTK_LIBS) \
     $(POLKIT_LIBS) \
     $(NULL)
 endif
 
-lxsession_logout_lxsession_logout_CFLAGS = \
+lxsession_logout_lxsession_logout_CPPFLAGS = \
     $(GTK_CFLAGS) \
     $(SM_CFLAGS) \
     $(DBUS_CFLAGS) \
@@ -280,6 +311,11 @@ lxsettings_daemon_lxsettings_daemon_SOURCES = \
     $(lxsettings_daemon_lxsettings_daemon_commun_SOURCES) \
     $(NULL)
 
+CLEANFILES += \
+    lxsettings-daemon/main.c \
+    lxsettings_daemon_lxsettings_daemon_vala.stamp \
+    $(NULL)
+
 lxsettings_daemon_lxsettings_daemon_commun_SOURCES = \
     lxsettings-daemon/settings-daemon.c \
     lxsettings-daemon/xevent.c \
@@ -293,7 +329,7 @@ lxsettings_daemon_lxsettings_daemon_VALAFLAGS = \
     --pkg lxsettings-daemon \
     $(NULL)
 
-lxsettings_daemon_lxsettings_daemon_CFLAGS = \
+lxsettings_daemon_lxsettings_daemon_CPPFLAGS = \
     $(GLIB_CFLAGS) \
     $(GIO_CFLAGS) \
     $(ADDITIONAL_FLAGS) \
@@ -310,6 +346,11 @@ xdg_autostart_lxsession_xdg_autostart_vala_SOURCES = \
     xdg-autostart/main.vala \
     $(NULL)
 
+CLEANFILES += \
+    xdg-autostart/main.c \
+    xdg_autostart_lxsession_xdg_autostart_vala.stamp \
+    $(NULL)
+
 xdg_autostart_lxsession_xdg_autostart_SOURCES = \
     $(xdg_autostart_lxsession_xdg_autostart_vala_SOURCES) \
     xdg-autostart/xdg-autostart.c \
@@ -320,7 +361,7 @@ xdg_autostart_lxsession_xdg_autostart_VALAFLAGS = \
     --pkg xdg-autostart \
     $(NULL)
 
-xdg_autostart_lxsession_xdg_autostart_CFLAGS = \
+xdg_autostart_lxsession_xdg_autostart_CPPFLAGS = \
     $(GLIB_CFLAGS) \
     $(GIO_CFLAGS) \
     $(ADDITIONAL_FLAGS) \
@@ -343,10 +384,29 @@ lxsession_lxsession_vala_SOURCES = \
     lxsession/dbus-gnome-session.vala \
     lxsession/dbus-lxde-session.vala \
     lxsession/environement.vala \
+    lxsession/notifications.vala \
     lxsession/options.vala \
     lxsession/process.vala \
     lxsession/settings.vala \
     lxsession/utils.vala \
+    $(NULL)
+
+CLEANFILES += \
+    lxsession/main.c \
+    lxsession/app.c \
+    lxsession/autostart.c \
+    lxsession/conffiles.c \
+    lxsession/control.c \
+    lxsession/dbus-common.c \
+    lxsession/dbus-gnome-session.c \
+    lxsession/dbus-lxde-session.c \
+    lxsession/environement.c \
+    lxsession/notifications.c \
+    lxsession/options.c \
+    lxsession/process.c \
+    lxsession/settings.c \
+    lxsession/utils.c \
+    lxsession_lxsession_vala.stamp \
     $(NULL)
 
 lxsession_lxsession_SOURCES = \
@@ -364,9 +424,10 @@ lxsession_lxsession_VALAFLAGS = \
     --pkg lxsettings-daemon \
     $(buildinclip_VALAFLAGS) \
     $(buildinpolkit_VALAFLAGS) \
+    $(lxsession_gtk_lxsession_VALAFLAGS) \
     $(NULL)
 
-lxsession_lxsession_CFLAGS = \
+lxsession_lxsession_CPPFLAGS = \
     -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
     -DPACKAGE_DATA_DIR="\"$(datadir)"\" \
     -DPACKAGE_UI_DIR="\"$(datadir)/lxsession/ui"\" \
@@ -378,6 +439,7 @@ lxsession_lxsession_CFLAGS = \
     $(ADDITIONAL_FLAGS) \
     $(buildinclip_CFLAGS) \
     $(buildinpolkit_CFLAGS) \
+    $(lxsession_gtk_lxsession_CFLAGS) \
     -include config.h -w \
     $(NULL)
 
@@ -388,7 +450,35 @@ lxsession_lxsession_LDADD = \
     $(X11_LIBS) \
     $(buildinclip_LDADD) \
     $(buildinpolkit_LDADD) \
+    $(lxsession_gtk_lxsession_LDADD) \
     $(NULL)
+
+if USE_GTK
+lxsession_lxsession_VALAFLAGS +=     \
+    --pkg @VALA_GTK_LIBS@ \
+    -D USE_GTK
+
+lxsession_lxsession_CPPFLAGS += \
+    $(GTK_CFLAGS)
+
+lxsession_lxsession_LDADD += \
+    $(GTK_LIBS)
+
+if USE_ADVANCED_NOTIFICATIONS
+lxsession_lxsession_VALAFLAGS +=     \
+    --pkg appindicator-0.1 \
+    --pkg libnotify \
+    -D USE_ADVANCED_NOTIFICATIONS
+
+lxsession_lxsession_CPPFLAGS += \
+    $(LIBNOTIFY_CFLAGS) \
+    $(INDICATORS_CFLAGS)
+
+lxsession_lxsession_LDADD += \
+    $(LIBNOTIFY_LIBS) \
+    $(INDICATORS_LIBS)
+endif
+endif
 
 EXTRA_DIST += \
     autogen.sh \

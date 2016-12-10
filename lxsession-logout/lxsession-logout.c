@@ -19,10 +19,12 @@
 #include <config.h>
 #include <locale.h>
 #include <stdlib.h>
+#include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <glib/gi18n.h>
+#include <sys/file.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
@@ -67,6 +69,8 @@ typedef struct {
     int hibernate_systemd : 1;		/* Hibernate is available via systemd */
     int shutdown_ConsoleKit : 1;	/* Shutdown is available via ConsoleKit */
     int reboot_ConsoleKit : 1;		/* Reboot is available via ConsoleKit */
+    int suspend_ConsoleKit : 1;		/* Suspend is available via ConsoleKit */
+    int hibernate_ConsoleKit : 1;	/* Hibernate is available via ConsoleKit */
     int suspend_UPower : 1;		/* Suspend is available via UPower */
     int hibernate_UPower : 1;		/* Hibernate is available via UPower */
     int switch_user_GDM : 1;		/* Switch User is available via GDM */
@@ -92,7 +96,11 @@ static void switch_user_clicked(GtkButton * button, HandlerContext * handler_con
 static void cancel_clicked(GtkButton * button, gpointer user_data);
 static GtkPositionType get_banner_position(void);
 static GdkPixbuf * get_background_pixbuf(void);
+#ifdef USE_GTK3
+gboolean draw(GtkWidget * widget, cairo_t * cr, GdkPixbuf * pixbuf);
+#else
 gboolean expose_event(GtkWidget * widget, GdkEventExpose * event, GdkPixbuf * pixbuf);
+#endif
 
 /* Try to run lxlock command in order to lock the screen, return TRUE on
  * success, FALSE if command execution failed
@@ -137,6 +145,9 @@ static gboolean verify_running(const char * display_manager, const char * execut
         /* Form the filespec of the pid file for the display manager. */
         char buffer[PATH_MAX];
         sprintf(buffer, "/var/run/%s.pid", display_manager);
+
+        if (!g_file_test (buffer, G_FILE_TEST_IS_REGULAR))
+            sprintf(buffer, "/var/run/%s/%s.pid", display_manager, display_manager);
 
         /* Open the pid file. */
         int fd = open(buffer, O_RDONLY);
@@ -220,7 +231,7 @@ static void shutdown_clicked(GtkButton * button, HandlerContext * handler_contex
         }
     }
     else if (handler_context->shutdown_ConsoleKit)
-        dbus_ConsoleKit_Stop(&err);
+        dbus_ConsoleKit_PowerOff(&err);
     else if (handler_context->shutdown_systemd)
         dbus_systemd_PowerOff(&err);
 
@@ -250,7 +261,7 @@ static void reboot_clicked(GtkButton * button, HandlerContext * handler_context)
         }
     }
     else if (handler_context->reboot_ConsoleKit)
-        dbus_ConsoleKit_Restart(&err);
+        dbus_ConsoleKit_Reboot(&err);
     else if (handler_context->reboot_systemd)
         dbus_systemd_Reboot(&err);
 
@@ -274,6 +285,8 @@ static void suspend_clicked(GtkButton * button, HandlerContext * handler_context
     lock_screen();
     if (handler_context->suspend_UPower)
         dbus_UPower_Suspend(&err);
+    else if (handler_context->suspend_ConsoleKit)
+        dbus_ConsoleKit_Suspend(&err);
     else if (handler_context->suspend_systemd)
         dbus_systemd_Suspend(&err);
 
@@ -297,6 +310,8 @@ static void hibernate_clicked(GtkButton * button, HandlerContext * handler_conte
     lock_screen();
     if (handler_context->hibernate_UPower)
         dbus_UPower_Hibernate(&err);
+    else if (handler_context->hibernate_ConsoleKit)
+        dbus_ConsoleKit_Hibernate(&err);
     else if (handler_context->hibernate_systemd)
         dbus_systemd_Hibernate(&err);
 
@@ -373,7 +388,7 @@ static GdkPixbuf * get_background_pixbuf(void)
 {
     /* Get the root window pixmap. */
     GdkScreen * screen = gdk_screen_get_default();
-#ifdef ENABLE_GTK3
+#ifdef USE_GTK3
     GdkPixbuf * pixbuf = gdk_pixbuf_get_from_window(
         gdk_get_default_root_window(),
         0,
@@ -417,27 +432,46 @@ static GdkPixbuf * get_background_pixbuf(void)
 }
 
 /* Handler for "expose_event" on background. */
+#ifdef USE_GTK3
+gboolean draw(GtkWidget * widget, cairo_t * cr, GdkPixbuf * pixbuf)
+#else
 gboolean expose_event(GtkWidget * widget, GdkEventExpose * event, GdkPixbuf * pixbuf)
+#endif
 {
+    gint x, y;
+
     if (pixbuf != NULL)
     {
         /* Copy the appropriate rectangle of the root window pixmap to the drawing area.
          * All drawing areas are immediate children of the toplevel window, so the allocation yields the source coordinates directly. */
-#if GTK_CHECK_VERSION(2,14,0)
+#ifdef USE_GTK3
+#elif GTK_CHECK_VERSION(2,14,0)
        cairo_t * cr = gdk_cairo_create (gtk_widget_get_window(widget));
+       gdk_window_get_origin(gtk_widget_get_window(widget), &x, &y);
 #else
        cairo_t * cr = gdk_cairo_create (widget->window);
+       gdk_window_get_origin(widget->window, &x, &y);
 #endif
        gdk_cairo_set_source_pixbuf (
            cr,
            pixbuf,
-           0,
-           0);
+           -x,
+           -y);
 
        cairo_paint (cr);
+#ifndef USE_GTK3
        cairo_destroy(cr);
+#endif
     }
     return FALSE;
+}
+
+static char lockfile[PATH_MAX];
+
+/* Unlink lockfile on exit. */
+static void main_at_exit(void)
+{
+    unlink(lockfile);
 }
 
 /* Main program. */
@@ -450,25 +484,26 @@ int main(int argc, char * argv[])
     textdomain (GETTEXT_PACKAGE);
 #endif
 
-    /* Initialize GTK (via g_option_context_parse) and parse command line arguments. */
-    GOptionContext * context = g_option_context_new("");
-    g_option_context_add_main_entries(context, opt_entries, GETTEXT_PACKAGE);
-    g_option_context_add_group(context, gtk_get_option_group(TRUE));
-    GError * err = NULL;
-    if ( ! g_option_context_parse(context, &argc, &argv, &err))
-    {
-        g_print(_("Error: %s\n"), err->message);
-        g_error_free(err);
-        return 1;
-    }
-    g_option_context_free(context);
-
     HandlerContext handler_context;
     memset(&handler_context, 0, sizeof(handler_context));
 
     /* Get the lxsession PID. */
     const char * p = g_getenv("_LXSESSION_PID");
     if (p != NULL) handler_context.lxsession_pid = atoi(p);
+
+    /* Create lock file to prevent more than one logout dialog per lxsession process. */
+    sprintf(lockfile, "/tmp/.lxsession-logout-%d.lock", handler_context.lxsession_pid);
+    int fd = open(lockfile, O_RDONLY|O_CREAT, 00600);
+    if (fd >= 0)
+    {
+        if (flock(fd, LOCK_EX | LOCK_NB))
+        {
+            exit(EXIT_FAILURE);
+        }
+    }
+    atexit(main_at_exit);
+
+    /* Query DBus before GTK+ initialization!!! Otherwise a race may occur. */
 
     /* Initialize capabilities of the systemd mechanism. */
     if (dbus_systemd_CanPowerOff())
@@ -493,15 +528,25 @@ int main(int argc, char * argv[])
     }
 
     /* Initialize capabilities of the ConsoleKit mechanism. */
-    if (!handler_context.shutdown_available && dbus_ConsoleKit_CanStop())
+    if (!handler_context.shutdown_available && dbus_ConsoleKit_CanPowerOff())
     {
         handler_context.shutdown_available = TRUE;
         handler_context.shutdown_ConsoleKit = TRUE;
     }
-    if (!handler_context.reboot_available && dbus_ConsoleKit_CanRestart())
+    if (!handler_context.reboot_available && dbus_ConsoleKit_CanReboot())
     {
         handler_context.reboot_available = TRUE;
         handler_context.reboot_ConsoleKit = TRUE;
+    }
+    if (!handler_context.suspend_available && dbus_ConsoleKit_CanSuspend())
+    {
+        handler_context.suspend_available = TRUE;
+        handler_context.suspend_ConsoleKit = TRUE;
+    }
+    if (!handler_context.hibernate_available && dbus_ConsoleKit_CanHibernate())
+    {
+        handler_context.hibernate_available = TRUE;
+        handler_context.hibernate_ConsoleKit = TRUE;
     }
 
     /* Initialize capabilities of the UPower mechanism. */
@@ -530,7 +575,7 @@ int main(int argc, char * argv[])
         handler_context.switch_user_GDM = TRUE;
     }
 
-    /* lightdm can be find by the env */
+    /* lightdm can be found by the env */
     if (g_getenv("XDG_SEAT_PATH"))
     {
         handler_context.switch_user_available = TRUE;
@@ -565,6 +610,19 @@ int main(int argc, char * argv[])
         handler_context.lock_screen = TRUE;
     }
 
+    /* Initialize GTK (via g_option_context_parse) and parse command line arguments. */
+    GOptionContext * context = g_option_context_new("");
+    g_option_context_add_main_entries(context, opt_entries, GETTEXT_PACKAGE);
+    g_option_context_add_group(context, gtk_get_option_group(TRUE));
+    GError * err = NULL;
+    if ( ! g_option_context_parse(context, &argc, &argv, &err))
+    {
+        g_print(_("Error: %s\n"), err->message);
+        g_error_free(err);
+        return 1;
+    }
+    g_option_context_free(context);
+
     /* Make the button images accessible. */
     gtk_icon_theme_append_search_path(gtk_icon_theme_get_default(), PACKAGE_DATA_DIR "/lxsession/images");
 
@@ -575,10 +633,13 @@ int main(int argc, char * argv[])
     GtkWidget * window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
     gtk_window_fullscreen(GTK_WINDOW(window));
-    GdkScreen* screen = gtk_widget_get_screen(window);
-    gtk_window_set_default_size(GTK_WINDOW(window), gdk_screen_get_width(screen), gdk_screen_get_height(screen));
     gtk_widget_set_app_paintable(window, TRUE);
+#ifdef USE_GTK3
+    g_signal_connect(G_OBJECT(window), "draw", G_CALLBACK(draw), pixbuf);
+#else
     g_signal_connect(G_OBJECT(window), "expose_event", G_CALLBACK(expose_event), pixbuf);
+#endif
+    g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
 
     /* Toplevel container */
     GtkWidget* alignment = gtk_alignment_new(0.5, 0.5, 0.0, 0.0);
@@ -586,6 +647,10 @@ int main(int argc, char * argv[])
 
     GtkWidget* center_area = gtk_event_box_new();
     gtk_container_add(GTK_CONTAINER(alignment), center_area);
+
+#ifdef USE_GTK3
+    gtk_style_context_add_class (gtk_widget_get_style_context (center_area), GTK_STYLE_CLASS_BACKGROUND);
+#endif
 
     GtkWidget* center_vbox = gtk_vbox_new(FALSE, 6);
     gtk_container_set_border_width(GTK_CONTAINER(center_vbox), 12);
@@ -760,6 +825,15 @@ int main(int argc, char * argv[])
     GtkWidget * cancel_button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
     gtk_button_set_alignment(GTK_BUTTON(cancel_button), 0.0, 0.5);
     g_signal_connect(G_OBJECT(cancel_button), "clicked", G_CALLBACK(cancel_clicked), NULL);
+    GtkAccelGroup* accel_group = gtk_accel_group_new();
+    gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);
+#if GTK_CHECK_VERSION(3,0,0)
+    gtk_widget_add_accelerator(cancel_button, "activate", accel_group,
+        GDK_KEY_Escape, (GdkModifierType)0, GTK_ACCEL_VISIBLE);
+#else
+    gtk_widget_add_accelerator(cancel_button, "activate", accel_group,
+        GDK_Escape, (GdkModifierType)NULL, GTK_ACCEL_VISIBLE);
+#endif
     gtk_box_pack_start(GTK_BOX(controls), cancel_button, FALSE, FALSE, 4);
 
     /* Create the error text. */

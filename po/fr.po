@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxsession\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-24 02:33+0300\n"
-"PO-Revision-Date: 2014-09-28 17:24+0000\n"
+"POT-Creation-Date: 2014-10-11 15:47+0300\n"
+"PO-Revision-Date: 2015-08-12 15:38+0000\n"
 "Last-Translator: Julien Henry <Julius22@laposte.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fr\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 2.6.0-rc1\n"
-"X-POOTLE-MTIME: 1411925063.000000\n"
+"X-Generator: Pootle 2.7\n"
+"X-POOTLE-MTIME: 1439393926.000000\n"
 
 #: ../lxsession-logout/lxsession-logout.c:48
 msgid "Custom message to show on the dialog"
@@ -93,9 +93,17 @@ msgstr "Erreur"
 msgid "Information"
 msgstr "Information"
 
+#: ../lxpolkit/lxpolkit-listener.c:88
+msgid ""
+"Authentication failed!\n"
+"Wrong password?"
+msgstr ""
+"L'authentification a échoué !\n"
+"Mauvais mot de passe ?"
+
 #: ../lxpolkit/lxpolkit-listener.c:106
 msgid "Password: "
-msgstr "Mot de passe :"
+msgstr "Mot de passe : "
 
 #: ../lxpolkit/lxpolkit-listener.c:251
 #, c-format
@@ -385,7 +393,7 @@ msgstr "Préfixe du menu"
 
 #: ../data/ui/lxsession-default-apps.ui.h:59
 #: ../lxsession-default-apps/combobox.vala:168
-#: ../lxsession-default-apps/combobox.vala:285
+#: ../lxsession-default-apps/combobox.vala:284
 msgid "Apply"
 msgstr "Appliquer"
 
@@ -432,6 +440,14 @@ msgstr "Applications par défaut pour LXSession"
 #: ../data/lxsession-default-apps.desktop.in.h:2
 msgid "Change the default applications on LXDE"
 msgstr "Modifier les applications par défaut dans LXDE"
+
+#: ../data/lxpolkit.desktop.in.h:1
+msgid "LXPolKit"
+msgstr "LXPolKit"
+
+#: ../data/lxpolkit.desktop.in.h:2
+msgid "Policykit Authentication Agent"
+msgstr "Agent d'authentification Policykit"
 
 #: ../lxsession-default-apps/main.vala:29
 msgid "Update lxsession database"
@@ -526,7 +542,7 @@ msgstr ""
 #: ../lxsession-default-apps/main.vala:168
 msgid ""
 "File manager is the component which open the files.\n"
-"See \"More\" to add options to handle the desktop, or openning files "
+"See \"More\" to add options to handle the desktop, or opening files "
 msgstr ""
 "Le gestionnaire de fichiers est le composant qui ouvre les fichiers.\n"
 "Voir « Plus » pour ajouter des options pour gérer le bureau ou ouvrir des "
@@ -754,31 +770,31 @@ msgstr "Paramétrage manuel"
 msgid "Mime Association"
 msgstr "Association Mime"
 
-#: ../lxsession-default-apps/combobox.vala:195
+#: ../lxsession-default-apps/combobox.vala:194
 msgid "Available applications"
 msgstr "Applications disponibles"
 
-#: ../lxsession-default-apps/combobox.vala:241
+#: ../lxsession-default-apps/combobox.vala:240
 msgid "Autostart the application ?"
 msgstr "Démarrer l'application automatiquement ?"
 
-#: ../lxsession-default-apps/combobox.vala:262
+#: ../lxsession-default-apps/combobox.vala:261
 msgid "Handle the desktop with it ?"
 msgstr "Gérer le bureau avec ?"
 
-#: ../lxsession-default-apps/combobox.vala:282
+#: ../lxsession-default-apps/combobox.vala:281
 msgid "Set debian default programs"
 msgstr "Définir les programmes par défaut de Debian"
 
-#: ../lxsession-default-apps/combobox.vala:410
+#: ../lxsession-default-apps/combobox.vala:425
 msgid "Disable"
 msgstr "Désactiver"
 
-#: ../lxsession-default-apps/combobox.vala:549
+#: ../lxsession-default-apps/combobox.vala:564
 msgid "Do you want to assiociate the following Mimetype ?\n"
 msgstr "Voulez-vous associer les types Mime suivants ?\n"
 
-#: ../lxsession-default-apps/combobox.vala:598
+#: ../lxsession-default-apps/combobox.vala:612
 msgid "Cancel"
 msgstr "Annuler"
 
