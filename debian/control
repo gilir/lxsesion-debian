@@ -20,6 +20,7 @@ Architecture: any
 Depends:
  ${misc:Depends}, ${shlibs:Depends},
  lsb-release, policykit-1, laptop-detect
+ lxsession-data
  consolekit | libpam-systemd [linux-any]
 Recommends:
  lxde-session,
@@ -32,9 +33,21 @@ Replaces:
 Provides:
  x-session-manager, lxde-settings-daemon, lxpolkit, lxsession-default-apps,
  lxsession-edit, lxsession-logout, polkit-1-auth-agent
+Breaks: lxsession-data (<< 0.5.3-1)
 Description: LXDE default session manager
  LXSession is the default session manager for the Lightweight X11 Desktop
  Environment (LXDE).
  .
  It is derived from XSM, has fewer dependencies and more features. It is
  desktop-independent and can be used with any window manager.
+
+Package: lxsession-data
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Breaks: lxsession (<< 0.5.3-1)
+Replaces: lxsession (<< 0.5.3-1)
+Description: Common files for lxsession
+ LXSession is the default session manager for the Lightweight X11 Desktop
+ Environment (LXDE).
+ .
+ This package provides common files for lxsession and supplementary packages.

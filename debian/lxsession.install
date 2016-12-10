@@ -18,9 +18,6 @@ usr/share/man/man1/lxlock.1
 usr/share/man/man1/lxclipboard.1
 etc/xdg/autostart/lxpolkit.desktop
 usr/bin/lxpolkit
-usr/share/locale
-usr/share/lxsession/images/
-usr/share/lxsession/ui/lxpolkit.ui
 usr/bin/lxsession-edit
 usr/share/lxsession/ui/lxsession-edit.ui
 usr/share/applications/lxsession-edit.desktop
