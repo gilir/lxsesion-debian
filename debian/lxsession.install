@@ -18,8 +18,5 @@ usr/share/man/man1/lxlock.1
 usr/share/man/man1/lxclipboard.1
 etc/xdg/autostart/lxpolkit.desktop
 usr/bin/lxpolkit
-usr/bin/lxsession-edit
-usr/share/lxsession/ui/lxsession-edit.ui
-usr/share/applications/lxsession-edit.desktop
 usr/bin/lxsession-logout
 usr/share/man/man1/lxsession-logout.1

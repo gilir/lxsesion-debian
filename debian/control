@@ -23,16 +23,16 @@ Depends:
  lxsession-data
  consolekit | libpam-systemd [linux-any]
 Recommends:
- lxde-session,
+ lxde-session, lxsession-edit,
  openssh-client | ssh-client
 Suggests: gpicview, lxpanel, pcmanfm
 Conflicts:
- lxde-settings-daemon, lxpolkit, lxsession-default-apps, lxsession-edit
+ lxde-settings-daemon, lxpolkit, lxsession-default-apps
 Replaces:
- lxde-settings-daemon, lxpolkit, lxsession-default-apps, lxsession-edit
+ lxde-settings-daemon, lxpolkit, lxsession-default-apps
 Provides:
  x-session-manager, lxde-settings-daemon, lxpolkit, lxsession-default-apps,
- lxsession-edit, lxsession-logout, polkit-1-auth-agent
+ lxsession-logout, polkit-1-auth-agent
 Breaks: lxsession-data (<< 0.5.3-1)
 Description: LXDE default session manager
  LXSession is the default session manager for the Lightweight X11 Desktop
@@ -51,3 +51,14 @@ Description: Common files for lxsession
  Environment (LXDE).
  .
  This package provides common files for lxsession and supplementary packages.
+
+Package: lxsession-edit
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, lxsession-data
+Breaks: lxsession (<< 0.5.3-1)
+Replaces: lxsession (<< 0.5.3-1)
+Description: configure what application start up automaticlly in LXDE 
+ LXSession-Edit is a simple session editor GUI for autostarting applications
+ which follows autostart specs from FreeDesktop.Org.
+ .
+ This package can be used without lxsession package as well.
