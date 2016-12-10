@@ -71,7 +71,8 @@ Description: LXDE PolicyKit authentication agent
 
 Package: lxlock
 Architecture: all
-Depends: ${misc:Depends}
+Depends: ${misc:Depends},
+ light-locker | xscreensaver | gnome-screensaver | i3lock | suckless-tools | slim
 Breaks: lxsession (<< 0.5.3-1)
 Replaces: lxsession (<< 0.5.3-1)
 Description: simple locking utility for LXDE
