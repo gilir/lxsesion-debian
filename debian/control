@@ -26,10 +26,6 @@ Recommends:
  lxde-session, lxsession-default-apps | lxsession-edit,
  openssh-client | ssh-client
 Suggests: gpicview, lxpanel, pcmanfm
-Conflicts:
- lxde-settings-daemon
-Replaces:
- lxde-settings-daemon
 Provides: x-session-manager, lxde-settings-daemon
 Breaks: lxsession-data (<< 0.5.3-1)
 Description: LXDE default session manager
@@ -110,3 +106,14 @@ Description: utility to configure lxsession and its default applications
  .
  LXSession-Default-Apps is an utility to configure lxsession and its default
  applications.
+
+Package: lxde-settings-daemon
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Breaks: lxsession (<< 0.5.3-1)
+Replaces: lxsession (<< 0.5.3-1)
+Description: xsettings compliant configuration manager for LXDE
+ The package contains the LXDE daemon which handles the session settings.
+ It conforms to the FreeDesktop.Org XSettings standard.
+ .
+ LXSession also privides this functionality internally.
