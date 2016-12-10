@@ -19,7 +19,7 @@ Package: lxsession
 Architecture: any
 Depends:
  ${misc:Depends}, ${shlibs:Depends},
- lsb-release, policykit-1
+ lsb-release, policykit-1, laptop-detect
  consolekit | libpam-systemd [linux-any]
 Recommends:
  lxde-common, openbox | x-window-manager,
