@@ -1,16 +1,12 @@
 usr/bin/lxsession
 usr/bin/lxclipboard
 usr/bin/lxsession-default
-usr/bin/lxsession-default-apps
 usr/bin/lxsession-default-terminal
 usr/bin/lxsession-db
 usr/bin/lxsettings-daemon
 usr/bin/lxsession-xdg-autostart
-usr/share/applications/lxsession-default-apps.desktop
-usr/share/lxsession/ui/lxsession-default-apps.ui
 usr/lib/*/lxsession/lxsession-xsettings
 usr/share/man/man1/lxsession.1
 usr/share/man/man1/lxsession-default.1
-usr/share/man/man1/lxsession-default-apps.1
 usr/share/man/man1/lxsession-default-terminal.1
 usr/share/man/man1/lxclipboard.1

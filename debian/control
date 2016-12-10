@@ -23,15 +23,14 @@ Depends:
  lxsession-data, lxsession-logout,
  consolekit | libpam-systemd [linux-any]
 Recommends:
- lxde-session, lxsession-edit,
+ lxde-session, lxsession-default-apps | lxsession-edit,
  openssh-client | ssh-client
 Suggests: gpicview, lxpanel, pcmanfm
 Conflicts:
- lxde-settings-daemon, lxsession-default-apps
+ lxde-settings-daemon
 Replaces:
- lxde-settings-daemon, lxsession-default-apps
-Provides:
- x-session-manager, lxde-settings-daemon, lxsession-default-apps
+ lxde-settings-daemon
+Provides: x-session-manager, lxde-settings-daemon
 Breaks: lxsession-data (<< 0.5.3-1)
 Description: LXDE default session manager
  LXSession is the default session manager for the Lightweight X11 Desktop
@@ -99,3 +98,15 @@ Description: utility to logout from a LXDE or an Openbox session
  .
  LXSession-Logout is a simple utility for stopping or logging out from a LXDE or
  an Openbox session.
+
+Package: lxsession-default-apps
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, lxsession, lxsession-data
+Breaks: lxsession (<< 0.5.3-1)
+Replaces: lxsession (<< 0.5.3-1)
+Description: utility to configure lxsession and its default applications
+ LXSession is the default session manager for the Lightweight X11 Desktop
+ Environment (LXDE).
+ .
+ LXSession-Default-Apps is an utility to configure lxsession and its default
+ applications.
