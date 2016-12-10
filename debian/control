@@ -20,7 +20,7 @@ Architecture: any
 Depends:
  ${misc:Depends}, ${shlibs:Depends},
  lsb-release, laptop-detect, lxpolkit | polkit-1-auth-agent,
- lxsession-data, lxlock,
+ lxsession-data, lxsession-logout,
  consolekit | libpam-systemd [linux-any]
 Recommends:
  lxde-session, lxsession-edit,
@@ -31,8 +31,7 @@ Conflicts:
 Replaces:
  lxde-settings-daemon, lxsession-default-apps
 Provides:
- x-session-manager, lxde-settings-daemon, lxsession-default-apps,
- lxsession-logout
+ x-session-manager, lxde-settings-daemon, lxsession-default-apps
 Breaks: lxsession-data (<< 0.5.3-1)
 Description: LXDE default session manager
  LXSession is the default session manager for the Lightweight X11 Desktop
@@ -85,3 +84,18 @@ Description: simple locking utility for LXDE
  (LXDE).
  .
  It's a simple locking utility for LXDE.
+
+Package: lxsession-logout
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ lxsession-data, lxlock | xdg-screensaver,
+ consolekit | systemd, policykit-1
+Recommends: lsb-release
+Breaks: lxsession (<< 0.5.3-1)
+Replaces: lxsession (<< 0.5.3-1)
+Description: utility to logout from a LXDE or an Openbox session
+ LXSession is the default session manager for the Lightweight X11 Desktop
+ Environment (LXDE).
+ .
+ LXSession-Logout is a simple utility for stopping or logging out from a LXDE or
+ an Openbox session.
