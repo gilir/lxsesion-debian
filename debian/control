@@ -22,7 +22,7 @@ Depends:
  lsb-release, policykit-1, laptop-detect
  consolekit | libpam-systemd [linux-any]
 Recommends:
- lxde-session, openbox | x-window-manager,
+ lxde-session,
  openssh-client | ssh-client
 Suggests: gpicview, lxpanel, pcmanfm
 Conflicts:
