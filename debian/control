@@ -20,7 +20,7 @@ Architecture: any
 Depends:
  ${misc:Depends}, ${shlibs:Depends},
  lsb-release, laptop-detect, lxpolkit | polkit-1-auth-agent,
- lxsession-data
+ lxsession-data, lxlock,
  consolekit | libpam-systemd [linux-any]
 Recommends:
  lxde-session, lxsession-edit,
@@ -74,3 +74,14 @@ Description: LXDE PolicyKit authentication agent
  (LXDE).
  .
  It's a simple PolicyKit authentication agent.
+
+Package: lxlock
+Architecture: all
+Depends: ${misc:Depends}
+Breaks: lxsession (<< 0.5.3-1)
+Replaces: lxsession (<< 0.5.3-1)
+Description: simple locking utility for LXDE
+ LXLock is a GUI application for the Lightweight X11 Desktop Environment
+ (LXDE).
+ .
+ It's a simple locking utility for LXDE.
