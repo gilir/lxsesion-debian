@@ -9,7 +9,7 @@ Build-Depends:
  debhelper (>= 9), dh-autoreconf,
  intltool, libdbus-glib-1-dev,
  libgtk2.0-dev, libpolkit-agent-1-dev,
- valac
+ valac, libunique-dev
 Standards-Version: 3.9.6
 Homepage: http://www.lxde.org/
 Vcs-Browser: https://git.lxde.org/gitweb/?p=debian/lxsession.git
