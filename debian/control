@@ -28,6 +28,7 @@ Recommends:
 Suggests: gpicview, lxpanel, pcmanfm
 Provides: x-session-manager, lxde-settings-daemon
 Breaks: lxsession-data (<< 0.5.3-1)
+Replaces: lxsession-data (<< 0.5.3-1)
 Description: LXDE default session manager
  LXSession is the default session manager for the Lightweight X11 Desktop
  Environment (LXDE).
