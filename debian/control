@@ -85,7 +85,7 @@ Description: simple locking utility for LXDE
 Package: lxsession-logout
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
- lxsession-data, lxlock | xdg-screensaver,
+ lxsession-data, lxlock | xdg-utils,
  consolekit | systemd, policykit-1
 Recommends: lsb-release
 Breaks: lxsession (<< 0.5.3-1)
