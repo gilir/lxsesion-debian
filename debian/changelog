@@ -1,3 +1,16 @@
+lxsession (0.5.3-2) unstable; urgency=medium
+
+  [ Julien Lavergne ]
+  * debian/control:
+   - Keep built-in support, since qt session use lxqt-session.
+   - Add Replaces: lxsession-data (<< 0.5.3-1) for lxsession.
+
+  [ Andriy Grytsenko ]
+  * Fixing nonexistent dependency xdg-screensaver using correct one xdg-utils.
+  * Setting [linux-any] on dependency systemd for lxsession-logout.
+
+ -- Andriy Grytsenko <andrej@rep.kiev.ua>  Sun, 25 Dec 2016 13:17:53 +0200
+
 lxsession (0.5.3-1) unstable; urgency=medium
 
   [ Julien Lavergne ]
