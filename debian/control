@@ -16,6 +16,7 @@ Vcs-Git: https://git.lxde.org/git/debian/lxsession.git
 
 Package: lxsession
 Architecture: any
+Multi-Arch: allowed
 Depends:
  ${misc:Depends}, ${shlibs:Depends},
  lsb-release, laptop-detect, lxpolkit | polkit-1-auth-agent,
@@ -38,6 +39,7 @@ Description: LXDE default session manager
 
 Package: lxsession-data
 Architecture: all
+Multi-Arch: foreign
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Breaks: lxsession (<< 0.5.3-1)
 Replaces: lxsession (<< 0.5.3-1)
@@ -49,6 +51,7 @@ Description: Common files for lxsession
 
 Package: lxsession-edit
 Architecture: any
+Multi-Arch: allowed
 Depends: ${shlibs:Depends}, ${misc:Depends}, lxsession-data
 Breaks: lxsession (<< 0.5.3-1)
 Replaces: lxsession (<< 0.5.3-1)
@@ -60,6 +63,7 @@ Description: configure what application start up automatically in LXDE
 
 Package: lxpolkit
 Architecture: any
+Multi-Arch: allowed
 Depends: ${shlibs:Depends}, ${misc:Depends}, lxsession-data, policykit-1
 Breaks: lxsession (<< 0.5.3-1)
 Replaces: lxsession (<< 0.5.3-1)
@@ -72,6 +76,7 @@ Description: LXDE PolicyKit authentication agent
 
 Package: lxlock
 Architecture: all
+Multi-Arch: foreign
 Depends: ${misc:Depends},
  light-locker | xscreensaver | gnome-screensaver | i3lock | suckless-tools | slim
 Breaks: lxsession (<< 0.5.3-1)
@@ -84,6 +89,7 @@ Description: simple locking utility for LXDE
 
 Package: lxsession-logout
 Architecture: any
+Multi-Arch: allowed
 Depends: ${shlibs:Depends}, ${misc:Depends},
  lxsession-data, lxlock | xdg-utils,
  policykit-1
@@ -99,6 +105,7 @@ Description: utility to logout from a LXDE or an Openbox session
 
 Package: lxsession-default-apps
 Architecture: any
+Multi-Arch: allowed
 Depends: ${shlibs:Depends}, ${misc:Depends}, lxsession, lxsession-data
 Breaks: lxsession (<< 0.5.3-1)
 Replaces: lxsession (<< 0.5.3-1)
@@ -111,6 +118,7 @@ Description: utility to configure lxsession and its default applications
 
 Package: lxde-settings-daemon
 Architecture: any
+Multi-Arch: allowed
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Breaks: lxsession (<< 0.5.3-1)
 Replaces: lxsession (<< 0.5.3-1)
