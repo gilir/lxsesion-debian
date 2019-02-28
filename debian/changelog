@@ -1,3 +1,21 @@
+lxsession (0.5.4-1) unstable; urgency=medium
+
+  * Merging upstream version 0.5.4 (Closes: #836063).
+  * Adding 00-disable-dpkg-access.patch to avoid access to dpkg database,
+    that's forbidden by the Policy.
+  * Bump Standards-Version to 4.3.0.
+  * Bump debhelper compat to 11.
+  * Removing compression options for sources.
+  * Updating obsolete tag debian-watch-may-check-gpg-signature in lintian
+    override to debian-watch-does-not-check-gpg-signature.
+  * Lowering libpam-systemd from dependency to suggestion on lxsession.
+  * Lowering systemd from dependency to recommended on lxsession-logout
+    (Closes: #923207).
+  * Fixing typo 'automaticlly' => 'automatically' (Closes: #854886).
+  * Adding Multi-Arch tags.
+
+ -- Andriy Grytsenko <andrej@rep.kiev.ua>  Thu, 28 Feb 2019 03:47:16 +0200
+
 lxsession (0.5.3-2) unstable; urgency=medium
 
   [ Julien Lavergne ]
@@ -120,7 +138,7 @@ lxsession (0.4.9.2-1) unstable; urgency=low
   * debian/control: conflicts, replace and provides lxpolkit.
   * debian/control: add build-deps on libgee-dev.
   * debian/control: add build-deps on libpolkit-agent-1-dev.
-  * debian/control: move lxde-common from suggests to recommends. 
+  * debian/control: move lxde-common from suggests to recommends.
     (Closes: #713842)
   * debian/control: add consolekit as recommends. (Closes: #676819)
 
@@ -140,7 +158,7 @@ lxsession (0.4.9.2-1) unstable; urgency=low
 
 lxsession (0.4.6.1-4) unstable; urgency=low
 
-  * Added upower as recommends to make suspend and hibernate works by 
+  * Added upower as recommends to make suspend and hibernate works by
     default. (Close: #679539).
 
  -- Andrew Lee (李健秋) <ajqlee@debian.org>  Sun, 08 Jul 2012 05:16:33 +0800
