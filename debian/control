@@ -19,12 +19,13 @@ Architecture: any
 Depends:
  ${misc:Depends}, ${shlibs:Depends},
  lsb-release, laptop-detect, lxpolkit | polkit-1-auth-agent,
- lxsession-data, lxsession-logout,
- consolekit | libpam-systemd [linux-any]
+ lxsession-data, lxsession-logout
 Recommends:
  lxde-session, lxsession-default-apps | lxsession-edit,
  openssh-client | ssh-client
-Suggests: gpicview, lxpanel, pcmanfm
+Suggests:
+ gpicview, lxpanel, pcmanfm,
+ consolekit | libpam-systemd [linux-any]
 Provides: x-session-manager, lxde-settings-daemon
 Breaks: lxsession-data (<< 0.5.3-1)
 Replaces: lxsession-data (<< 0.5.3-1)
