@@ -52,7 +52,7 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, lxsession-data
 Breaks: lxsession (<< 0.5.3-1)
 Replaces: lxsession (<< 0.5.3-1)
-Description: configure what application start up automaticlly in LXDE 
+Description: configure what application start up automatically in LXDE
  LXSession-Edit is a simple session editor GUI for autostarting applications
  which follows autostart specs from FreeDesktop.Org.
  .
