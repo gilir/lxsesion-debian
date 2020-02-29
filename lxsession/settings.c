@@ -1176,7 +1176,7 @@ void lxsession_lxsession_config_guess_default (LxsessionLxsessionConfig* self) {
 		lxsession_lxsession_config_set_generic_default (self, "Session", "pdf_reader", "command", "string", "evince");
 		lxsession_lxsession_config_set_generic_default (self, "Session", "video_player", "command", "string", "gnome-mplayer");
 		lxsession_lxsession_config_set_generic_default (self, "Session", "audio_player", "command", "string", "audacious");
-		lxsession_lxsession_config_set_generic_default (self, "Session", "images_display", "command", "string", "gpicview");
+		lxsession_lxsession_config_set_generic_default (self, "Session", "image_display", "command", "string", "gpicview");
 		lxsession_lxsession_config_set_generic_default (self, "Session", "text_editor", "command", "string", "leafpad");
 		lxsession_lxsession_config_set_generic_default (self, "Session", "archive", "command", "string", "file-roller");
 		lxsession_lxsession_config_set_generic_default (self, "Session", "calculator", "command", "string", "galculator");
@@ -2795,7 +2795,7 @@ void lxsession_lxsession_config_key_file_read_keyfile (LxsessionLxsessionConfigK
 	_tmp124_ = self->kf;
 	lxsession_lxsession_config_key_file_read_key_value (self, _tmp124_, "Session", "audio_player", "command", "string");
 	_tmp125_ = self->kf;
-	lxsession_lxsession_config_key_file_read_key_value (self, _tmp125_, "Session", "images_display", "command", "string");
+	lxsession_lxsession_config_key_file_read_key_value (self, _tmp125_, "Session", "image_display", "command", "string");
 	_tmp126_ = self->kf;
 	lxsession_lxsession_config_key_file_read_key_value (self, _tmp126_, "Session", "text_editor", "command", "string");
 	_tmp127_ = self->kf;

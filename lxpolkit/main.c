@@ -26,7 +26,7 @@
 #include <string.h>
 #include <glib/gi18n-lib.h>
 #include <gtk/gtk.h>
-#include <unique/unique.h>
+#include <gio/gio.h>
 #include <lxpolkit/lxpolkit.h>
 
 
@@ -67,25 +67,32 @@ LxsessionMain* lxsession_main_construct (GType object_type);
 
 gint lxsession_main_main (gchar** args, int args_length1) {
 	gint result = 0;
-	UniqueApp* app = NULL;
-	UniqueApp* _tmp0_ = NULL;
-	UniqueApp* _tmp1_ = NULL;
+	GApplication* app = NULL;
+	GApplication* _tmp0_ = NULL;
 	gboolean _tmp2_ = FALSE;
 	gboolean _tmp3_ = FALSE;
 	GMainLoop* _tmp5_ = NULL;
 	GMainLoop* _tmp6_ = NULL;
+	GError * _inner_error_ = NULL;
 	textdomain (GETTEXT_PACKAGE);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "utf-8");
 	gtk_init (&args_length1, &args);
-	_tmp0_ = unique_app_new ("org.lxde.lxpolkit", NULL);
+	_tmp0_ = g_application_new ("org.lxde.lxpolkit", G_APPLICATION_FLAGS_NONE);
 	app = _tmp0_;
-	_tmp1_ = app;
-	g_object_get (_tmp1_, "is-running", &_tmp2_, NULL);
+	g_application_register (app, NULL, &_inner_error_);
+	if (G_UNLIKELY (_inner_error_ != NULL)) {
+		gint _tmp1_ = 0;
+		_g_object_unref0 (app);
+		g_critical ("file %s: line %d: uncaught error: %s (%s, %d)", __FILE__, __LINE__, _inner_error_->message, g_quark_to_string (_inner_error_->domain), _inner_error_->code);
+		g_clear_error (&_inner_error_);
+		return _tmp1_;
+	}
+	_tmp2_ = g_application_get_is_remote (app);
 	_tmp3_ = _tmp2_;
 	if (_tmp3_) {
 		const gchar* _tmp4_ = NULL;
 		_tmp4_ = _ ("lxpolkit is already running. Existing");
-		g_message ("main.vala:41: %s", _tmp4_);
+		g_message ("main.vala:40: %s", _tmp4_);
 		result = 0;
 		_g_object_unref0 (app);
 		return result;

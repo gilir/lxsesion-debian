@@ -114,45 +114,39 @@ bin_PROGRAMS = lxsettings-daemon/lxsettings-daemon$(EXEEXT) \
 @USE_GTK_TRUE@	lxsession_default_apps_lxsession_default_apps_vala.stamp \
 @USE_GTK_TRUE@	$(NULL) $(NULL)
 @USE_GTK3_TRUE@@USE_GTK_TRUE@am__append_3 = --define USE_GTK3
-@USE_GTK3_FALSE@@USE_GTK_TRUE@am__append_4 = --define USE_GTK2 --pkg \
-@USE_GTK3_FALSE@@USE_GTK_TRUE@	unique-1.0
-@USE_GTK3_FALSE@@USE_GTK_TRUE@am__append_5 = $(UNIQUE_CFLAGS)
-@USE_GTK3_FALSE@@USE_GTK_TRUE@am__append_6 = $(UNIQUE_LIBS)
-@USE_GTK3_TRUE@@USE_GTK_TRUE@am__append_7 = --define USE_GTK3
-@USE_GTK3_FALSE@@USE_GTK_TRUE@am__append_8 = --define USE_GTK2 --pkg \
-@USE_GTK3_FALSE@@USE_GTK_TRUE@	unique-1.0
-@USE_GTK3_FALSE@@USE_GTK_TRUE@am__append_9 = $(UNIQUE_CFLAGS)
-@USE_GTK3_FALSE@@USE_GTK_TRUE@am__append_10 = $(UNIQUE_LIBS)
-@USE_GTK_TRUE@am__append_11 = \
+@USE_GTK3_FALSE@@USE_GTK_TRUE@am__append_4 = --define USE_GTK2
+@USE_GTK3_TRUE@@USE_GTK_TRUE@am__append_5 = --define USE_GTK3
+@USE_GTK3_FALSE@@USE_GTK_TRUE@am__append_6 = --define USE_GTK2
+@USE_GTK_TRUE@am__append_7 = \
 @USE_GTK_TRUE@    $(NULL)
 
-@USE_GTK_TRUE@am__append_12 = \
+@USE_GTK_TRUE@am__append_8 = \
 @USE_GTK_TRUE@    --pkg @VALA_GTK_LIBS@ \
 @USE_GTK_TRUE@    -D USE_GTK
 
-@USE_GTK_TRUE@am__append_13 = \
+@USE_GTK_TRUE@am__append_9 = \
 @USE_GTK_TRUE@    $(GTK_CFLAGS)
 
-@USE_GTK_TRUE@am__append_14 = \
+@USE_GTK_TRUE@am__append_10 = \
 @USE_GTK_TRUE@    $(GTK_LIBS)
 
-@USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@am__append_15 = \
+@USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@am__append_11 = \
 @USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@    --pkg appindicator-0.1 \
 @USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@    --pkg libnotify \
 @USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@    -D USE_ADVANCED_NOTIFICATIONS
 
-@USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@am__append_16 = \
+@USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@am__append_12 = \
 @USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@    $(LIBNOTIFY_CFLAGS) \
 @USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@    $(INDICATORS_CFLAGS)
 
-@USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@am__append_17 = \
+@USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@am__append_13 = \
 @USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@    $(LIBNOTIFY_LIBS) \
 @USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@    $(INDICATORS_LIBS)
 
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
-	$(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/m4/intltool.m4 \
+	$(top_srcdir)/acinclude.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
@@ -185,12 +179,9 @@ am__objects_1 =
 lxclipboard_lxclipboard_OBJECTS =  \
 	$(am_lxclipboard_lxclipboard_OBJECTS)
 am__DEPENDENCIES_1 =
-@USE_GTK3_FALSE@@USE_GTK_TRUE@am__DEPENDENCIES_2 =  \
-@USE_GTK3_FALSE@@USE_GTK_TRUE@	$(am__DEPENDENCIES_1)
 @USE_GTK_TRUE@lxclipboard_lxclipboard_DEPENDENCIES =  \
 @USE_GTK_TRUE@	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-@USE_GTK_TRUE@	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-@USE_GTK_TRUE@	$(am__DEPENDENCIES_2)
+@USE_GTK_TRUE@	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am__lxpolkit_lxpolkit_SOURCES_DIST = lxpolkit/main.vala \
 	lxpolkit/lxpolkit.c lxpolkit/lxpolkit-listener.c
 @USE_GTK_TRUE@am__objects_3 =  \
@@ -203,8 +194,7 @@ am__lxpolkit_lxpolkit_SOURCES_DIST = lxpolkit/main.vala \
 lxpolkit_lxpolkit_OBJECTS = $(am_lxpolkit_lxpolkit_OBJECTS)
 @USE_GTK_TRUE@lxpolkit_lxpolkit_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 @USE_GTK_TRUE@	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-@USE_GTK_TRUE@	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-@USE_GTK_TRUE@	$(am__DEPENDENCIES_2)
+@USE_GTK_TRUE@	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am__lxsession_db_lxsession_db_SOURCES_DIST = lxsession-db/main.vala \
 	lxsession-db/desktop-files-backend.vala
 @USE_GTK_TRUE@am_lxsession_db_lxsession_db_OBJECTS = lxsession-db/lxsession_db_lxsession_db-main.$(OBJEXT) \
@@ -301,16 +291,16 @@ am__objects_8 = lxsettings-daemon/lxsession_lxsession-settings-daemon.$(OBJEXT) 
 am_lxsession_lxsession_OBJECTS = $(am__objects_7) $(am__objects_8) \
 	$(am__objects_9) $(am__objects_10) $(am__objects_1)
 lxsession_lxsession_OBJECTS = $(am_lxsession_lxsession_OBJECTS)
-@USE_BUILDIN_POLKIT_TRUE@@USE_GTK_TRUE@am__DEPENDENCIES_3 =  \
+@USE_BUILDIN_POLKIT_TRUE@@USE_GTK_TRUE@am__DEPENDENCIES_2 =  \
 @USE_BUILDIN_POLKIT_TRUE@@USE_GTK_TRUE@	$(am__DEPENDENCIES_1) \
 @USE_BUILDIN_POLKIT_TRUE@@USE_GTK_TRUE@	$(am__DEPENDENCIES_1)
-@USE_GTK_TRUE@am__DEPENDENCIES_4 = $(am__DEPENDENCIES_1)
-@USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@am__DEPENDENCIES_5 = $(am__DEPENDENCIES_1) \
+@USE_GTK_TRUE@am__DEPENDENCIES_3 = $(am__DEPENDENCIES_1)
+@USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@am__DEPENDENCIES_4 = $(am__DEPENDENCIES_1) \
 @USE_ADVANCED_NOTIFICATIONS_TRUE@@USE_GTK_TRUE@	$(am__DEPENDENCIES_1)
 lxsession_lxsession_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_3) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_5)
+	$(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_3) $(am__DEPENDENCIES_4)
 am__objects_11 = lxsettings-daemon/lxsettings_daemon_lxsettings_daemon-settings-daemon.$(OBJEXT) \
 	lxsettings-daemon/lxsettings_daemon_lxsettings_daemon-xevent.$(OBJEXT) \
 	lxsettings-daemon/lxsettings_daemon_lxsettings_daemon-xsettings-common.$(OBJEXT) \
@@ -611,8 +601,6 @@ PO_IN_DATADIR_TRUE = @PO_IN_DATADIR_TRUE@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
-UNIQUE_CFLAGS = @UNIQUE_CFLAGS@
-UNIQUE_LIBS = @UNIQUE_LIBS@
 USE_NLS = @USE_NLS@
 VALAC = @VALAC@
 VALA_GTK_LIBS = @VALA_GTK_LIBS@
@@ -708,7 +696,7 @@ CLEANFILES = $(NULL) $(am__append_2) lxsettings-daemon/main.c \
 	lxsession/process.c lxsession/settings.c lxsession/utils.c \
 	lxsession_lxsession_vala.stamp $(NULL)
 EXTRA_DIST = $(noinst_DATA) $(scripts) \
-	lxsession-utils/lxsession-xsettings $(NULL) $(am__append_11) \
+	lxsession-utils/lxsession-xsettings $(NULL) $(am__append_7) \
 	autogen.sh lxclipboard/clipboard.h lxpolkit/lxpolkit.h \
 	lxpolkit/lxpolkit-listener.h \
 	lxsettings-daemon/settings-daemon.h lxsettings-daemon/xevent.h \
@@ -731,11 +719,19 @@ EXTRA_DIST = $(noinst_DATA) $(scripts) \
 @USE_GTK_TRUE@	--vapidir=$(srcdir)/vapi --pkg @VALA_GTK_LIBS@ \
 @USE_GTK_TRUE@	--pkg lxclipboard $(NULL) $(am__append_3) \
 @USE_GTK_TRUE@	$(am__append_4)
-@USE_GTK_TRUE@lxclipboard_lxclipboard_CPPFLAGS = $(GTK_CFLAGS) \
-@USE_GTK_TRUE@	$(GLIB_CFLAGS) $(ADDITIONAL_FLAGS) -include \
-@USE_GTK_TRUE@	config.h -w $(NULL) $(am__append_5)
-@USE_GTK_TRUE@lxclipboard_lxclipboard_LDADD = $(GTK_LIBS) $(GLIB_LIBS) \
-@USE_GTK_TRUE@	$(X11_LIBS) $(NULL) $(am__append_6)
+@USE_GTK_TRUE@lxclipboard_lxclipboard_CPPFLAGS = \
+@USE_GTK_TRUE@    $(GTK_CFLAGS) \
+@USE_GTK_TRUE@    $(GLIB_CFLAGS) \
+@USE_GTK_TRUE@    $(ADDITIONAL_FLAGS) \
+@USE_GTK_TRUE@    -include config.h -w \
+@USE_GTK_TRUE@    $(NULL)
+
+@USE_GTK_TRUE@lxclipboard_lxclipboard_LDADD = \
+@USE_GTK_TRUE@    $(GTK_LIBS) \
+@USE_GTK_TRUE@    $(GLIB_LIBS) \
+@USE_GTK_TRUE@    $(X11_LIBS) \
+@USE_GTK_TRUE@    $(NULL)
+
 @USE_GTK_TRUE@lxpolkit_lxpolkit_vala_SOURCES = \
 @USE_GTK_TRUE@    lxpolkit/main.vala \
 @USE_GTK_TRUE@    $(NULL)
@@ -748,17 +744,25 @@ EXTRA_DIST = $(noinst_DATA) $(scripts) \
 
 @USE_GTK_TRUE@lxpolkit_lxpolkit_VALAFLAGS = --vapidir=$(srcdir)/vapi \
 @USE_GTK_TRUE@	--pkg @VALA_GTK_LIBS@ --pkg lxpolkit $(NULL) \
-@USE_GTK_TRUE@	$(am__append_7) $(am__append_8)
-@USE_GTK_TRUE@lxpolkit_lxpolkit_CPPFLAGS = $(GTK_CFLAGS) \
-@USE_GTK_TRUE@	$(GLIB_CFLAGS) $(POLKIT_CFLAGS) \
-@USE_GTK_TRUE@	$(ADDITIONAL_FLAGS) \
-@USE_GTK_TRUE@	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
-@USE_GTK_TRUE@	-DPACKAGE_DATA_DIR="\"$(datadir)"\" \
-@USE_GTK_TRUE@	-DPACKAGE_UI_DIR="\"$(datadir)/lxsession/ui"\" \
-@USE_GTK_TRUE@	-include config.h -w $(NULL) $(am__append_9)
-@USE_GTK_TRUE@lxpolkit_lxpolkit_LDADD = $(GTK_LIBS) $(GLIB_LIBS) \
-@USE_GTK_TRUE@	$(POLKIT_LIBS) $(X11_LIBS) $(NULL) \
-@USE_GTK_TRUE@	$(am__append_10)
+@USE_GTK_TRUE@	$(am__append_5) $(am__append_6)
+@USE_GTK_TRUE@lxpolkit_lxpolkit_CPPFLAGS = \
+@USE_GTK_TRUE@    $(GTK_CFLAGS) \
+@USE_GTK_TRUE@    $(GLIB_CFLAGS) \
+@USE_GTK_TRUE@    $(POLKIT_CFLAGS) \
+@USE_GTK_TRUE@    $(ADDITIONAL_FLAGS) \
+@USE_GTK_TRUE@    -DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
+@USE_GTK_TRUE@    -DPACKAGE_DATA_DIR="\"$(datadir)"\" \
+@USE_GTK_TRUE@    -DPACKAGE_UI_DIR="\"$(datadir)/lxsession/ui"\" \
+@USE_GTK_TRUE@    -include config.h -w \
+@USE_GTK_TRUE@    $(NULL)
+
+@USE_GTK_TRUE@lxpolkit_lxpolkit_LDADD = \
+@USE_GTK_TRUE@    $(GTK_LIBS) \
+@USE_GTK_TRUE@    $(GLIB_LIBS) \
+@USE_GTK_TRUE@    $(POLKIT_LIBS) \
+@USE_GTK_TRUE@    $(X11_LIBS) \
+@USE_GTK_TRUE@    $(NULL)
+
 @USE_GTK_TRUE@lxsession_db_lxsession_db_SOURCES = \
 @USE_GTK_TRUE@    lxsession-db/main.vala \
 @USE_GTK_TRUE@    lxsession-db/desktop-files-backend.vala \
@@ -981,8 +985,8 @@ lxsession_lxsession_SOURCES = \
 lxsession_lxsession_VALAFLAGS = --vapidir=$(srcdir)/vapi --pkg \
 	dbus-glib-1 --pkg gio-2.0 --pkg posix --pkg lxsettings-daemon \
 	$(buildinclip_VALAFLAGS) $(buildinpolkit_VALAFLAGS) \
-	$(lxsession_gtk_lxsession_VALAFLAGS) $(NULL) $(am__append_12) \
-	$(am__append_15)
+	$(lxsession_gtk_lxsession_VALAFLAGS) $(NULL) $(am__append_8) \
+	$(am__append_11)
 lxsession_lxsession_CPPFLAGS =  \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)"\" \
@@ -991,11 +995,11 @@ lxsession_lxsession_CPPFLAGS =  \
 	$(GLIB_CFLAGS) $(GIO_CFLAGS) $(DBUSGLIB_CFLAGS) \
 	$(ADDITIONAL_FLAGS) $(buildinclip_CFLAGS) \
 	$(buildinpolkit_CFLAGS) $(lxsession_gtk_lxsession_CFLAGS) \
-	-include config.h -w $(NULL) $(am__append_13) $(am__append_16)
+	-include config.h -w $(NULL) $(am__append_9) $(am__append_12)
 lxsession_lxsession_LDADD = $(GLIB_LIBS) $(GIO_LIBS) $(DBUSGLIB_LIBS) \
 	$(X11_LIBS) $(buildinclip_LDADD) $(buildinpolkit_LDADD) \
-	$(lxsession_gtk_lxsession_LDADD) $(NULL) $(am__append_14) \
-	$(am__append_17)
+	$(lxsession_gtk_lxsession_LDADD) $(NULL) $(am__append_10) \
+	$(am__append_13)
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -2119,6 +2123,15 @@ $(srcdir)/xdg_autostart_lxsession_xdg_autostart_vala.stamp: xdg-autostart/main.v
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(xdg_autostart_lxsession_xdg_autostart_VALAFLAGS) $(VALAFLAGS) -C xdg-autostart/main.vala
 	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/lxpolkit/main.c: $(srcdir)/lxpolkit_lxpolkit_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/lxpolkit_lxpolkit_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxpolkit_lxpolkit_vala.stamp; \
+	fi
+$(srcdir)/lxpolkit_lxpolkit_vala.stamp: lxpolkit/main.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxpolkit_lxpolkit_VALAFLAGS) $(VALAFLAGS) -C lxpolkit/main.vala
+	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/lxclipboard/main.c: $(srcdir)/lxclipboard_lxclipboard_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/lxclipboard_lxclipboard_vala.stamp; fi
 	@if test -f $@; then :; else \
@@ -2127,6 +2140,58 @@ $(srcdir)/lxclipboard/main.c: $(srcdir)/lxclipboard_lxclipboard_vala.stamp
 $(srcdir)/lxclipboard_lxclipboard_vala.stamp: lxclipboard/main.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxclipboard_lxclipboard_VALAFLAGS) $(VALAFLAGS) -C lxclipboard/main.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/lxsettings-daemon/main.c: $(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp; \
+	fi
+$(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp: lxsettings-daemon/main.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxsettings_daemon_lxsettings_daemon_VALAFLAGS) $(VALAFLAGS) -C lxsettings-daemon/main.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/lxsession-db/main.c: $(srcdir)/lxsession_db_lxsession_db_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_db_lxsession_db_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_db_lxsession_db_vala.stamp; \
+	fi
+$(srcdir)/lxsession-db/desktop-files-backend.c: $(srcdir)/lxsession_db_lxsession_db_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_db_lxsession_db_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_db_lxsession_db_vala.stamp; \
+	fi
+$(srcdir)/lxsession_db_lxsession_db_vala.stamp: lxsession-db/main.vala lxsession-db/desktop-files-backend.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxsession_db_lxsession_db_VALAFLAGS) $(VALAFLAGS) -C lxsession-db/main.vala lxsession-db/desktop-files-backend.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/lxsession-default-apps/autostart.c: $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; \
+	fi
+$(srcdir)/lxsession-default-apps/main.c: $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; \
+	fi
+$(srcdir)/lxsession-default-apps/combobox.c: $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; \
+	fi
+$(srcdir)/lxsession-default-apps/dbus-backend.c: $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; \
+	fi
+$(srcdir)/lxsession-default-apps/utils.c: $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; \
+	fi
+$(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp: lxsession-default-apps/autostart.vala lxsession-default-apps/main.vala lxsession-default-apps/combobox.vala lxsession-default-apps/dbus-backend.vala lxsession-default-apps/utils.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxsession_default_apps_lxsession_default_apps_VALAFLAGS) $(VALAFLAGS) -C lxsession-default-apps/autostart.vala lxsession-default-apps/main.vala lxsession-default-apps/combobox.vala lxsession-default-apps/dbus-backend.vala lxsession-default-apps/utils.vala
 	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/lxsession/main.c: $(srcdir)/lxsession_lxsession_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_lxsession_vala.stamp; fi
@@ -2201,67 +2266,6 @@ $(srcdir)/lxsession/utils.c: $(srcdir)/lxsession_lxsession_vala.stamp
 $(srcdir)/lxsession_lxsession_vala.stamp: lxsession/main.vala lxsession/app.vala lxsession/autostart.vala lxsession/conffiles.vala lxsession/control.vala lxsession/dbus-common.vala lxsession/dbus-gnome-session.vala lxsession/dbus-lxde-session.vala lxsession/environement.vala lxsession/notifications.vala lxsession/options.vala lxsession/process.vala lxsession/settings.vala lxsession/utils.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxsession_lxsession_VALAFLAGS) $(VALAFLAGS) -C lxsession/main.vala lxsession/app.vala lxsession/autostart.vala lxsession/conffiles.vala lxsession/control.vala lxsession/dbus-common.vala lxsession/dbus-gnome-session.vala lxsession/dbus-lxde-session.vala lxsession/environement.vala lxsession/notifications.vala lxsession/options.vala lxsession/process.vala lxsession/settings.vala lxsession/utils.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/lxsession-db/main.c: $(srcdir)/lxsession_db_lxsession_db_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_db_lxsession_db_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_db_lxsession_db_vala.stamp; \
-	fi
-$(srcdir)/lxsession-db/desktop-files-backend.c: $(srcdir)/lxsession_db_lxsession_db_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_db_lxsession_db_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_db_lxsession_db_vala.stamp; \
-	fi
-$(srcdir)/lxsession_db_lxsession_db_vala.stamp: lxsession-db/main.vala lxsession-db/desktop-files-backend.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxsession_db_lxsession_db_VALAFLAGS) $(VALAFLAGS) -C lxsession-db/main.vala lxsession-db/desktop-files-backend.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/lxsettings-daemon/main.c: $(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp; \
-	fi
-$(srcdir)/lxsettings_daemon_lxsettings_daemon_vala.stamp: lxsettings-daemon/main.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxsettings_daemon_lxsettings_daemon_VALAFLAGS) $(VALAFLAGS) -C lxsettings-daemon/main.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/lxpolkit/main.c: $(srcdir)/lxpolkit_lxpolkit_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/lxpolkit_lxpolkit_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxpolkit_lxpolkit_vala.stamp; \
-	fi
-$(srcdir)/lxpolkit_lxpolkit_vala.stamp: lxpolkit/main.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxpolkit_lxpolkit_VALAFLAGS) $(VALAFLAGS) -C lxpolkit/main.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/lxsession-default-apps/autostart.c: $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; \
-	fi
-$(srcdir)/lxsession-default-apps/main.c: $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; \
-	fi
-$(srcdir)/lxsession-default-apps/combobox.c: $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; \
-	fi
-$(srcdir)/lxsession-default-apps/dbus-backend.c: $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; \
-	fi
-$(srcdir)/lxsession-default-apps/utils.c: $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp; \
-	fi
-$(srcdir)/lxsession_default_apps_lxsession_default_apps_vala.stamp: lxsession-default-apps/autostart.vala lxsession-default-apps/main.vala lxsession-default-apps/combobox.vala lxsession-default-apps/dbus-backend.vala lxsession-default-apps/utils.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(lxsession_default_apps_lxsession_default_apps_VALAFLAGS) $(VALAFLAGS) -C lxsession-default-apps/autostart.vala lxsession-default-apps/main.vala lxsession-default-apps/combobox.vala lxsession-default-apps/dbus-backend.vala lxsession-default-apps/utils.vala
 	$(AM_V_at)mv -f $@-t $@
 
 # This directory's subdirectories are mostly independent; you can cd

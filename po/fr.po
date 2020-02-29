@@ -8,15 +8,15 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-11 15:47+0300\n"
 "PO-Revision-Date: 2015-08-12 15:38+0000\n"
-"Last-Translator: Julien Henry <Julius22@laposte.net>\n"
+"Last-Translator: CISZEK Anthony <lrtcfr@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: fr\n"
+"Language: templates\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 2.7\n"
-"X-POOTLE-MTIME: 1439393926.000000\n"
+"X-POOTLE-MTIME: 1439775037.646574\n"
 
 #: ../lxsession-logout/lxsession-logout.c:48
 msgid "Custom message to show on the dialog"
@@ -62,7 +62,7 @@ msgstr "_Suspendre"
 
 #: ../lxsession-logout/lxsession-logout.c:735
 msgid "_Hibernate"
-msgstr "_Hiberner"
+msgstr "_Veille prolongée"
 
 #: ../lxsession-logout/lxsession-logout.c:746
 msgid "S_witch User"
@@ -75,7 +75,7 @@ msgstr "_Verrouiller l'écran"
 #. Create the Logout button.
 #: ../lxsession-logout/lxsession-logout.c:766
 msgid "_Logout"
-msgstr "Se _déconnecter"
+msgstr "_Se déconnecter"
 
 #: ../lxsession-edit/lxsession-edit-common.c:385
 msgid "Enabled"
@@ -249,7 +249,7 @@ msgstr "Document"
 
 #: ../data/ui/lxsession-default-apps.ui.h:23
 msgid "Webcam"
-msgstr "Cybercaméra"
+msgstr "Caméra"
 
 #: ../data/ui/lxsession-default-apps.ui.h:24
 msgid "Burning utility"
@@ -497,8 +497,7 @@ msgstr ""
 #: ../lxsession-default-apps/main.vala:148
 msgid "Handle Desktop: Draw the desktop using the file manager ?\n"
 msgstr ""
-"Gérer le bureau : dessiner le bureau en utilisant le gestionnaire de "
-"fichiers ?\n"
+"Gérer le bureau : dessiner le bureau à l'aide du gestionnaire de fichiers ?\n"
 
 #: ../lxsession-default-apps/main.vala:149
 msgid "Autostart the application ?\n"
@@ -510,7 +509,7 @@ msgid ""
 "password)\n"
 msgstr ""
 "Définir le programme par défaut pour le système Debian (en utilisant update-"
-"alternatives ; nécessite le mot de passe de root)\n"
+"alternatives ; nécessite le mot de passe root)\n"
 
 #. New inits
 #: ../lxsession-default-apps/main.vala:153
@@ -791,7 +790,7 @@ msgid "Disable"
 msgstr "Désactiver"
 
 #: ../lxsession-default-apps/combobox.vala:564
-msgid "Do you want to assiociate the following Mimetype ?\n"
+msgid "Do you want to associate the following Mimetype ?\n"
 msgstr "Voulez-vous associer les types Mime suivants ?\n"
 
 #: ../lxsession-default-apps/combobox.vala:612

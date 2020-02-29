@@ -3075,7 +3075,7 @@ void ldefault_apps_create_mime_associate_window (LDefaultAppsDbusBackend* dbus_b
 	_tmp14_ = mime_view_port;
 	_tmp15_ = mime_vbox;
 	gtk_container_add ((GtkContainer*) _tmp14_, (GtkWidget*) _tmp15_);
-	_tmp16_ = _ ("Do you want to assiociate the following Mimetype ?\n");
+	_tmp16_ = _ ("Do you want to associate the following Mimetype ?\n");
 	_tmp17_ = (GtkLabel*) gtk_label_new (_tmp16_);
 	g_object_ref_sink (_tmp17_);
 	info_label = _tmp17_;

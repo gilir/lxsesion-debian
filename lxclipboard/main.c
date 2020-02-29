@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <gtk/gtk.h>
-#include <unique/unique.h>
+#include <gio/gio.h>
 #include <lxclipboard/clipboard.h>
 
 
@@ -65,21 +65,28 @@ LxsessionMain* lxsession_main_construct (GType object_type);
 
 gint lxsession_main_main (gchar** args, int args_length1) {
 	gint result = 0;
-	UniqueApp* app = NULL;
-	UniqueApp* _tmp0_ = NULL;
-	UniqueApp* _tmp1_ = NULL;
+	GApplication* app = NULL;
+	GApplication* _tmp0_ = NULL;
 	gboolean _tmp2_ = FALSE;
 	gboolean _tmp3_ = FALSE;
 	GMainLoop* _tmp4_ = NULL;
 	GMainLoop* _tmp5_ = NULL;
+	GError * _inner_error_ = NULL;
 	gtk_init (&args_length1, &args);
-	_tmp0_ = unique_app_new ("org.lxde.lxclipboard", NULL);
+	_tmp0_ = g_application_new ("org.lxde.lxclipboard", G_APPLICATION_FLAGS_NONE);
 	app = _tmp0_;
-	_tmp1_ = app;
-	g_object_get (_tmp1_, "is-running", &_tmp2_, NULL);
+	g_application_register (app, NULL, &_inner_error_);
+	if (G_UNLIKELY (_inner_error_ != NULL)) {
+		gint _tmp1_ = 0;
+		_g_object_unref0 (app);
+		g_critical ("file %s: line %d: uncaught error: %s (%s, %d)", __FILE__, __LINE__, _inner_error_->message, g_quark_to_string (_inner_error_->domain), _inner_error_->code);
+		g_clear_error (&_inner_error_);
+		return _tmp1_;
+	}
+	_tmp2_ = g_application_get_is_remote (app);
 	_tmp3_ = _tmp2_;
 	if (_tmp3_) {
-		g_message ("main.vala:36: lxclipboard is already running. Existing");
+		g_message ("main.vala:35: lxclipboard is already running. Existing");
 		result = 0;
 		_g_object_unref0 (app);
 		return result;

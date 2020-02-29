@@ -1,4 +1,4 @@
-AC_INIT([lxsession],[0.5.4],[],[lxsession])
+AC_INIT([lxsession],[0.5.5],[],[lxsession])
 
 # Autotols programs
 AM_INIT_AUTOMAKE([1.11.1 -Wall -Werror foreign no-dist-gzip dist-xz])
@@ -45,7 +45,7 @@ PKG_CHECK_MODULES(X11, [x11])
 AC_SUBST(X11_CFLAGS)
 AC_SUBST(X11_LIBS)
 
-PKG_CHECK_MODULES(GLIB, [glib-2.0 >= 2.6.0])
+PKG_CHECK_MODULES(GLIB, [glib-2.0 >= 2.28.0])
 AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
 
@@ -79,11 +79,6 @@ else
     CFLAGS="$CFLAGS -D USE_GTK2"
     gtk_modules="gtk+-2.0 >= 2.6.0"
     VALA_GTK_LIBS="gtk+-2.0"
-
-    PKG_CHECK_MODULES(UNIQUE, [unique-1.0])
-    AC_SUBST(UNIQUE_CFLAGS)
-    AC_SUBST(UNIQUE_LIBS)
-
   fi
   PKG_CHECK_MODULES(GTK, [$gtk_modules])
   AC_SUBST(GTK_CFLAGS)

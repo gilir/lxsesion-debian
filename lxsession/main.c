@@ -655,7 +655,7 @@ static void ____lambda15__gbus_name_acquired_callback (GDBusConnection* connecti
 
 
 static void ___lambda16_ (void) {
-	g_warning ("main.vala:506: Could not acquire name\n");
+	g_warning ("main.vala:507: Could not acquire name\n");
 }
 
 
@@ -679,7 +679,7 @@ static void ____lambda17__gbus_name_acquired_callback (GDBusConnection* connecti
 
 
 static void ___lambda18_ (void) {
-	g_warning ("main.vala:515: Could not acquire name\n");
+	g_warning ("main.vala:516: Could not acquire name\n");
 }
 
 
@@ -742,69 +742,69 @@ gint lxsession_main_main (gchar** args, int args_length1) {
 	gchar* _tmp87_ = NULL;
 	gboolean _tmp88_ = FALSE;
 	gboolean _tmp89_ = FALSE;
-	LxsessionLxsessionConfigKeyFile* _tmp304_ = NULL;
-	gchar* _tmp305_ = NULL;
-	gchar* _tmp306_ = NULL;
-	gboolean _tmp307_ = FALSE;
-	LxsessionLxsessionConfigKeyFile* _tmp313_ = NULL;
-	gchar* _tmp314_ = NULL;
-	gchar* _tmp315_ = NULL;
+	LxsessionLxsessionConfigKeyFile* _tmp307_ = NULL;
+	gchar* _tmp308_ = NULL;
+	gchar* _tmp309_ = NULL;
+	gboolean _tmp310_ = FALSE;
 	LxsessionLxsessionConfigKeyFile* _tmp316_ = NULL;
 	gchar* _tmp317_ = NULL;
 	gchar* _tmp318_ = NULL;
-	gboolean _tmp319_ = FALSE;
-	LxsessionLxsessionConfigKeyFile* _tmp325_ = NULL;
-	gchar* _tmp326_ = NULL;
-	gchar* _tmp327_ = NULL;
-	gboolean _tmp328_ = FALSE;
-	LxsessionLxsessionConfigKeyFile* _tmp333_ = NULL;
-	gchar* _tmp334_ = NULL;
-	gchar* _tmp335_ = NULL;
-	gboolean _tmp336_ = FALSE;
-	LxsessionLxsessionConfigKeyFile* _tmp341_ = NULL;
-	gchar* _tmp342_ = NULL;
-	gchar* _tmp343_ = NULL;
-	gboolean _tmp344_ = FALSE;
-	LxsessionLxsessionConfigKeyFile* _tmp349_ = NULL;
-	gchar* _tmp350_ = NULL;
-	gchar* _tmp351_ = NULL;
-	gboolean _tmp352_ = FALSE;
-	LxsessionLxsessionConfigKeyFile* _tmp357_ = NULL;
-	gchar* _tmp358_ = NULL;
-	gchar* _tmp359_ = NULL;
-	gboolean _tmp360_ = FALSE;
-	LxsessionLxsessionConfigKeyFile* _tmp364_ = NULL;
-	gchar* _tmp365_ = NULL;
-	gchar* _tmp366_ = NULL;
-	gboolean _tmp367_ = FALSE;
-	LxsessionLxsessionConfigKeyFile* _tmp371_ = NULL;
-	gchar* _tmp372_ = NULL;
-	gchar* _tmp373_ = NULL;
-	gboolean _tmp374_ = FALSE;
-	LxsessionLxsessionConfigKeyFile* _tmp380_ = NULL;
-	gchar* _tmp381_ = NULL;
-	gchar* _tmp382_ = NULL;
-	gboolean _tmp383_ = FALSE;
-	LxsessionLxsessionConfigKeyFile* _tmp384_ = NULL;
+	LxsessionLxsessionConfigKeyFile* _tmp319_ = NULL;
+	gchar* _tmp320_ = NULL;
+	gchar* _tmp321_ = NULL;
+	gboolean _tmp322_ = FALSE;
+	LxsessionLxsessionConfigKeyFile* _tmp328_ = NULL;
+	gchar* _tmp329_ = NULL;
+	gchar* _tmp330_ = NULL;
+	gboolean _tmp331_ = FALSE;
+	LxsessionLxsessionConfigKeyFile* _tmp336_ = NULL;
+	gchar* _tmp337_ = NULL;
+	gchar* _tmp338_ = NULL;
+	gboolean _tmp339_ = FALSE;
+	LxsessionLxsessionConfigKeyFile* _tmp344_ = NULL;
+	gchar* _tmp345_ = NULL;
+	gchar* _tmp346_ = NULL;
+	gboolean _tmp347_ = FALSE;
+	LxsessionLxsessionConfigKeyFile* _tmp352_ = NULL;
+	gchar* _tmp353_ = NULL;
+	gchar* _tmp354_ = NULL;
+	gboolean _tmp355_ = FALSE;
+	LxsessionLxsessionConfigKeyFile* _tmp360_ = NULL;
+	gchar* _tmp361_ = NULL;
+	gchar* _tmp362_ = NULL;
+	gboolean _tmp363_ = FALSE;
+	LxsessionLxsessionConfigKeyFile* _tmp367_ = NULL;
+	gchar* _tmp368_ = NULL;
+	gchar* _tmp369_ = NULL;
+	gboolean _tmp370_ = FALSE;
+	LxsessionLxsessionConfigKeyFile* _tmp374_ = NULL;
+	gchar* _tmp375_ = NULL;
+	gchar* _tmp376_ = NULL;
+	gboolean _tmp377_ = FALSE;
+	LxsessionLxsessionConfigKeyFile* _tmp383_ = NULL;
+	gchar* _tmp384_ = NULL;
 	gchar* _tmp385_ = NULL;
-	gchar* _tmp386_ = NULL;
-	gboolean _tmp387_ = FALSE;
-	GMainLoop* _tmp388_ = NULL;
-	GMainLoop* _tmp389_ = NULL;
-	LxsessionClipboardOption* _tmp390_ = NULL;
-	LxsessionLxsessionConfigKeyFile* _tmp392_ = NULL;
-	gchar* _tmp393_ = NULL;
-	gchar* _tmp394_ = NULL;
-	gboolean _tmp395_ = FALSE;
-	LxsessionPanelApp* _tmp398_ = NULL;
-	LxsessionDockApp* _tmp400_ = NULL;
-	LxsessionWindowsManagerApp* _tmp402_ = NULL;
-	LxsessionDesktopApp* _tmp404_ = NULL;
-	LxsessionPolkitApp* _tmp406_ = NULL;
-	LxsessionScreensaverApp* _tmp408_ = NULL;
-	LxsessionPowerManagerApp* _tmp410_ = NULL;
-	LxsessionNetworkGuiApp* _tmp412_ = NULL;
-	LxsessionGenericSimpleApp* _tmp414_ = NULL;
+	gboolean _tmp386_ = FALSE;
+	LxsessionLxsessionConfigKeyFile* _tmp387_ = NULL;
+	gchar* _tmp388_ = NULL;
+	gchar* _tmp389_ = NULL;
+	gboolean _tmp390_ = FALSE;
+	GMainLoop* _tmp391_ = NULL;
+	GMainLoop* _tmp392_ = NULL;
+	LxsessionClipboardOption* _tmp393_ = NULL;
+	LxsessionLxsessionConfigKeyFile* _tmp395_ = NULL;
+	gchar* _tmp396_ = NULL;
+	gchar* _tmp397_ = NULL;
+	gboolean _tmp398_ = FALSE;
+	LxsessionPanelApp* _tmp401_ = NULL;
+	LxsessionDockApp* _tmp403_ = NULL;
+	LxsessionWindowsManagerApp* _tmp405_ = NULL;
+	LxsessionDesktopApp* _tmp407_ = NULL;
+	LxsessionPolkitApp* _tmp409_ = NULL;
+	LxsessionScreensaverApp* _tmp411_ = NULL;
+	LxsessionPowerManagerApp* _tmp413_ = NULL;
+	LxsessionNetworkGuiApp* _tmp415_ = NULL;
+	LxsessionGenericSimpleApp* _tmp417_ = NULL;
 	GError * _inner_error_ = NULL;
 	textdomain (GETTEXT_PACKAGE);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "utf-8");
@@ -1728,297 +1728,306 @@ gint lxsession_main_main (gchar** args, int args_length1) {
 		_g_free0 (_tmp302_);
 		if (_tmp303_) {
 		} else {
-			lxsession_lxsession_spawn_command_line_async ("lxsession-xdg-autostart");
+			gchar* autostart_cmd = NULL;
+			const gchar* _tmp304_ = NULL;
+			gchar* _tmp305_ = NULL;
+			const gchar* _tmp306_ = NULL;
+			_tmp304_ = lxsession_main_desktop_environnement;
+			_tmp305_ = g_strconcat ("lxsession-xdg-autostart -d ", _tmp304_, NULL);
+			autostart_cmd = _tmp305_;
+			_tmp306_ = autostart_cmd;
+			lxsession_lxsession_spawn_command_line_async (_tmp306_);
+			_g_free0 (autostart_cmd);
 		}
 		_g_object_unref0 (_auto_);
 	}
-	_tmp304_ = lxsession_global_settings;
-	_tmp305_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp304_, "Session", "clipboard", "command");
-	_tmp306_ = _tmp305_;
-	_tmp307_ = _tmp306_ != NULL;
-	_g_free0 (_tmp306_);
-	if (_tmp307_) {
+	_tmp307_ = lxsession_global_settings;
+	_tmp308_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp307_, "Session", "clipboard", "command");
+	_tmp309_ = _tmp308_;
+	_tmp310_ = _tmp309_ != NULL;
+	_g_free0 (_tmp309_);
+	if (_tmp310_) {
 		LxsessionClipboardOption* clipboard = NULL;
-		LxsessionLxsessionConfigKeyFile* _tmp308_ = NULL;
-		LxsessionClipboardOption* _tmp309_ = NULL;
-		LxsessionClipboardOption* _tmp310_ = NULL;
-		LxsessionClipboardOption* _tmp311_ = NULL;
+		LxsessionLxsessionConfigKeyFile* _tmp311_ = NULL;
 		LxsessionClipboardOption* _tmp312_ = NULL;
-		_tmp308_ = lxsession_global_settings;
-		_tmp309_ = lxsession_clipboard_option_new ((LxsessionLxsessionConfig*) _tmp308_);
-		clipboard = _tmp309_;
-		_tmp310_ = clipboard;
-		_tmp311_ = _g_object_ref0 (_tmp310_);
+		LxsessionClipboardOption* _tmp313_ = NULL;
+		LxsessionClipboardOption* _tmp314_ = NULL;
+		LxsessionClipboardOption* _tmp315_ = NULL;
+		_tmp311_ = lxsession_global_settings;
+		_tmp312_ = lxsession_clipboard_option_new ((LxsessionLxsessionConfig*) _tmp311_);
+		clipboard = _tmp312_;
+		_tmp313_ = clipboard;
+		_tmp314_ = _g_object_ref0 (_tmp313_);
 		_g_object_unref0 (lxsession_global_clipboard);
-		lxsession_global_clipboard = _tmp311_;
-		_tmp312_ = lxsession_global_clipboard;
-		lxsession_option_activate ((LxsessionOption*) _tmp312_);
+		lxsession_global_clipboard = _tmp314_;
+		_tmp315_ = lxsession_global_clipboard;
+		lxsession_option_activate ((LxsessionOption*) _tmp315_);
 		_g_object_unref0 (clipboard);
 	}
-	_tmp313_ = lxsession_global_settings;
-	_tmp314_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp313_, "Keymap", "mode", NULL);
-	_tmp315_ = _tmp314_;
-	g_message ("main.vala:442: Check keymap_mode %s", _tmp315_);
-	_g_free0 (_tmp315_);
 	_tmp316_ = lxsession_global_settings;
 	_tmp317_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp316_, "Keymap", "mode", NULL);
 	_tmp318_ = _tmp317_;
-	_tmp319_ = _tmp318_ != NULL;
+	g_message ("main.vala:443: Check keymap_mode %s", _tmp318_);
 	_g_free0 (_tmp318_);
-	if (_tmp319_) {
+	_tmp319_ = lxsession_global_settings;
+	_tmp320_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp319_, "Keymap", "mode", NULL);
+	_tmp321_ = _tmp320_;
+	_tmp322_ = _tmp321_ != NULL;
+	_g_free0 (_tmp321_);
+	if (_tmp322_) {
 		LxsessionKeymapOption* keymap = NULL;
-		LxsessionLxsessionConfigKeyFile* _tmp320_ = NULL;
-		LxsessionKeymapOption* _tmp321_ = NULL;
-		LxsessionKeymapOption* _tmp322_ = NULL;
-		LxsessionKeymapOption* _tmp323_ = NULL;
+		LxsessionLxsessionConfigKeyFile* _tmp323_ = NULL;
 		LxsessionKeymapOption* _tmp324_ = NULL;
-		g_message ("main.vala:445: Create Option Keymap");
-		_tmp320_ = lxsession_global_settings;
-		_tmp321_ = lxsession_keymap_option_new ((LxsessionLxsessionConfig*) _tmp320_);
-		keymap = _tmp321_;
-		_tmp322_ = keymap;
-		_tmp323_ = _g_object_ref0 (_tmp322_);
+		LxsessionKeymapOption* _tmp325_ = NULL;
+		LxsessionKeymapOption* _tmp326_ = NULL;
+		LxsessionKeymapOption* _tmp327_ = NULL;
+		g_message ("main.vala:446: Create Option Keymap");
+		_tmp323_ = lxsession_global_settings;
+		_tmp324_ = lxsession_keymap_option_new ((LxsessionLxsessionConfig*) _tmp323_);
+		keymap = _tmp324_;
+		_tmp325_ = keymap;
+		_tmp326_ = _g_object_ref0 (_tmp325_);
 		_g_object_unref0 (lxsession_global_keymap);
-		lxsession_global_keymap = _tmp323_;
-		_tmp324_ = lxsession_global_keymap;
-		lxsession_option_activate ((LxsessionOption*) _tmp324_);
+		lxsession_global_keymap = _tmp326_;
+		_tmp327_ = lxsession_global_keymap;
+		lxsession_option_activate ((LxsessionOption*) _tmp327_);
 		_g_object_unref0 (keymap);
 	}
-	_tmp325_ = lxsession_global_settings;
-	_tmp326_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp325_, "Session", "xrandr", "command");
-	_tmp327_ = _tmp326_;
-	_tmp328_ = _tmp327_ != NULL;
-	_g_free0 (_tmp327_);
-	if (_tmp328_) {
+	_tmp328_ = lxsession_global_settings;
+	_tmp329_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp328_, "Session", "xrandr", "command");
+	_tmp330_ = _tmp329_;
+	_tmp331_ = _tmp330_ != NULL;
+	_g_free0 (_tmp330_);
+	if (_tmp331_) {
 		LxsessionXrandrApp* xrandr = NULL;
-		LxsessionXrandrApp* _tmp329_ = NULL;
-		LxsessionXrandrApp* _tmp330_ = NULL;
-		LxsessionXrandrApp* _tmp331_ = NULL;
 		LxsessionXrandrApp* _tmp332_ = NULL;
-		_tmp329_ = lxsession_xrandr_app_new ();
-		xrandr = _tmp329_;
-		_tmp330_ = xrandr;
-		_tmp331_ = _g_object_ref0 (_tmp330_);
+		LxsessionXrandrApp* _tmp333_ = NULL;
+		LxsessionXrandrApp* _tmp334_ = NULL;
+		LxsessionXrandrApp* _tmp335_ = NULL;
+		_tmp332_ = lxsession_xrandr_app_new ();
+		xrandr = _tmp332_;
+		_tmp333_ = xrandr;
+		_tmp334_ = _g_object_ref0 (_tmp333_);
 		_g_object_unref0 (lxsession_global_xrandr);
-		lxsession_global_xrandr = _tmp331_;
-		_tmp332_ = xrandr;
-		lxsession_app_object_launch ((LxsessionAppObject*) _tmp332_);
+		lxsession_global_xrandr = _tmp334_;
+		_tmp335_ = xrandr;
+		lxsession_app_object_launch ((LxsessionAppObject*) _tmp335_);
 		_g_object_unref0 (xrandr);
 	}
-	_tmp333_ = lxsession_global_settings;
-	_tmp334_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp333_, "Session", "keyring", "command");
-	_tmp335_ = _tmp334_;
-	_tmp336_ = _tmp335_ != NULL;
-	_g_free0 (_tmp335_);
-	if (_tmp336_) {
+	_tmp336_ = lxsession_global_settings;
+	_tmp337_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp336_, "Session", "keyring", "command");
+	_tmp338_ = _tmp337_;
+	_tmp339_ = _tmp338_ != NULL;
+	_g_free0 (_tmp338_);
+	if (_tmp339_) {
 		LxsessionKeyringApp* keyring = NULL;
-		LxsessionKeyringApp* _tmp337_ = NULL;
-		LxsessionKeyringApp* _tmp338_ = NULL;
-		LxsessionKeyringApp* _tmp339_ = NULL;
 		LxsessionKeyringApp* _tmp340_ = NULL;
-		_tmp337_ = lxsession_keyring_app_new ();
-		keyring = _tmp337_;
-		_tmp338_ = keyring;
-		_tmp339_ = _g_object_ref0 (_tmp338_);
+		LxsessionKeyringApp* _tmp341_ = NULL;
+		LxsessionKeyringApp* _tmp342_ = NULL;
+		LxsessionKeyringApp* _tmp343_ = NULL;
+		_tmp340_ = lxsession_keyring_app_new ();
+		keyring = _tmp340_;
+		_tmp341_ = keyring;
+		_tmp342_ = _g_object_ref0 (_tmp341_);
 		_g_object_unref0 (lxsession_global_keyring);
-		lxsession_global_keyring = _tmp339_;
-		_tmp340_ = lxsession_global_keyring;
-		lxsession_app_object_launch ((LxsessionAppObject*) _tmp340_);
+		lxsession_global_keyring = _tmp342_;
+		_tmp343_ = lxsession_global_keyring;
+		lxsession_app_object_launch ((LxsessionAppObject*) _tmp343_);
 		_g_object_unref0 (keyring);
 	}
-	_tmp341_ = lxsession_global_settings;
-	_tmp342_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp341_, "Session", "a11y", "command");
-	_tmp343_ = _tmp342_;
-	_tmp344_ = _tmp343_ != NULL;
-	_g_free0 (_tmp343_);
-	if (_tmp344_) {
+	_tmp344_ = lxsession_global_settings;
+	_tmp345_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp344_, "Session", "a11y", "command");
+	_tmp346_ = _tmp345_;
+	_tmp347_ = _tmp346_ != NULL;
+	_g_free0 (_tmp346_);
+	if (_tmp347_) {
 		LxsessionA11yApp* a11y = NULL;
-		LxsessionA11yApp* _tmp345_ = NULL;
-		LxsessionA11yApp* _tmp346_ = NULL;
-		LxsessionA11yApp* _tmp347_ = NULL;
 		LxsessionA11yApp* _tmp348_ = NULL;
-		_tmp345_ = lxsession_a11y_app_new ();
-		a11y = _tmp345_;
-		_tmp346_ = a11y;
-		_tmp347_ = _g_object_ref0 (_tmp346_);
+		LxsessionA11yApp* _tmp349_ = NULL;
+		LxsessionA11yApp* _tmp350_ = NULL;
+		LxsessionA11yApp* _tmp351_ = NULL;
+		_tmp348_ = lxsession_a11y_app_new ();
+		a11y = _tmp348_;
+		_tmp349_ = a11y;
+		_tmp350_ = _g_object_ref0 (_tmp349_);
 		_g_object_unref0 (lxsession_global_a11y);
-		lxsession_global_a11y = _tmp347_;
-		_tmp348_ = lxsession_global_a11y;
-		lxsession_app_object_launch ((LxsessionAppObject*) _tmp348_);
+		lxsession_global_a11y = _tmp350_;
+		_tmp351_ = lxsession_global_a11y;
+		lxsession_app_object_launch ((LxsessionAppObject*) _tmp351_);
 		_g_object_unref0 (a11y);
 	}
-	_tmp349_ = lxsession_global_settings;
-	_tmp350_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp349_, "Session", "proxy_manager", "command");
-	_tmp351_ = _tmp350_;
-	_tmp352_ = _tmp351_ != NULL;
-	_g_free0 (_tmp351_);
-	if (_tmp352_) {
+	_tmp352_ = lxsession_global_settings;
+	_tmp353_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp352_, "Session", "proxy_manager", "command");
+	_tmp354_ = _tmp353_;
+	_tmp355_ = _tmp354_ != NULL;
+	_g_free0 (_tmp354_);
+	if (_tmp355_) {
 		LxsessionProxyManagerApp* proxy = NULL;
-		LxsessionProxyManagerApp* _tmp353_ = NULL;
-		LxsessionProxyManagerApp* _tmp354_ = NULL;
-		LxsessionProxyManagerApp* _tmp355_ = NULL;
 		LxsessionProxyManagerApp* _tmp356_ = NULL;
-		_tmp353_ = lxsession_proxy_manager_app_new ();
-		proxy = _tmp353_;
-		_tmp354_ = proxy;
-		_tmp355_ = _g_object_ref0 (_tmp354_);
+		LxsessionProxyManagerApp* _tmp357_ = NULL;
+		LxsessionProxyManagerApp* _tmp358_ = NULL;
+		LxsessionProxyManagerApp* _tmp359_ = NULL;
+		_tmp356_ = lxsession_proxy_manager_app_new ();
+		proxy = _tmp356_;
+		_tmp357_ = proxy;
+		_tmp358_ = _g_object_ref0 (_tmp357_);
 		_g_object_unref0 (lxsession_global_proxy);
-		lxsession_global_proxy = _tmp355_;
-		_tmp356_ = lxsession_global_proxy;
-		lxsession_app_object_launch ((LxsessionAppObject*) _tmp356_);
+		lxsession_global_proxy = _tmp358_;
+		_tmp359_ = lxsession_global_proxy;
+		lxsession_app_object_launch ((LxsessionAppObject*) _tmp359_);
 		_g_object_unref0 (proxy);
 	}
-	_tmp357_ = lxsession_global_settings;
-	_tmp358_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp357_, "Session", "updates_manager", "command");
-	_tmp359_ = _tmp358_;
-	_tmp360_ = _tmp359_ != NULL;
-	_g_free0 (_tmp359_);
-	if (_tmp360_) {
+	_tmp360_ = lxsession_global_settings;
+	_tmp361_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp360_, "Session", "updates_manager", "command");
+	_tmp362_ = _tmp361_;
+	_tmp363_ = _tmp362_ != NULL;
+	_g_free0 (_tmp362_);
+	if (_tmp363_) {
 		LxsessionUpdatesManagerApp* updates = NULL;
-		LxsessionUpdatesManagerApp* _tmp361_ = NULL;
-		LxsessionUpdatesManagerApp* _tmp362_ = NULL;
-		LxsessionUpdatesManagerApp* _tmp363_ = NULL;
-		_tmp361_ = lxsession_updates_manager_app_new ();
-		updates = _tmp361_;
-		_tmp362_ = updates;
-		_tmp363_ = _g_object_ref0 (_tmp362_);
+		LxsessionUpdatesManagerApp* _tmp364_ = NULL;
+		LxsessionUpdatesManagerApp* _tmp365_ = NULL;
+		LxsessionUpdatesManagerApp* _tmp366_ = NULL;
+		_tmp364_ = lxsession_updates_manager_app_new ();
+		updates = _tmp364_;
+		_tmp365_ = updates;
+		_tmp366_ = _g_object_ref0 (_tmp365_);
 		_g_object_unref0 (lxsession_global_updates);
-		lxsession_global_updates = _tmp363_;
+		lxsession_global_updates = _tmp366_;
 		_g_object_unref0 (updates);
 	}
-	_tmp364_ = lxsession_global_settings;
-	_tmp365_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp364_, "Session", "crash_manager", "command");
-	_tmp366_ = _tmp365_;
-	_tmp367_ = _tmp366_ != NULL;
-	_g_free0 (_tmp366_);
-	if (_tmp367_) {
+	_tmp367_ = lxsession_global_settings;
+	_tmp368_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp367_, "Session", "crash_manager", "command");
+	_tmp369_ = _tmp368_;
+	_tmp370_ = _tmp369_ != NULL;
+	_g_free0 (_tmp369_);
+	if (_tmp370_) {
 		LxsessionCrashManagerApp* crash = NULL;
-		LxsessionCrashManagerApp* _tmp368_ = NULL;
-		LxsessionCrashManagerApp* _tmp369_ = NULL;
-		LxsessionCrashManagerApp* _tmp370_ = NULL;
-		_tmp368_ = lxsession_crash_manager_app_new ();
-		crash = _tmp368_;
-		_tmp369_ = crash;
-		_tmp370_ = _g_object_ref0 (_tmp369_);
+		LxsessionCrashManagerApp* _tmp371_ = NULL;
+		LxsessionCrashManagerApp* _tmp372_ = NULL;
+		LxsessionCrashManagerApp* _tmp373_ = NULL;
+		_tmp371_ = lxsession_crash_manager_app_new ();
+		crash = _tmp371_;
+		_tmp372_ = crash;
+		_tmp373_ = _g_object_ref0 (_tmp372_);
 		_g_object_unref0 (lxsession_global_crash);
-		lxsession_global_crash = _tmp370_;
+		lxsession_global_crash = _tmp373_;
 		_g_object_unref0 (crash);
 	}
-	_tmp371_ = lxsession_global_settings;
-	_tmp372_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp371_, "Session", "upstart_user_session", NULL);
-	_tmp373_ = _tmp372_;
-	_tmp374_ = g_strcmp0 (_tmp373_, "true") == 0;
-	_g_free0 (_tmp373_);
-	if (_tmp374_) {
+	_tmp374_ = lxsession_global_settings;
+	_tmp375_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp374_, "Session", "upstart_user_session", NULL);
+	_tmp376_ = _tmp375_;
+	_tmp377_ = g_strcmp0 (_tmp376_, "true") == 0;
+	_g_free0 (_tmp376_);
+	if (_tmp377_) {
 		LxsessionUpstartUserSessionOption* upstart_session = NULL;
-		LxsessionLxsessionConfigKeyFile* _tmp375_ = NULL;
-		LxsessionUpstartUserSessionOption* _tmp376_ = NULL;
-		LxsessionUpstartUserSessionOption* _tmp377_ = NULL;
-		LxsessionUpstartUserSessionOption* _tmp378_ = NULL;
+		LxsessionLxsessionConfigKeyFile* _tmp378_ = NULL;
 		LxsessionUpstartUserSessionOption* _tmp379_ = NULL;
-		_tmp375_ = lxsession_global_settings;
-		_tmp376_ = lxsession_upstart_user_session_option_new ((LxsessionLxsessionConfig*) _tmp375_);
-		upstart_session = _tmp376_;
-		_tmp377_ = upstart_session;
-		_tmp378_ = _g_object_ref0 (_tmp377_);
+		LxsessionUpstartUserSessionOption* _tmp380_ = NULL;
+		LxsessionUpstartUserSessionOption* _tmp381_ = NULL;
+		LxsessionUpstartUserSessionOption* _tmp382_ = NULL;
+		_tmp378_ = lxsession_global_settings;
+		_tmp379_ = lxsession_upstart_user_session_option_new ((LxsessionLxsessionConfig*) _tmp378_);
+		upstart_session = _tmp379_;
+		_tmp380_ = upstart_session;
+		_tmp381_ = _g_object_ref0 (_tmp380_);
 		_g_object_unref0 (lxsession_global_upstart_session);
-		lxsession_global_upstart_session = _tmp378_;
-		_tmp379_ = lxsession_global_upstart_session;
-		lxsession_upstart_user_session_option_activate (_tmp379_);
+		lxsession_global_upstart_session = _tmp381_;
+		_tmp382_ = lxsession_global_upstart_session;
+		lxsession_upstart_user_session_option_activate (_tmp382_);
 		_g_object_unref0 (upstart_session);
 	}
-	_tmp380_ = lxsession_global_settings;
-	_tmp381_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp380_, "Dbus", "lxde", NULL);
-	_tmp382_ = _tmp381_;
-	_tmp383_ = g_strcmp0 (_tmp382_, "true") == 0;
-	_g_free0 (_tmp382_);
-	if (_tmp383_) {
+	_tmp383_ = lxsession_global_settings;
+	_tmp384_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp383_, "Dbus", "lxde", NULL);
+	_tmp385_ = _tmp384_;
+	_tmp386_ = g_strcmp0 (_tmp385_, "true") == 0;
+	_g_free0 (_tmp385_);
+	if (_tmp386_) {
 		g_bus_own_name_with_closures (G_BUS_TYPE_SESSION, "org.lxde.SessionManager", G_BUS_NAME_OWNER_FLAGS_NONE, (GClosure*) ((_lxsession_on_bus_aquired_gbus_acquired_callback == NULL) ? NULL : g_cclosure_new ((GCallback) _lxsession_on_bus_aquired_gbus_acquired_callback, NULL, (GClosureNotify) NULL)), (GClosure*) ((____lambda15__gbus_name_acquired_callback == NULL) ? NULL : g_cclosure_new ((GCallback) ____lambda15__gbus_name_acquired_callback, NULL, (GClosureNotify) NULL)), (GClosure*) ((____lambda16__gbus_name_lost_callback == NULL) ? NULL : g_cclosure_new ((GCallback) ____lambda16__gbus_name_lost_callback, NULL, (GClosureNotify) NULL)));
 	}
-	_tmp384_ = lxsession_global_settings;
-	_tmp385_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp384_, "Dbus", "gnome", NULL);
-	_tmp386_ = _tmp385_;
-	_tmp387_ = g_strcmp0 (_tmp386_, "true") == 0;
-	_g_free0 (_tmp386_);
-	if (_tmp387_) {
+	_tmp387_ = lxsession_global_settings;
+	_tmp388_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp387_, "Dbus", "gnome", NULL);
+	_tmp389_ = _tmp388_;
+	_tmp390_ = g_strcmp0 (_tmp389_, "true") == 0;
+	_g_free0 (_tmp389_);
+	if (_tmp390_) {
 		g_bus_own_name_with_closures (G_BUS_TYPE_SESSION, "org.gnome.SessionManager", G_BUS_NAME_OWNER_FLAGS_NONE, (GClosure*) ((_lxsession_on_gnome_bus_aquired_gbus_acquired_callback == NULL) ? NULL : g_cclosure_new ((GCallback) _lxsession_on_gnome_bus_aquired_gbus_acquired_callback, NULL, (GClosureNotify) NULL)), (GClosure*) ((____lambda17__gbus_name_acquired_callback == NULL) ? NULL : g_cclosure_new ((GCallback) ____lambda17__gbus_name_acquired_callback, NULL, (GClosureNotify) NULL)), (GClosure*) ((____lambda18__gbus_name_lost_callback == NULL) ? NULL : g_cclosure_new ((GCallback) ____lambda18__gbus_name_lost_callback, NULL, (GClosureNotify) NULL)));
 	}
-	_tmp388_ = g_main_loop_new (NULL, FALSE);
-	_tmp389_ = _tmp388_;
-	g_main_loop_run (_tmp389_);
-	_g_main_loop_unref0 (_tmp389_);
-	_tmp390_ = lxsession_global_clipboard;
-	if (_tmp390_ != NULL) {
-		LxsessionClipboardOption* _tmp391_ = NULL;
-		_tmp391_ = lxsession_global_clipboard;
-		lxsession_clipboard_option_desactivate (_tmp391_);
+	_tmp391_ = g_main_loop_new (NULL, FALSE);
+	_tmp392_ = _tmp391_;
+	g_main_loop_run (_tmp392_);
+	_g_main_loop_unref0 (_tmp392_);
+	_tmp393_ = lxsession_global_clipboard;
+	if (_tmp393_ != NULL) {
+		LxsessionClipboardOption* _tmp394_ = NULL;
+		_tmp394_ = lxsession_global_clipboard;
+		lxsession_clipboard_option_desactivate (_tmp394_);
 	}
-	_tmp392_ = lxsession_global_settings;
-	_tmp393_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp392_, "Session", "polkit", "command");
-	_tmp394_ = _tmp393_;
-	_tmp395_ = _tmp394_ != NULL;
-	_g_free0 (_tmp394_);
-	if (_tmp395_) {
-		LxsessionPolkitApp* _tmp396_ = NULL;
-		LxsessionPolkitApp* _tmp397_ = NULL;
-		_tmp396_ = lxsession_global_polkit;
-		lxsession_polkit_app_deactivate (_tmp396_);
-		_tmp397_ = lxsession_global_polkit;
-		lxsession_app_object_stop ((LxsessionAppObject*) _tmp397_);
+	_tmp395_ = lxsession_global_settings;
+	_tmp396_ = lxsession_lxsession_config_get_item_string ((LxsessionLxsessionConfig*) _tmp395_, "Session", "polkit", "command");
+	_tmp397_ = _tmp396_;
+	_tmp398_ = _tmp397_ != NULL;
+	_g_free0 (_tmp397_);
+	if (_tmp398_) {
+		LxsessionPolkitApp* _tmp399_ = NULL;
+		LxsessionPolkitApp* _tmp400_ = NULL;
+		_tmp399_ = lxsession_global_polkit;
+		lxsession_polkit_app_deactivate (_tmp399_);
+		_tmp400_ = lxsession_global_polkit;
+		lxsession_app_object_stop ((LxsessionAppObject*) _tmp400_);
 	}
-	_tmp398_ = lxsession_global_panel;
-	if (_tmp398_ != NULL) {
-		LxsessionPanelApp* _tmp399_ = NULL;
-		_tmp399_ = lxsession_global_panel;
-		lxsession_app_object_stop ((LxsessionAppObject*) _tmp399_);
+	_tmp401_ = lxsession_global_panel;
+	if (_tmp401_ != NULL) {
+		LxsessionPanelApp* _tmp402_ = NULL;
+		_tmp402_ = lxsession_global_panel;
+		lxsession_app_object_stop ((LxsessionAppObject*) _tmp402_);
 	}
-	_tmp400_ = lxsession_global_dock;
-	if (_tmp400_ != NULL) {
-		LxsessionDockApp* _tmp401_ = NULL;
-		_tmp401_ = lxsession_global_dock;
-		lxsession_app_object_stop ((LxsessionAppObject*) _tmp401_);
+	_tmp403_ = lxsession_global_dock;
+	if (_tmp403_ != NULL) {
+		LxsessionDockApp* _tmp404_ = NULL;
+		_tmp404_ = lxsession_global_dock;
+		lxsession_app_object_stop ((LxsessionAppObject*) _tmp404_);
 	}
-	_tmp402_ = lxsession_global_windows_manager;
-	if (_tmp402_ != NULL) {
-		LxsessionWindowsManagerApp* _tmp403_ = NULL;
-		_tmp403_ = lxsession_global_windows_manager;
-		lxsession_app_object_stop ((LxsessionAppObject*) _tmp403_);
+	_tmp405_ = lxsession_global_windows_manager;
+	if (_tmp405_ != NULL) {
+		LxsessionWindowsManagerApp* _tmp406_ = NULL;
+		_tmp406_ = lxsession_global_windows_manager;
+		lxsession_app_object_stop ((LxsessionAppObject*) _tmp406_);
 	}
-	_tmp404_ = lxsession_global_desktop;
-	if (_tmp404_ != NULL) {
-		LxsessionDesktopApp* _tmp405_ = NULL;
-		_tmp405_ = lxsession_global_desktop;
-		lxsession_app_object_stop ((LxsessionAppObject*) _tmp405_);
+	_tmp407_ = lxsession_global_desktop;
+	if (_tmp407_ != NULL) {
+		LxsessionDesktopApp* _tmp408_ = NULL;
+		_tmp408_ = lxsession_global_desktop;
+		lxsession_app_object_stop ((LxsessionAppObject*) _tmp408_);
 	}
-	_tmp406_ = lxsession_global_polkit;
-	if (_tmp406_ != NULL) {
-		LxsessionPolkitApp* _tmp407_ = NULL;
-		_tmp407_ = lxsession_global_polkit;
-		lxsession_app_object_stop ((LxsessionAppObject*) _tmp407_);
+	_tmp409_ = lxsession_global_polkit;
+	if (_tmp409_ != NULL) {
+		LxsessionPolkitApp* _tmp410_ = NULL;
+		_tmp410_ = lxsession_global_polkit;
+		lxsession_app_object_stop ((LxsessionAppObject*) _tmp410_);
 	}
-	_tmp408_ = lxsession_global_screensaver;
-	if (_tmp408_ != NULL) {
-		LxsessionScreensaverApp* _tmp409_ = NULL;
-		_tmp409_ = lxsession_global_screensaver;
-		lxsession_app_object_stop ((LxsessionAppObject*) _tmp409_);
+	_tmp411_ = lxsession_global_screensaver;
+	if (_tmp411_ != NULL) {
+		LxsessionScreensaverApp* _tmp412_ = NULL;
+		_tmp412_ = lxsession_global_screensaver;
+		lxsession_app_object_stop ((LxsessionAppObject*) _tmp412_);
 	}
-	_tmp410_ = lxsession_global_power_manager;
-	if (_tmp410_ != NULL) {
-		LxsessionPowerManagerApp* _tmp411_ = NULL;
-		_tmp411_ = lxsession_global_power_manager;
-		lxsession_app_object_stop ((LxsessionAppObject*) _tmp411_);
+	_tmp413_ = lxsession_global_power_manager;
+	if (_tmp413_ != NULL) {
+		LxsessionPowerManagerApp* _tmp414_ = NULL;
+		_tmp414_ = lxsession_global_power_manager;
+		lxsession_app_object_stop ((LxsessionAppObject*) _tmp414_);
 	}
-	_tmp412_ = lxsession_global_network_gui;
-	if (_tmp412_ != NULL) {
-		LxsessionNetworkGuiApp* _tmp413_ = NULL;
-		_tmp413_ = lxsession_global_network_gui;
-		lxsession_app_object_stop ((LxsessionAppObject*) _tmp413_);
+	_tmp415_ = lxsession_global_network_gui;
+	if (_tmp415_ != NULL) {
+		LxsessionNetworkGuiApp* _tmp416_ = NULL;
+		_tmp416_ = lxsession_global_network_gui;
+		lxsession_app_object_stop ((LxsessionAppObject*) _tmp416_);
 	}
-	_tmp414_ = lxsession_global_composite_manager;
-	if (_tmp414_ != NULL) {
-		LxsessionGenericSimpleApp* _tmp415_ = NULL;
-		_tmp415_ = lxsession_global_composite_manager;
-		lxsession_app_object_stop ((LxsessionAppObject*) _tmp415_);
+	_tmp417_ = lxsession_global_composite_manager;
+	if (_tmp417_ != NULL) {
+		LxsessionGenericSimpleApp* _tmp418_ = NULL;
+		_tmp418_ = lxsession_global_composite_manager;
+		lxsession_app_object_stop ((LxsessionAppObject*) _tmp418_);
 	}
 	result = 0;
 	_g_free0 (conffiles_conf);
