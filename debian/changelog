@@ -1,3 +1,13 @@
+lxsession (0.5.5-1) unstable; urgency=medium
+
+  * lxsession-logout: correctly recommend logind | default-logind instead of
+    systemd (Closes: #952679).
+  * Merging upstream version 0.5.5.
+  * Remove libunique dependency (Closes: #885814).
+  * Bump Standards-Version to 4.5.0.
+
+ -- Andriy Grytsenko <andrej@rep.kiev.ua>  Sat, 29 Feb 2020 19:20:20 +0200
+
 lxsession (0.5.4-1) unstable; urgency=medium
 
   * Merging upstream version 0.5.4 (Closes: #836063).
