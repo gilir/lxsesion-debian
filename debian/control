@@ -93,7 +93,8 @@ Multi-Arch: allowed
 Depends: ${shlibs:Depends}, ${misc:Depends},
  lxsession-data, lxlock | xdg-utils,
  policykit-1
-Recommends: lsb-release, consolekit | systemd [linux-any]
+Recommends:
+ lsb-release, consolekit | logind [linux-any] | default-logind [linux-any]
 Breaks: lxsession (<< 0.5.3-1)
 Replaces: lxsession (<< 0.5.3-1)
 Description: utility to logout from a LXDE or an Openbox session
