@@ -4,7 +4,7 @@ usr/bin/lxsession-default
 usr/bin/lxsession-default-terminal
 usr/bin/lxsession-db
 usr/bin/lxsession-xdg-autostart
-usr/lib/*/lxsession/lxsession-xsettings
+usr/libexec/lxsession/lxsession-xsettings
 usr/share/man/man1/lxsession.1
 usr/share/man/man1/lxsession-default.1
 usr/share/man/man1/lxsession-default-terminal.1
