@@ -1,3 +1,14 @@
+lxsession (0.5.5-2) unstable; urgency=medium
+
+  * Rename debian/TODO.Debian to fix lintian warning.
+  * Update debhelper compatibility to 12.
+  * Install lxsession-xsettings to usr/libexec/lxsession/ to follow Debian
+    Policy.
+  * Use dh_missing to check for missing files.
+  * Add 'Rules-Requires-Root: no' to debian/control.
+
+ -- Andriy Grytsenko <andrej@rep.kiev.ua>  Fri, 20 Mar 2020 21:05:34 +0200
+
 lxsession (0.5.5-1) unstable; urgency=medium
 
   * lxsession-logout: correctly recommend logind | default-logind instead of
