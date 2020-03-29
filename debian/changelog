@@ -1,3 +1,9 @@
+lxsession (0.5.5-3) UNRELEASED; urgency=medium
+
+  * Remove consolekit from debian/control, not in Debian.
+
+ -- Julien Lavergne <gilir@ubuntu.com>  Sun, 29 Mar 2020 18:32:12 +0200
+
 lxsession (0.5.5-2) unstable; urgency=medium
 
   * Rename debian/TODO.Debian to fix lintian warning.
